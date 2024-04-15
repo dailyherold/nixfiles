@@ -59,6 +59,18 @@
     enable = true;
     userName = "dailyherold";
     userEmail = "git@dailyherold.simplelogin.com";
+    aliases = {
+      st = "status";
+      lg = "log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit";
+      hist = "log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short";
+    };
+    extraConfig = {
+      user = { useConfigOnly = true; };
+      core = {
+        editor = "vim";
+      };
+      color = { ui = true; };
+    };
   };
 
   # Nicely reload system units when changing configs
