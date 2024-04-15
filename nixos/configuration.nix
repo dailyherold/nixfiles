@@ -37,7 +37,19 @@
     config = {
       # Disable if you don't want unfree packages
       allowUnfree = true;
+      # Steam specific unfree predicate if wanting to be more specific
+      allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+        "steam"
+        "steam-original"
+        "steam-run"
+      ];
     };
+  };
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
   };
 
   # This will add each flake input as a registry

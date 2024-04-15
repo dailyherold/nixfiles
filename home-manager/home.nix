@@ -35,12 +35,6 @@
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = _: true;
-      # Steam specific unfree predicate if wanting to be more specific
-      #allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      #  "steam"
-      #  "steam-original"
-      #  "steam-run"
-      #];
     };
   };
 
@@ -52,21 +46,17 @@
   # Add stuff for your user as you see fit:
   # home.packages = with pkgs; [ steam ];
   programs.firefox.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
-
   programs.vim = {
     enable = true;
-    plugins = with pkgs.vimPlugins; [ vim-nerdtree ];
+    plugins = with pkgs.vimPlugins; [
+      nerdtree
+    ];
   };
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git = {
-    enable = true
+    enable = true;
     userName = "dailyherold";
     userEmail = "git@dailyherold.simplelogin.com";
   };
