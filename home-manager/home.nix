@@ -22,6 +22,8 @@
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
+      inputs.nix-vscode-extensions.overlays.default
+
       # Or define it inline, for example:
       # (final: prev: {
       #   hi = final.hello.overrideAttrs (oldAttrs: {
@@ -51,6 +53,26 @@
     plugins = with pkgs.vimPlugins; [
       nerdtree
     ];
+  };
+
+  # VSCodium
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscodium;
+
+    mutableExtensionsDir = false;
+    enableUpdateCheck = false;
+    enableExtensionUpdateCheck = false;
+
+    # Example of usage thanks to Arvivgeus https://github.com/arvigeus/nixos-config/blob/master/apps/vscode.nix
+    extensions = with pkgs.open-vsx;
+      [
+        # https://raw.githubusercontent.com/nix-community/nix-vscode-extensions/master/data/cache/open-vsx-latest.json
+
+        # Nix
+        jnoortheen.nix-ide
+
+      ];
   };
 
   # Enable home-manager and git
