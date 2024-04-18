@@ -10,8 +10,13 @@
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules from other flakes (such as nixos-hardware):
-    # inputs.hardware.nixosModules.common-cpu-amd
-    # inputs.hardware.nixosModules.common-ssd
+    inputs.nix-hardware.nixosModules.common-cpu-amd
+    inputs.nix-hardware.nixosModules.common-gpu-amd
+    inputs.nix-hardware.nixosModules.common-pc-ssd
+
+    # Not yet exported in the hardware flake (https://github.com/NixOS/nixos-hardware/blob/master/flake.nix)
+    # Fixes a reported suspend bug that I _think_ I've experienced after computer locked for long duration (requires power button press to wake up sometimes vs just keeb/mouse)
+    # inputs.nix-hardware.nixosModules.gigabyte-b550
 
     # You can also split up your configuration and import pieces of it here:
     # ./users.nix

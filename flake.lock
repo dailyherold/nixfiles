@@ -55,6 +55,22 @@
         "type": "github"
       }
     },
+    "nix-hardware": {
+      "locked": {
+        "lastModified": 1713377320,
+        "narHash": "sha256-OrBm62B+X9jylr6cPgKc+5OSgF2PRW9IY0ARCOtURMY=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "f2d364de6589f7a029624983593eafc3c4dac726",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nix-vscode-extensions": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -77,6 +93,20 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1713377320,
+        "narHash": "sha256-OrBm62B+X9jylr6cPgKc+5OSgF2PRW9IY0ARCOtURMY=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "f2d364de6589f7a029624983593eafc3c4dac726",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixos-hardware",
+        "type": "indirect"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1713248628,
@@ -96,7 +126,9 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "nix-hardware": "nix-hardware",
         "nix-vscode-extensions": "nix-vscode-extensions",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs"
       }
     },
