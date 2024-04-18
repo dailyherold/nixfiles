@@ -14,8 +14,8 @@ nix flake init -t github:misterio77/nix-starter-config#minimal
 - `flake.nix`: entrypoint for system and user config
 - `home-manager/`: user config for my only user
 - `nixos/`
-  - `configuration.nix`: NixOS system configuration
-  - `hardware-configuration.nix`: generated hardware config for my main workstation
+  - `configuration.nix`: NixOS system configuration, **WARNING:** this is now specific to my AMD CPU & GPU workstation
+  - `hardware-configuration.nix`: generated hardware config for my main workstation, **WARNING:** replace this file if with your own if you are cloning my repo
 - `shell.nix`: use with `nix develop` 
 
 ## Use
@@ -31,6 +31,13 @@ sudo nixos-rebuild switch --flake .
 # Build and activate new user config
 home-manager switch --flake .
 ```
+
+## Troubleshooting
+
+- `cached failure of attribute`: Flake usage can cache eval errors leading to this ambiguous error without much context
+  - There is an [open issue](https://github.com/NixOS/nix/issues/3872) discussion, with [best suggestion](https://github.com/NixOS/nix/issues/3872#issuecomment-1637052258) being the use of `--option eval-cache false`
+
+---
 
 ## History
 
