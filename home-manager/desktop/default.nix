@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./element.nix
     ./firefox.nix
   ];
 }
