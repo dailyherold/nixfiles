@@ -47,6 +47,6 @@ Random list of factors that led to creation of this repo and installing NixOS on
 ## Special thanks to
 
 - Jupiter Broadcasting for mentioning nix enough to make me finally give it a go
-- [Misterio77's config](h ttps://github.com/Misterio77/nix-config) and great [nix-starter-config](https://github.com/Misterio77/nix-starter-configs)
+- [Misterio77's config](https://github.com/Misterio77/nix-config) and great [nix-starter-config](https://github.com/Misterio77/nix-starter-configs)
 - [sioodmy](https://github.com/sioodmy/dotfiles)
 

@@ -43,11 +43,12 @@
       # Disable if you don't want unfree packages
       allowUnfree = true;
       # Steam specific unfree predicate if wanting to be more specific
-      allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-        "steam"
-        "steam-original"
-        "steam-run"
-      ];
+      allowUnfreePredicate = pkg:
+        builtins.elem (lib.getName pkg) [
+          "steam"
+          "steam-original"
+          "steam-run"
+        ];
     };
   };
 
@@ -104,6 +105,10 @@
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
+  # Fonts
+  fonts.packages = with pkgs; [
+    (nerdfonts.override {fonts = ["FiraCode" "Inconsolata" "JetBrainsMono"];})
+  ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -127,7 +132,7 @@
 
   # Set your hostname
   networking.hostName = "nixzen";
-  
+
   # Enable networking
   networking.networkmanager.enable = true;
 

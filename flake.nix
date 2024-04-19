@@ -46,8 +46,8 @@
         }
     );
   in {
-    # Shell config for development
     devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
 
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
