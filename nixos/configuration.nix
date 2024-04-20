@@ -148,12 +148,24 @@
       # Be sure to change it (using passwd) after rebooting!
       initialPassword = "correcthorsebatterystaple";
       isNormalUser = true;
+      shell = pkgs.fish;
       openssh.authorizedKeys.keys = [
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
       extraGroups = ["wheel" "networkmanager"];
       packages = [pkgs.home-manager];
+    };
+  };
+
+  # Fish
+  # Added to system config for vendor fish completions provided by Nixpkgs, see also home-manager fish.nix
+  programs.fish = {
+    enable = true;
+    vendor = {
+      completions.enable = true;
+      config.enable = true;
+      functions.enable = true;
     };
   };
 
