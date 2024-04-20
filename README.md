@@ -25,6 +25,11 @@ sudo nixos-rebuild switch --flake .
 home-manager switch --flake .
 ```
 
+```bash
+# Start an ephemeral subshell with random package to test
+nix shell nixpkgs#random
+```
+
 ## Troubleshooting
 
 - `cached failure of attribute`: Flake usage can cache eval errors leading to this ambiguous error without much context
