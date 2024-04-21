@@ -95,6 +95,9 @@
     };
   };
 
+  ## Enable Ozone (enables Wayland for Chromium/Electron)
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Enable automatic login for the user.
   services.displayManager.autoLogin = {
     enable = true;
