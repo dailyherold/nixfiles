@@ -14,8 +14,10 @@
       FirefoxHome = {
         Search = true;
         Pocket = false;
+        SponsoredPocket = false;
         Snippets = false;
         TopSites = false;
+        SponsoredTopSites = false;
         Highlights = false;
       };
       FirefoxSuggest = {
