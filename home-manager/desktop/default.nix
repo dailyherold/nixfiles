@@ -7,5 +7,6 @@
   imports = [
     ./element.nix
     ./firefox.nix
+    ./slack.nix
   ];
 }
