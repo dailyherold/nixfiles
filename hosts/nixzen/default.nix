@@ -9,17 +9,18 @@
 }: {
   # You can import other NixOS modules here
   imports = [
-    # If you want to use modules from other flakes (such as nixos-hardware):
+    # Hardware
+    ./hardware-configuration.nix
     inputs.nix-hardware.nixosModules.common-cpu-amd
     inputs.nix-hardware.nixosModules.common-gpu-amd
     inputs.nix-hardware.nixosModules.common-pc-ssd
-
     # Not yet exported in the hardware flake (https://github.com/NixOS/nixos-hardware/blob/master/flake.nix)
     # Fixes a reported suspend bug that I _think_ I've experienced after computer locked for long duration (requires power button press to wake up sometimes vs just keeb/mouse)
     # inputs.nix-hardware.nixosModules.gigabyte-b550
 
+    # Config
+    ../common/users/dailyherold
     ../common/pipewire.nix
-    ./hardware-configuration.nix
   ];
 
   nixpkgs = {
@@ -122,23 +123,6 @@
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Configure your system-wide user settings (groups, etc), add more users as needed.
-  users.users = {
-    dailyherold = {
-      # TODO: You can set an initial password for your user.
-      # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
-      # Be sure to change it (using passwd) after rebooting!
-      isNormalUser = true;
-      shell = pkgs.fish;
-      openssh.authorizedKeys.keys = [
-        # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
-      ];
-      # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["wheel" "networkmanager"];
-      packages = [pkgs.home-manager];
-    };
-  };
 
   # Fish
   # Added to system config for vendor fish completions provided by Nixpkgs, see also home-manager fish.nix
