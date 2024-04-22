@@ -120,6 +120,10 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Kernel
+  # Using 6.8 for default enabled Scarlett drivers
+  boot.kernelPackages = pkgs.linuxPackages_6_8;
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
