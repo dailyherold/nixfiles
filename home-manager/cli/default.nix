@@ -6,8 +6,10 @@
 }: {
   imports = [
     ./fish.nix
+    ./scarlett.nix
     ./starship.nix
   ];
+
   home.packages = with pkgs; [
     bc # Calculator
     htop # Process monitor
