@@ -20,6 +20,7 @@
 
     # Config
     ../common/users/dailyherold
+    ../common/input
     ../common/pipewire.nix
   ];
 
