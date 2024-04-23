@@ -4,11 +4,18 @@ Once upon a time I [dotfile'd](https://github.com/dailyherold/dotfiles) with Ans
 
 ## Structure
 
+Given I'm the big nerd in my household, I have a relatively simple single-`dailyherold`-user setup mapping to _n_ hosts. Differnt hosts will have different needs, therefore being able to tailor the config via imports for both overall system and user home gives me some nice flexibility.
+
 - `flake.nix`: entrypoint for system and user config
-- `home-manager/`: user config for my only user
-- `nixos/`
-  - `configuration.nix`: NixOS system configuration, **WARNING:** this is now specific to my AMD CPU & GPU workstation
-  - `hardware-configuration.nix`: generated hardware config for my main workstation, **WARNING:** replace this file if with your own if you are cloning my repo
+- `home-manager/`
+  - `cli/`: non-gui config for import
+  - `desktop/`: gui config for import
+  - `${hostname}.nix`: host specific home config
+- `hosts/`
+  - `common/`: config for import
+    - `input/`: input device config
+    - `users/`: standard user config from any `../hostname/default.nix` config
+  - `${hostname}/`: host specific config with `default.nix` utilizing imports and generated `hardware-configuration.nix`
 - `shell.nix`: use with `nix develop` for bootstrapping a machine
 
 ## Use
@@ -17,12 +24,12 @@ From repo root:
 
 ```bash
 # Build and activate new system config
-sudo nixos-rebuild switch --flake .
+sudo nixos-rebuild switch --flake .#hostname
 ```
 
 ```bash
 # Build and activate new user config
-home-manager switch --flake .
+home-manager switch --flake .#user@hostname
 ```
 
 ```bash
@@ -53,5 +60,3 @@ Random list of factors that led to creation of this repo and installing NixOS on
 
 - Jupiter Broadcasting for mentioning nix enough to make me finally give it a go
 - [Misterio77's config](https://github.com/Misterio77/nix-config) and great [nix-starter-config](https://github.com/Misterio77/nix-starter-configs)
-- [sioodmy](https://github.com/sioodmy/dotfiles)
-

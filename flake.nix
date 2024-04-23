@@ -65,7 +65,7 @@
     homeConfigurations = {
       # Main desktop
       "dailyherold@nixzen" = lib.homeManagerConfiguration {
-        modules = [./home-manager/home.nix];
+        modules = [./home-manager/nixzen.nix];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
       };
