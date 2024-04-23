@@ -18,9 +18,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Shameless plug: looking for a way to nixify your themes and make
-    # everything match nicely? Try nix-colors!
-    # nix-colors.url = "github:misterio77/nix-colors";
+    # Colors
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = {
@@ -29,6 +28,7 @@
     home-manager,
     nixos-hardware,
     nix-vscode-extensions,
+    nix-colors,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -67,7 +67,7 @@
       "dailyherold@nixzen" = lib.homeManagerConfiguration {
         modules = [./home-manager/nixzen.nix];
         pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
+        extraSpecialArgs = {inherit inputs outputs nix-colors;};
       };
     };
   };

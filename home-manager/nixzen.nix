@@ -5,12 +5,13 @@
   lib,
   config,
   pkgs,
+  nix-colors,
   ...
 }: {
   # You can import other home-manager modules here
   imports = [
-    # If you want to use home-manager modules from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModule
+    # Colors
+    nix-colors.homeManagerModules.default
 
     # You can also split up your configuration and import pieces of it here:
     ./desktop
@@ -45,6 +46,9 @@
     username = "dailyherold";
     homeDirectory = "/home/dailyherold";
   };
+
+  # Colors
+  colorScheme = nix-colors.colorSchemes.solarized-dark;
 
   # Add stuff for your user as you see fit:
   # home.packages = with pkgs; [ steam ];
