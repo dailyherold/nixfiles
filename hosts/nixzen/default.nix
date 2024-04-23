@@ -107,11 +107,6 @@
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
-  # Fonts
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["FiraCode" "Inconsolata" "JetBrainsMono"];})
-  ];
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 

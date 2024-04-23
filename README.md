@@ -41,6 +41,7 @@ nix shell nixpkgs#random
 
 - `cached failure of attribute`: Flake usage can cache eval errors leading to this ambiguous error without much context
   - There is an [open issue](https://github.com/NixOS/nix/issues/3872) discussion, with [best suggestion](https://github.com/NixOS/nix/issues/3872#issuecomment-1637052258) being the use of `--option eval-cache false`
+- `No such file or directory`: For flakes in git repos, only files in the working tree will be copied to the store, therefore be sure to `git add` anything new
 
 ## History
 

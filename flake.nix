@@ -47,6 +47,7 @@
     );
   in {
     inherit lib;
+    homeManagerModules = import ./modules/home-manager;
     devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
     formatter = forEachSystem (pkgs: pkgs.alejandra);
 

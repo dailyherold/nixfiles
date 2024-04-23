@@ -6,17 +6,20 @@
   config,
   pkgs,
   nix-colors,
+  outputs,
   ...
 }: {
   # You can import other home-manager modules here
-  imports = [
-    # Colors
-    nix-colors.homeManagerModules.default
+  imports =
+    [
+      # Colors
+      nix-colors.homeManagerModules.default
 
-    # You can also split up your configuration and import pieces of it here:
-    ./desktop
-    ./cli
-  ];
+      # You can also split up your configuration and import pieces of it here:
+      ./desktop
+      ./cli
+    ]
+    ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
     # You can add overlays here
@@ -48,7 +51,7 @@
   };
 
   # Colors
-  colorScheme = nix-colors.colorSchemes.solarized-dark;
+  colorScheme = nix-colors.colorSchemes.hardcore;
 
   # Add stuff for your user as you see fit:
   # home.packages = with pkgs; [ steam ];
