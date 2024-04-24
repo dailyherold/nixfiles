@@ -53,9 +53,7 @@
   # Colors
   colorScheme = nix-colors.colorSchemes.hardcore;
 
-  # Add stuff for your user as you see fit:
-  # home.packages = with pkgs; [ steam ];
-  programs.firefox.enable = true;
+  # Vim
   programs.vim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
