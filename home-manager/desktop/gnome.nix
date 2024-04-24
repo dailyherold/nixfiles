@@ -9,6 +9,12 @@
       clock-show-seconds = true;
       clock-show-date = true;
       clock-show-weekday = true;
+      color-scheme = "prefer-dark";
     };
+
+    "org/gnome/desktop/peripherals/trackball" = {
+      scroll-wheel-emulation-button = 2;
+    };
+
   };
 }
