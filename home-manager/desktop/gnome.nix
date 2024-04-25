@@ -5,7 +5,6 @@
   ...
 }:
 with lib.hm.gvariant; {
-
   dconf.settings = {
     "org/gnome/desktop/wm/preferences" = {
       focus-mode = "sloppy";
@@ -63,6 +62,7 @@ with lib.hm.gvariant; {
       show-indicator = false;
       wiggle-indicator = false;
       link-previews = false;
+      history-length = 20;
     };
   };
 
