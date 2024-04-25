@@ -9,5 +9,9 @@
       family = "Fira Sans";
       package = pkgs.fira;
     };
+    bold = {
+      family = "Fira Sans Bold";
+      package = pkgs.fira;
+    };
   };
 }

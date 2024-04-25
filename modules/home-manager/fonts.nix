@@ -23,6 +23,7 @@ in {
     enable = lib.mkEnableOption "Whether to enable font profiles";
     monospace = mkFontOption "monospace";
     regular = mkFontOption "regular";
+    bold = mkFontOption "bold";
   };
 
   config = lib.mkIf cfg.enable {
@@ -30,6 +31,7 @@ in {
     home.packages = [
       cfg.monospace.package
       cfg.regular.package
+      cfg.bold.package
     ];
   };
 }
