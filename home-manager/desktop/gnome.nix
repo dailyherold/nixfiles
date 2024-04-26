@@ -17,12 +17,18 @@ with lib.hm.gvariant; {
       clock-show-date = true;
       clock-show-weekday = true;
       color-scheme = "prefer-dark";
+      enable-hot-corners = false;
       # No middle click paste because I use it as a trackball scroll button
       gtk-enable-primary-paste = false;
       # Fonts
       monospace-font-name = "${config.fontProfiles.monospace.family} 10";
       font-name = "${config.fontProfiles.regular.family} 11";
       document-font-name = "${config.fontProfiles.regular.family} 11";
+    };
+
+    "org/gnome/mutter" = {
+      dynamic-workspaces = true;
+      workspaces-only-on-primary = true;
     };
 
     # Trackball scroll button aka ninja scrolling
