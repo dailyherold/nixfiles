@@ -6,8 +6,10 @@
 }: {
   imports = [
     ./fish.nix
+    ./nvim.nix
     ./scarlett.nix
     ./starship.nix
+    ./zellij.nix
   ];
 
   home.packages = with pkgs; [
@@ -22,5 +24,6 @@
     jq # JSON pretty printer and manipulator
     alejandra # Nix formatter
     tree # tree list
+    wl-clipboard # copy pasta utilities for wayland
   ];
 }

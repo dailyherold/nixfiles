@@ -14,6 +14,8 @@
       size = 10;
     };
     settings = {
+      allow_remote_control = "socket-only";
+      listen_on = "unix:/tmp/kitty";
       shell_integration = "enabled";
       scrollback_lines = 4000;
       scrollback_pager_history_size = 2048;

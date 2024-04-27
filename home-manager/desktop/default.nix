@@ -8,5 +8,6 @@
     ./gnome.nix
     ./kitty.nix
     ./slack.nix
+    ./wezterm.nix
   ];
 }
