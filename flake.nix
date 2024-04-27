@@ -12,11 +12,13 @@
     # Hardware flakes
     nix-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    # Disks
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
     # VSCode extensions
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
 
     # Colors
     nix-colors.url = "github:misterio77/nix-colors";
@@ -27,6 +29,7 @@
     nixpkgs,
     home-manager,
     nixos-hardware,
+    disko,
     nix-vscode-extensions,
     nix-colors,
     ...
@@ -56,7 +59,7 @@
     nixosConfigurations = {
       # Main desktop
       nixzen = nixpkgs.lib.nixosSystem {
-        modules = [./hosts/nixzen];
+        modules = [./hosts/nixzen disko.nixosModules.disko];
         specialArgs = {inherit inputs outputs;};
       };
     };

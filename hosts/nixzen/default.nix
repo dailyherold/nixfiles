@@ -18,6 +18,9 @@
     # Fixes a reported suspend bug that I _think_ I've experienced after computer locked for long duration (requires power button press to wake up sometimes vs just keeb/mouse)
     # inputs.nix-hardware.nixosModules.gigabyte-b550
 
+    # Disks
+    ./disks.nix
+
     # Config
     ../common/users/dailyherold
     ../common/input
