@@ -24,6 +24,7 @@
     # Config
     ../common/users/dailyherold
     ../common/input
+    ../common/locale.nix
     ../common/pipewire.nix
   ];
 
