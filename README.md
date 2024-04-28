@@ -64,6 +64,8 @@ $ passwd # change initial password
 $ nix shell nixpkgs#git # can change this to a run command to also pull repo perhaps
 $ git clone https://github.com/dailyherold/nixfiles.git && cd nixfiles
 $ home-manager switch --flake .#dailyherold@hostname
+$ git remote set-url origin git@github.com:dailyherold/nixfiles.git
+$ # ssh keys and other secret bootstrapping
 ```
 
 ## Troubleshooting
