@@ -29,12 +29,41 @@ sudo nixos-rebuild switch --flake .#hostname
 
 ```bash
 # Build and activate new user config
-home-manager switch --flake .#user@hostname
+home-manager switch --flake .#dailyherold@hostname
 ```
 
 ```bash
 # Start an ephemeral subshell with random package to test
 nix shell nixpkgs#random
+```
+
+```bash
+# Subshell for bootstrapping (or developing)
+nix develop
+```
+
+```bash
+# Update system (nixos-rebuild after)
+nix flake update
+
+# Or replace only a specific package, such as home-manager (nixos-rebuild after)
+nix flake lock --update-input home-manager
+```
+
+## Clean Install
+
+```bash
+# From live install media
+$ git clone https://github.com/dailyherold/nixfiles.git && cd nixfiles
+$ nix --extra-experimental-features 'nix-command flakes' develop # subshell with packages like home-manager (defined in shell.nix)
+$ nix flake upgrade # unless wanting to keep pinned, typically I'm wanting newest packages on install though
+$ sudo nix --extra-experimental-features 'nix-command flakes' run 'github:nix-community/disko#disko-install' -- --write-efi-boot-entries --flake .#nixzen --disk root /dev/nvme0n1 # from disko docs, formats disks and nix-installs
+$ reboot
+# From install
+$ passwd # change initial password
+$ nix shell nixpkgs#git # can change this to a run command to also pull repo perhaps
+$ git clone https://github.com/dailyherold/nixfiles.git && cd nixfiles
+$ home-manager switch --flake .#dailyherold@hostname
 ```
 
 ## Troubleshooting
