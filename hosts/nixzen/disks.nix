@@ -3,8 +3,8 @@
 {
   disko.devices = {
     # note: disko only supports single-drive BTRFS arrays,
-    # so add second drive with `btrfs device add -f /dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0TA11848P`,
-    # then run `btrfs balance start -v mconvert=raid1 /`
+    # so add second drive with `sudo btrfs device add -f /dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0TA11848P /`,
+    # then run `sudo btrfs balance start -v -dconvert=raid1,soft -mconvert=raid1 /`
     # optionally with `--background`
     # view filesystem with `btrfs filesystem usage /`
     disk = {
