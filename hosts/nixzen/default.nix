@@ -26,6 +26,7 @@
     ../common/input
     ../common/locale.nix
     ../common/pipewire.nix
+    ../common/network.nix
   ];
 
   nixpkgs = {
