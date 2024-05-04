@@ -3,7 +3,6 @@
   lib,
   ...
 }: {
-
   # See ./theme.nix for definitions
   home.sessionVariables = {
     XCURSOR_THEME = "${config.home.pointerCursor.name}";

@@ -1,4 +1,4 @@
-{pkgs,...}:{
+{pkgs, ...}: {
   # Mount NAS
   fileSystems."/mnt/citadel/backup" = {
     device = "citadel.local:/mnt/user/backup";

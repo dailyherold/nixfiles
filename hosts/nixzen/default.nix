@@ -132,6 +132,7 @@
 
   environment.systemPackages = [
     pkgs.darktable
+    pkgs.rapid-photo-downloader
   ];
 
   # This setups a SSH server. Very important if you're setting up a headless system.

@@ -52,16 +52,16 @@ with lib.hm.gvariant; {
     };
 
     "org/gnome/shell" = {
-      #enabled-extensions = ["pop-shell@system76.com" "pano@elhan.io"];
+      enabled-extensions = ["pop-shell@system76.com" "pano@elhan.io"];
       favorite-apps = ["element-desktop.desktop" "firefox.desktop" "slack.desktop" "kitty.desktop"];
     };
 
-    #"org/gnome/shell/extensions/pop-shell" = {
-    #  smart-gaps = true;
-    #  gap-outer = mkUint32 2;
-    #  gap-inner = mkUint32 2;
-    #  tile-by-default = true;
-    #};
+    "org/gnome/shell/extensions/pop-shell" = {
+      smart-gaps = true;
+      gap-outer = mkUint32 2;
+      gap-inner = mkUint32 2;
+      tile-by-default = true;
+    };
 
     "org/gnome/shell/extensions/pano" = {
       send-notification-on-copy = false;
@@ -75,7 +75,7 @@ with lib.hm.gvariant; {
 
   home.packages = with pkgs; [
     # Tiling
-    #gnomeExtensions.pop-shell
+    gnomeExtensions.pop-shell
 
     # Clipboard manager
     gnomeExtensions.pano
