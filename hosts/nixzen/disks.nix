@@ -48,11 +48,6 @@
                     mountpoint = "/home";
                     mountOptions = ["defaults" "compress=zstd" "noatime"];
                   };
-                  # Swap subvolume setup
-                  "/swap" = {
-                    mountpoint = "/.swapvol";
-                    swap.swapfile.size = "2G";
-                  };
                 };
               };
             };
