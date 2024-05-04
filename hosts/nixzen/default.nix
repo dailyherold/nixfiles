@@ -27,6 +27,7 @@
     ../common/locale.nix
     ../common/pipewire.nix
     ../common/network.nix
+    ../common/mount.nix
   ];
 
   nixpkgs = {
@@ -118,8 +119,6 @@
   # Set your hostname
   networking.hostName = "nixzen";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   # Kernel
   # Using 6.8 for default enabled Scarlett drivers
