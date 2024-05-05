@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./atuin.nix
     ./fish.nix
     ./nvim.nix
     ./scarlett.nix
