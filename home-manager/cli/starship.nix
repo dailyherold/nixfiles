@@ -4,6 +4,7 @@
     enableFishIntegration = true;
     enableBashIntegration = true;
     enableTransience = true;
+    catppuccin.enable = true;
     settings = {
       # Configuration written to ~/.config/starship.toml
       # Reference: https://starship.rs/config/

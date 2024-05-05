@@ -20,8 +20,8 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Colors
-    nix-colors.url = "github:misterio77/nix-colors";
+    # Catppuccin theme
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = {
@@ -31,7 +31,7 @@
     nixos-hardware,
     disko,
     nix-vscode-extensions,
-    nix-colors,
+    catppuccin,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -69,9 +69,12 @@
     homeConfigurations = {
       # Main desktop
       "dailyherold@nixzen" = lib.homeManagerConfiguration {
-        modules = [./home-manager/nixzen.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs nix-colors;};
+        pkgs = pkgsFor.x86_64-linux; # Home-manager requires 'pkgs' instance
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./home-manager/nixzen.nix
+          catppuccin.homeManagerModules.catppuccin
+        ];
       };
     };
   };

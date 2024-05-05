@@ -14,7 +14,7 @@ in {
 
   programs.neovim = {
     enable = true;
-
+    catppuccin.enable = true;
     extraConfig =
       /*
       vim
