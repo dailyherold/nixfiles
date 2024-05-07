@@ -49,7 +49,7 @@
   };
 
   # Theme
-  catppuccin.flavour = "macchiato";
+  catppuccin.flavour = "mocha";
 
   # Vim
   programs.vim = {
