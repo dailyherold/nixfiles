@@ -1,4 +1,4 @@
-{pkgs,...}: {
+{pkgs, ...}: {
   # To login:
   # $ atuin login -u <USERNAME>
   # See Bitwarden for username and key
@@ -10,7 +10,10 @@
       sync_address = "https://api.atuin.sh";
       sync_frequency = "20m";
       update_check = false;
-      inline_height = 50;
+      inline_height = 15;
+      show_preview = true;
+      style = "compact";
+      keys.scroll_exits = false;
     };
   };
 }
