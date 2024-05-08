@@ -28,6 +28,7 @@
     ../common/pipewire.nix
     ../common/network.nix
     ../common/mount.nix
+    ../common/virt.nix # see also home-manager/features/virt.nix
   ];
 
   nixpkgs = {

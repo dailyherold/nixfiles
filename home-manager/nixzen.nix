@@ -12,8 +12,9 @@
   imports =
     [
       # You can also split up your configuration and import pieces of it here:
-      ./desktop
-      ./cli
+      ./features/desktop
+      ./features/cli
+      ./features/virt.nix # see also hosts/common/virt.nix for system level settings
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
