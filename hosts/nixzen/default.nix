@@ -53,6 +53,7 @@
           "steam"
           "steam-original"
           "steam-run"
+          "zoom"
         ];
     };
   };
@@ -132,9 +133,12 @@
   };
 
   environment.systemPackages = [
+    pkgs.audacity
     pkgs.darktable
-    pkgs.rapid-photo-downloader
+    pkgs.gimp-with-plugins
     pkgs.openswitcher
+    pkgs.rapid-photo-downloader
+    pkgs.zoom-us
   ];
 
   # This setups a SSH server. Very important if you're setting up a headless system.
