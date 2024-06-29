@@ -133,12 +133,17 @@
   };
 
   environment.systemPackages = [
+    pkgs.alsa-scarlett-gui
     pkgs.audacity
     pkgs.darktable
     pkgs.gimp-with-plugins
+    pkgs.logseq
+    pkgs.mtr
+    pkgs.onlykey
     pkgs.openswitcher
     pkgs.rapid-photo-downloader
     pkgs.zoom-us
+    pkgs.zotero_7
   ];
 
   # This setups a SSH server. Very important if you're setting up a headless system.
