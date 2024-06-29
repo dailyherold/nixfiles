@@ -2,6 +2,8 @@
   programs.fish = {
     enable = true;
     shellAbbrs = {
+      ls = "eza";
+      lla = "eza -la";
       vim = "nvim";
     };
     catppuccin.enable = true;

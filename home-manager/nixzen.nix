@@ -90,11 +90,12 @@
       hist = "log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short";
     };
     extraConfig = {
-      user = {useConfigOnly = true;};
-      core = {
-        editor = "vim";
-      };
-      color = {ui = true;};
+      user.useConfigOnly = true;
+      core.editor = "nvim";
+      color.ui = true;
+      diff.tool = "diffsitter";
+      difftool.prompt = false;
+      difftool.diffsitter.cmd = "diffsitter \"$LOCAL\" \"$REMOTE\"";
     };
   };
 
