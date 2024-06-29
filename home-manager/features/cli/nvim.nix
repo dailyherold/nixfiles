@@ -1,12 +1,12 @@
 {pkgs, ...}: let
   kitty-scrollback-nvim = pkgs.vimUtils.buildVimPlugin rec {
     name = "kitty-scrollback-nvim";
-    version = "4.3.3";
+    version = "5.0.0";
     src = pkgs.fetchFromGitHub {
       owner = "mikesmithgh";
       repo = "kitty-scrollback.nvim";
       rev = "v${version}";
-      hash = "sha256-HARxd+oY/2s5o/w5L63bSX1lSQlJ/dxMjW7q6GgA9ds=";
+      hash = "sha256-TV++v8aH0Vi9UZEdTT+rUpu6HKAfhu04EwAgGbfk614=";
     };
   };
 in {
@@ -15,20 +15,50 @@ in {
   programs.neovim = {
     enable = true;
     catppuccin.enable = true;
-    extraConfig =
-      /*
-      vim
-      */
-      ''
-        "Use system clipboard
-        set clipboard=unnamedplus
+    extraConfig = ''
+      let g:loaded_netrw = 1
+      let g:loaded_netrwPlugin = 1
 
-        "Line numbers
-        set number relativenumber
-      '';
+      let mapleader = " "
 
+      "Use system clipboard
+      set clipboard=unnamedplus
+
+      "Line numbers
+      set number relativenumber
+    '';
+    extraLuaConfig = ''
+      local telescopeBuiltin = require('telescope.builtin')
+      vim.keymap.set('n', '<leader>ff', telescopeBuiltin.find_files, {})
+      vim.keymap.set('n', '<leader>fg', telescopeBuiltin.live_grep, {})
+      vim.keymap.set('n', '<leader>fb', telescopeBuiltin.buffers, {})
+      vim.keymap.set('n', '<leader>fh', telescopeBuiltin.help_tags, {})
+      vim.keymap.set('n', '<leader>e', ':NvimTreeFindFileToggle<CR>', { silent = true })
+    '';
     plugins = with pkgs.vimPlugins; [
-      kitty-scrollback-nvim
+      diffview-nvim
+      telescope-nvim
+      {
+        plugin = kitty-scrollback-nvim;
+        type = "lua";
+        config = ''
+          require("kitty-scrollback").setup()
+        '';
+      }
+      {
+        plugin = bufferline-nvim;
+        type = "lua";
+        config = ''
+          require("bufferline").setup()
+        '';
+      }
+      {
+        plugin = nvim-tree-lua;
+        type = "lua";
+        config = ''
+          require('nvim-tree').setup({ update_cwd = true })
+        '';
+      }
     ];
   };
 
