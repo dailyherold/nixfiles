@@ -137,6 +137,7 @@
     pkgs.audacity
     pkgs.darktable
     pkgs.gimp-with-plugins
+    pkgs.glibc
     pkgs.logseq
     pkgs.mtr
     pkgs.onlykey
