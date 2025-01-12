@@ -25,9 +25,10 @@
     ../common/users/dailyherold
     ../common/input
     ../common/locale.nix
-    ../common/pipewire.nix
-    ../common/network.nix
     ../common/mount.nix
+    ../common/network.nix
+    ../common/obs.nix
+    ../common/pipewire.nix
     ../common/virt.nix # see also home-manager/features/virt.nix
   ];
 
