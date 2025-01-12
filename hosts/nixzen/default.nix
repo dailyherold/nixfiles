@@ -112,10 +112,6 @@
   # Set your hostname
   networking.hostName = "nixzen";
 
-  # Kernel
-  # Using 6.8 for default enabled Scarlett drivers
-  boot.kernelPackages = pkgs.linuxPackages_6_8;
-
   # Package/program installs
   programs.steam = {
     enable = true;

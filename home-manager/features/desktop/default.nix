@@ -7,6 +7,7 @@
     ./font.nix
     ./gnome.nix
     ./kitty.nix
+    ./obs.nix
     ./slack.nix
     ./theme.nix
     ./wayland.nix

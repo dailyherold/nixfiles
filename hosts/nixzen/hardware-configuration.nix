@@ -13,6 +13,8 @@
   ];
 
   boot.loader.systemd-boot.enable = true;
+  # Limit number of boot entries
+  boot.loader.systemd-boot.configurationLimit = 5;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid"];
   boot.initrd.kernelModules = [];
