@@ -6,7 +6,7 @@ import subprocess
 
 
 my = {
-    'card': 2,
+    'card': 3,
     'mix': {
         'main': {
             'left': 'Mix A',

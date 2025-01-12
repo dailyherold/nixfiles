@@ -2,8 +2,8 @@
   fontProfiles = {
     enable = true;
     monospace = {
-      family = "JetBrainsMono Nerd Font";
-      package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+      family = "JetBrains Nerd Font";
+      package = pkgs.nerd-fonts.jetbrains-mono;
     };
     regular = {
       family = "Fira Sans";

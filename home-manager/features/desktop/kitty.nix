@@ -9,7 +9,6 @@
   };
   programs.kitty = {
     enable = true;
-    catppuccin.enable = true;
     font = {
       name = config.fontProfiles.monospace.family;
       size = 10;
@@ -36,4 +35,7 @@
       mouse_map ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output
     '';
   };
+
+  # Theme
+  catppuccin.kitty.enable = true;
 }

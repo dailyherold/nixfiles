@@ -14,7 +14,6 @@ in {
 
   programs.neovim = {
     enable = true;
-    catppuccin.enable = true;
     extraConfig = ''
       let g:loaded_netrw = 1
       let g:loaded_netrwPlugin = 1
@@ -94,4 +93,8 @@ in {
       ];
     };
   };
+
+  # Theme
+  catppuccin.nvim.enable = true;
+
 }
