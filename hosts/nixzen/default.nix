@@ -54,6 +54,7 @@
           "steam"
           "steam-original"
           "steam-run"
+          "steam-unwrapped"
           "zoom"
         ];
     };
@@ -141,8 +142,8 @@
     pkgs.appimage-run
     pkgs.audacity
     pkgs.darktable
-    pkgs.gimp-with-plugins
     pkgs.epson-escpr2
+    pkgs.gimp
     pkgs.glibc
     pkgs.mtr
     pkgs.onlykey
