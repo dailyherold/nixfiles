@@ -64,18 +64,20 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
-
     mutableExtensionsDir = false;
-    enableUpdateCheck = false;
-    enableExtensionUpdateCheck = false;
 
-    # Example of usage thanks to Arvivgeus https://github.com/arvigeus/nixos-config/blob/master/apps/vscode.nix
-    extensions = with pkgs.open-vsx; [
+    profiles.default = {
+      enableUpdateCheck = false;
+      enableExtensionUpdateCheck = false;
+
+      # Example of usage thanks to Arvivgeus https://github.com/arvigeus/nixos-config/blob/master/apps/vscode.nix
+      extensions = with pkgs.open-vsx; [
       # https://raw.githubusercontent.com/nix-community/nix-vscode-extensions/master/data/cache/open-vsx-latest.json
 
-      # Nix
-      jnoortheen.nix-ide
-    ];
+        # Nix
+        jnoortheen.nix-ide
+      ];
+    };
   };
 
   # Enable home-manager and git
