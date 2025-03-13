@@ -107,7 +107,11 @@
   systemd.services."autovt@tty1".enable = false;
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.epson-escpr2 ];
+  };
+
 
   # Set your hostname
   networking.hostName = "nixzen";
@@ -134,6 +138,7 @@
     pkgs.audacity
     pkgs.darktable
     pkgs.gimp-with-plugins
+    pkgs.epson-escpr2
     pkgs.glibc
     pkgs.logseq
     pkgs.mtr
