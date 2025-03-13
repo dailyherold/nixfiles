@@ -112,6 +112,9 @@
     drivers = [ pkgs.epson-escpr2 ];
   };
 
+  # Since 24.05 - Enable direct Appimage binary execution
+  # https://nixos.wiki/wiki/Appimage
+  programs.appimage.binfmt = true;
 
   # Set your hostname
   networking.hostName = "nixzen";
@@ -135,12 +138,12 @@
 
   environment.systemPackages = [
     pkgs.alsa-scarlett-gui
+    pkgs.appimage-run
     pkgs.audacity
     pkgs.darktable
     pkgs.gimp-with-plugins
     pkgs.epson-escpr2
     pkgs.glibc
-    pkgs.logseq
     pkgs.mtr
     pkgs.onlykey
     pkgs.openswitcher
