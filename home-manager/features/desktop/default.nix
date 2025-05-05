@@ -12,5 +12,6 @@
     ./theme.nix
     ./wayland.nix
     ./wezterm.nix
+    ./zed.nix
   ];
 }

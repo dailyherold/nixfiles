@@ -51,6 +51,8 @@
       # https://nixos.org/manual/nixpkgs/stable/#sec-allow-unfree
       allowUnfreePredicate = pkg:
         builtins.elem (lib.getName pkg) [
+          "googleearth-pro"
+          "reaper"
           "steam"
           "steam-original"
           "steam-run"
@@ -138,6 +140,7 @@
   };
 
   environment.systemPackages = [
+    pkgs.aider-chat
     pkgs.alsa-scarlett-gui
     pkgs.appimage-run
     pkgs.audacity
@@ -145,10 +148,16 @@
     pkgs.epson-escpr2
     pkgs.gimp
     pkgs.glibc
+    pkgs.googleearth-pro
+    pkgs.inkscape
     pkgs.mtr
     pkgs.onlykey
     pkgs.openswitcher
+    pkgs.orca-slicer
     pkgs.rapid-photo-downloader
+    pkgs.reaper
+    pkgs.usbutils
+    pkgs.zip
     pkgs.zoom-us
     pkgs.zotero_7
   ];
