@@ -45,7 +45,7 @@
       name = "default";
       search = {
         force = true;
-        default = "DuckDuckGo";
+        default = "ddg";
         engines = {
           "Nix Packages" = {
             urls = [
@@ -87,13 +87,13 @@
           };
           "NixOS Wiki" = {
             urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
-            iconUpdateURL = "https://nixos.wiki/favicon.png";
+            icon = "https://nixos.wiki/favicon.png";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = ["@nw"];
           };
           "Nix Reference Manual" = {
             urls = [{template = "https://nixos.org/manual/nix/unstable/?search={searchTerms}";}];
-            iconUpdateURL = "https://nixos.wiki/favicon.png";
+            icon = "https://nixos.wiki/favicon.png";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = ["@nm"];
           };

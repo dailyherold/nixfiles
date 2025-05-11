@@ -11,9 +11,9 @@
   imports = [
     # Hardware
     ./hardware-configuration.nix
-    inputs.nix-hardware.nixosModules.common-cpu-amd
-    inputs.nix-hardware.nixosModules.common-gpu-amd
-    inputs.nix-hardware.nixosModules.common-pc-ssd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-gpu-amd
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
     # Not yet exported in the hardware flake (https://github.com/NixOS/nixos-hardware/blob/master/flake.nix)
     # Fixes a reported suspend bug that I _think_ I've experienced after computer locked for long duration (requires power button press to wake up sometimes vs just keeb/mouse)
     # inputs.nix-hardware.nixosModules.gigabyte-b550

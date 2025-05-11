@@ -10,7 +10,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Hardware flakes
-    nix-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     # Disks
     disko.url = "github:nix-community/disko";
@@ -73,7 +73,7 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./home-manager/nixzen.nix
-          catppuccin.homeManagerModules.catppuccin
+          catppuccin.homeModules.catppuccin
         ];
       };
     };
