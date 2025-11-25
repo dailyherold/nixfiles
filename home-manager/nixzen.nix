@@ -84,14 +84,14 @@
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
-    userName = "dailyherold";
-    userEmail = "git@dailyherold.simplelogin.com";
-    aliases = {
-      st = "status";
-      lg = "log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit";
-      hist = "log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short";
-    };
-    extraConfig = {
+    settings = {
+      aliases = {
+        st = "status";
+        lg = "log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit";
+        hist = "log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short";
+      };
+      user.email = "git@dailyherold.simplelogin.com";
+      user.name = "dailyherold";
       user.useConfigOnly = true;
       core.editor = "nvim";
       color.ui = true;
