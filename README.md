@@ -1,6 +1,6 @@
 # Nixfiles
 
-Once upon a time I [dotfile'd](https://github.com/dailyherold/dotfiles) with Ansible, now I'm exploring [NixOS](https://nixos.org/learn/) as my host with ~native tooling for system (`[nix](https://nixos.org/manual/nix/stable/)`) and user (`[home-manager](https://nix-community.github.io/home-manager/)`) config. Usage requires [Flakes](https://nixos.wiki/wiki/Flakes).
+Once upon a time I [dotfile'd](https://github.com/dailyherold/dotfiles) with Ansible, now I'm exploring [NixOS](https://nixos.org/learn/) as my host with ~native tooling for system ([nix](https://nixos.org/manual/nix/stable/)) and user ([home-manager](https://nix-community.github.io/home-manager/)) config. Usage requires [Flakes](https://nixos.wiki/wiki/Flakes).
 
 ## Structure
 
