@@ -116,8 +116,13 @@
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
-    drivers = [ pkgs.epson-escpr2 ];
+    drivers = [pkgs.epson-escpr2];
   };
+
+  # UDEV rule for ttyUSB0 access on ESParagus Louder devices
+  services.udev.extraRules = ''
+    KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", MODE="0666"
+  '';
 
   # Since 24.05 - Enable direct Appimage binary execution
   # https://nixos.wiki/wiki/Appimage

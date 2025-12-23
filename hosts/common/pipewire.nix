@@ -15,6 +15,7 @@
 
   environment.systemPackages = [
     pkgs.pavucontrol #  GTK gui for controlling audio i/o and volumes
+    pkgs.qpwgraph # Qt patchbay for pipewire
     pkgs.helvum # GTK patchbay for pipewire
     pkgs.snapcast # Used for whome home audio streaming
   ];

@@ -96,5 +96,4 @@ in {
 
   # Theme
   catppuccin.nvim.enable = true;
-
 }

@@ -1,5 +1,5 @@
 {config, ...}: {
- programs.zed-editor = {
+  programs.zed-editor = {
     enable = true;
     extensions = [
       "catppuccin"
