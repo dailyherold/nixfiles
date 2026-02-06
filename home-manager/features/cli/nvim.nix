@@ -26,7 +26,7 @@ in {
       "Line numbers
       set number relativenumber
     '';
-    extraLuaConfig = ''
+    initLua = ''
       local telescopeBuiltin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>ff', telescopeBuiltin.find_files, {})
       vim.keymap.set('n', '<leader>fg', telescopeBuiltin.live_grep, {})

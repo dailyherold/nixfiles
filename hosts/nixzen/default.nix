@@ -52,6 +52,8 @@
       allowUnfreePredicate = pkg:
         builtins.elem (lib.getName pkg) [
           "googleearth-pro"
+	  "libsciter" # rustdesk dep
+	  "makemkv"
           "reaper"
           "steam"
           "steam-original"
@@ -103,12 +105,6 @@
   ## Enable Ozone (enables Wayland for Chromium/Electron)
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # Enable automatic login for the user.
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "dailyherold";
-  };
-
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
@@ -159,16 +155,18 @@
     pkgs.glibc
     pkgs.googleearth-pro
     pkgs.inkscape
+    pkgs.makemkv
     pkgs.mtr
     pkgs.onlykey
     pkgs.openswitcher
     pkgs.orca-slicer
     pkgs.rapid-photo-downloader
     pkgs.reaper
+    pkgs.rustdesk
     pkgs.usbutils
     pkgs.zip
     pkgs.zoom-us
-    pkgs.zotero_7
+    pkgs.zotero
   ];
 
   # This setups a SSH server. Very important if you're setting up a headless system.

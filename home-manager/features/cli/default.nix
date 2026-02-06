@@ -8,6 +8,7 @@
     ./atuin.nix
     ./fish.nix
     ./nvim.nix
+    ./opencode.nix
     ./scarlett.nix
     ./starship.nix
     ./zellij.nix

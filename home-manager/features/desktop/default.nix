@@ -5,6 +5,7 @@
     ./firefox.nix
     ./flameshot.nix
     ./font.nix
+    ./ghostty.nix
     ./gnome.nix
     ./kitty.nix
     ./obs.nix
