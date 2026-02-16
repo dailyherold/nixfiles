@@ -28,6 +28,7 @@
     };
     casks = [
       "ghostty"
+      "obs"
     ];
     brews = [
       # Add CLI tools not in nixpkgs here, e.g.:

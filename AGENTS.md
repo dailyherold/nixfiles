@@ -15,9 +15,9 @@ hosts/
 home-manager/
   common.nix                       # Shared user config (git, vim, catppuccin, CLI features)
   nixzen.nix                       # NixOS home config → imports common.nix + desktop + virt
-  Mac-K74WPYK2.nix                 # macOS home config → imports common.nix
+  Mac-K74WPYK2.nix                 # macOS home config → imports common.nix + selective desktop modules
   features/cli/                    # Cross-platform CLI tools (fish, nvim, starship, atuin, zellij)
-  features/desktop/                # Linux-only GUI apps (ghostty, firefox, gnome, etc.)
+  features/desktop/                # GUI apps; default.nix is NixOS bundle, individual modules cherry-picked elsewhere
 modules/home-manager/              # Reusable home-manager modules (fonts)
 ```
 
@@ -30,6 +30,7 @@ modules/home-manager/              # Reusable home-manager modules (fonts)
 - **Home-manager is standalone for NixOS** via `homeConfigurations`
 - **Determinate Nix** manages the nix daemon on macOS, so `nix.enable = false` in the darwin host config
 - **Homebrew** is managed declaratively via nix-darwin for macOS-native apps (casks)
+- **macOS GUI apps via HM**: Apps installed via `home.packages` land in `~/Applications/Home Manager Apps/` as nix store symlinks. Spotlight may not index them initially. After installing a new GUI app on darwin, advise the user to run `open ~/Applications/Home\ Manager\ Apps/<App>.app` to launch it the first time
 
 ## Build Commands
 
@@ -59,5 +60,10 @@ nix flake lock --update-input <input-name>
 - Flake inputs track unstable/master branches
 - Single user: `dailyherold` (NixOS) / `e133949` (macOS)
 - Catppuccin mocha theme across all tools
-- New CLI tool: add a module in `home-manager/features/cli/` and import it from `features/cli/default.nix`
-- New GUI app: add a module in `home-manager/features/desktop/` (Linux-only)
+- New CLI tool (cross-platform, no config): add to `home-manager/features/cli/default.nix` packages list
+- New CLI tool (cross-platform, needs config): create `home-manager/features/cli/<tool>.nix`, import from `features/cli/default.nix`
+- New GUI app: add a module in `home-manager/features/desktop/`. Prefer home-manager module > nixpkgs via `home.packages` > Homebrew cask
+- **Desktop module convention**: `features/desktop/default.nix` is the kitchen-sink bundle for the main workstation (nixzen). All other hosts import individual modules selectively
+- **Adding a new host**: ask the user which `features/cli/` and `features/desktop/` modules to include — don't assume the bundle
+- **Adding a new app/config**: ask the user whether it should also work on macOS (or other platforms). Add platform guards only where needed based on that answer and the APIs used
+- Platform-specific tool or config: add to `home-manager/<hostname>.nix` or use `lib.mkIf pkgs.stdenv.isLinux`/`isDarwin` guards in shared modules. Linux is the default — only guard where darwin actually breaks (Linux-only APIs, packages that don't build on darwin)

@@ -100,6 +100,18 @@ $ sudo nix run nix-darwin -- switch --flake ~/dev/nixfiles#Mac-K74WPYK2
 $ sudo darwin-rebuild switch --flake ~/dev/nixfiles#Mac-K74WPYK2
 ```
 
+## Working with AI Agents
+
+This repo includes an `AGENTS.md` with conventions and structure documentation designed for AI coding agents (Claude Code, opencode, etc.). Open a session from the repo root and the agent will understand the layout, platform constraints, and patterns.
+
+**Example prompts:**
+
+- "Add support for a new host" — walks through NixOS vs darwin setup, flake wiring, and which `features/cli/` and `features/desktop/` modules to include
+- "Add ghostty/firefox/obsidian to my config" — picks the right approach (HM module, `home.packages`, or Homebrew cask) and adds platform guards if needed
+- "Make this desktop module work on macOS too" — adds surgical platform guards only where darwin actually breaks
+- "What's different between nixzen and Mac-K74WPYK2?" — explains the config differences across hosts
+- "Update all flake inputs and rebuild" — runs the update and rebuild for your current platform
+
 ## Troubleshooting
 
 - `cached failure of attribute`: Flake usage can cache eval errors leading to this ambiguous error without much context
