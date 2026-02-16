@@ -5,6 +5,7 @@
       ls = "eza";
       lla = "eza -la";
       vim = "nvim";
+      tnew = "tmux new-session -s";
     };
     functions = {
       # Disable greeting https://fishshell.com/docs/current/language.html#envvar-fish_greeting
