@@ -18,5 +18,4 @@
     pkgs.qpwgraph # Qt patchbay for pipewire
     pkgs.helvum # GTK patchbay for pipewire
   ];
-
 }

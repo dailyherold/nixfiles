@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: let
@@ -27,7 +28,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    fonts.fontconfig.enable = true;
+    fonts.fontconfig.enable = lib.mkIf pkgs.stdenv.isLinux true;
     home.packages = [
       cfg.monospace.package
       cfg.regular.package
