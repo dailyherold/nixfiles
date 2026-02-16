@@ -1,26 +1,30 @@
 # Nixfiles
 
-Once upon a time I [dotfile'd](https://github.com/dailyherold/dotfiles) with Ansible, now I'm exploring [NixOS](https://nixos.org/learn/) as my host with ~native tooling for system ([nix](https://nixos.org/manual/nix/stable/)) and user ([home-manager](https://nix-community.github.io/home-manager/)) config. Usage requires [Flakes](https://nixos.wiki/wiki/Flakes).
+Once upon a time I [dotfile'd](https://github.com/dailyherold/dotfiles) with Ansible, now I'm managing my systems declaratively with [NixOS](https://nixos.org/learn/) and [nix-darwin](https://github.com/nix-darwin/nix-darwin) using [home-manager](https://nix-community.github.io/home-manager/) for user config across platforms. Usage requires [Flakes](https://nixos.wiki/wiki/Flakes).
 
 ## Structure
 
-Given I'm the big nerd in my household, I have a relatively simple single-`dailyherold`-user setup mapping to _n_ hosts. Differnt hosts will have different needs, therefore being able to tailor the config via imports for both overall system and user home gives me some nice flexibility.
+Given I'm the big nerd in my household, I have a relatively simple single-`dailyherold`-user setup mapping to _n_ hosts. Different hosts will have different needs, therefore being able to tailor the config via imports for both overall system and user home gives me some nice flexibility.
 
 - `flake.nix`: entrypoint for system and user config
 - `home-manager/`
-  - `cli/`: non-gui config for import
-  - `desktop/`: gui config for import
-  - `${hostname}.nix`: host specific home config
+  - `common.nix`: shared home-manager config (git, vim, catppuccin, CLI features) imported by all hosts
+  - `features/cli/`: non-gui config for import
+  - `features/desktop/`: gui config for import
+  - `${hostname}.nix`: host specific home config (NixOS and macOS)
 - `hosts/`
-  - `common/`: config for import
+  - `common/`: NixOS config for import
     - `input/`: input device config
     - `users/`: standard user config from any `../hostname/default.nix` config
-  - `${hostname}/`: host specific config with `default.nix` utilizing imports and generated `hardware-configuration.nix`
+  - `nixzen/`: NixOS desktop config
+  - `Mac-K74WPYK2/`: macOS (nix-darwin) config
 - `shell.nix`: use with `nix develop` for bootstrapping a machine
 
 ## Use
 
 From repo root:
+
+### NixOS
 
 ```bash
 # Build and activate new system config
@@ -31,6 +35,15 @@ sudo nixos-rebuild switch --flake .#hostname
 # Build and activate new user config
 home-manager switch --flake .#dailyherold@hostname
 ```
+
+### macOS (nix-darwin)
+
+```bash
+# Build and activate darwin + home-manager config
+sudo darwin-rebuild switch --flake .#Mac-K74WPYK2
+```
+
+### General
 
 ```bash
 # Start an ephemeral subshell with random package to test
@@ -43,14 +56,16 @@ nix develop
 ```
 
 ```bash
-# Update system (nixos-rebuild after)
+# Update system (nixos-rebuild/darwin-rebuild after)
 nix flake update
 
-# Or replace only a specific package, such as home-manager (nixos-rebuild after)
+# Or replace only a specific package, such as home-manager (rebuild after)
 nix flake lock --update-input home-manager
 ```
 
 ## Clean Install
+
+### NixOS
 
 ```bash
 # From live install media
@@ -66,6 +81,23 @@ $ git clone https://github.com/dailyherold/nixfiles.git && cd nixfiles
 $ home-manager switch -b backup --flake .#dailyherold@hostname # backup flag will backup then replace any existing config files from previously run system config (e.g. fish)
 $ git remote set-url origin git@github.com:dailyherold/nixfiles.git
 $ # ssh keys and other secret bootstrapping
+```
+
+### macOS
+
+```bash
+# Install Determinate Nix (https://docs.determinate.systems/determinate-nix/)
+# Download and run the macOS graphical installer:
+#   https://install.determinate.systems/determinate-pkg/stable/Universal
+
+# Clone the repo
+$ git clone https://github.com/dailyherold/nixfiles.git ~/dev/nixfiles && cd ~/dev/nixfiles
+
+# First build (bootstraps nix-darwin)
+$ sudo nix run nix-darwin -- switch --flake ~/dev/nixfiles#Mac-K74WPYK2
+
+# Subsequent rebuilds
+$ sudo darwin-rebuild switch --flake ~/dev/nixfiles#Mac-K74WPYK2
 ```
 
 ## Troubleshooting

@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   kitty-scrollback-nvim = pkgs.vimUtils.buildVimPlugin rec {
     name = "kitty-scrollback-nvim";
     version = "5.0.0";
@@ -61,7 +65,7 @@ in {
     ];
   };
 
-  xdg.desktopEntries = {
+  xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
     nvim = {
       name = "Neovim";
       genericName = "Text Editor";

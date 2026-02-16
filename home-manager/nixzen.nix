@@ -1,5 +1,4 @@
-# This is your home-manager configuration file
-# Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
+# NixOS home-manager configuration for nixzen
 {
   inputs,
   lib,
@@ -8,56 +7,25 @@
   outputs,
   ...
 }: {
-  # You can import other home-manager modules here
-  imports =
-    [
-      # You can also split up your configuration and import pieces of it here:
-      ./features/desktop
-      ./features/cli
-      ./features/virt.nix # see also hosts/common/virt.nix for system level settings
-    ]
-    ++ (builtins.attrValues outputs.homeManagerModules);
+  imports = [
+    ./common.nix
+    ./features/desktop
+    ./features/virt.nix # see also hosts/common/virt.nix for system level settings
+  ];
 
   nixpkgs = {
-    # You can add overlays here
     overlays = [
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-
       inputs.nix-vscode-extensions.overlays.default
-
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
     ];
-    # Configure your nixpkgs instance
     config = {
-      # Disable if you don't want unfree packages
       allowUnfree = true;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = _: true;
     };
   };
 
-  xdg.enable = true;
-
   home = {
     username = "dailyherold";
     homeDirectory = "/home/dailyherold";
-  };
-
-  # Theme
-  catppuccin.flavor = "mocha";
-
-  # Vim
-  programs.vim = {
-    enable = true;
-    plugins = with pkgs.vimPlugins; [
-      nerdtree
-    ];
   };
 
   # VSCodium
@@ -77,27 +45,6 @@
         # Nix
         jnoortheen.nix-ide
       ];
-    };
-  };
-
-  # Enable home-manager and git
-  programs.home-manager.enable = true;
-  programs.git = {
-    enable = true;
-    settings = {
-      aliases = {
-        st = "status";
-        lg = "log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit";
-        hist = "log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short";
-      };
-      user.email = "git@dailyherold.simplelogin.com";
-      user.name = "dailyherold";
-      user.useConfigOnly = true;
-      core.editor = "nvim";
-      color.ui = true;
-      diff.tool = "diffsitter";
-      difftool.prompt = false;
-      difftool.diffsitter.cmd = "diffsitter \"$LOCAL\" \"$REMOTE\"";
     };
   };
 

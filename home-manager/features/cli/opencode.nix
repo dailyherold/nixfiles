@@ -13,7 +13,7 @@
             headers = {
               Helicone-Cache-Enabled = true;
               Helicone-User-Id = "opencode";
-	    };
+            };
           };
           models = {
             grok-code-fast-1 = {

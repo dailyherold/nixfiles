@@ -52,8 +52,8 @@
       allowUnfreePredicate = pkg:
         builtins.elem (lib.getName pkg) [
           "googleearth-pro"
-	  "libsciter" # rustdesk dep
-	  "makemkv"
+          "libsciter" # rustdesk dep
+          "makemkv"
           "reaper"
           "steam"
           "steam-original"
