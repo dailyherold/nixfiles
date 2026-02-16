@@ -11,6 +11,7 @@
     ./opencode.nix
     ./scarlett.nix
     ./starship.nix
+    ./tmux.nix
     ./zellij.nix
   ];
 

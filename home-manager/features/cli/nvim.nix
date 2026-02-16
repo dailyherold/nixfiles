@@ -41,6 +41,7 @@ in {
     plugins = with pkgs.vimPlugins; [
       diffview-nvim
       telescope-nvim
+      vim-tmux-navigator
       {
         plugin = kitty-scrollback-nvim;
         type = "lua";
