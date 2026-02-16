@@ -34,6 +34,12 @@
       # truecolor passthrough for outer terminal
       set -as terminal-features ",xterm-256color:RGB"
 
+      # reload config
+      bind r source-file ~/.config/tmux/tmux.conf \; display "Config reloaded"
+
+      # keep tmux copy buffer separate from system clipboard (use C-a C-y to explicitly copy)
+      set -g set-clipboard off
+
       # longer messages
       set-option -g display-time 4000
 
@@ -86,6 +92,14 @@
       bind C-a last-window
       bind -r p previous-window
       bind -r n next-window
+
+      ## PANE TRANSPARENCY
+      # Active pane gets opaque mocha base, inactive inherits terminal transparency
+      set -g window-active-style 'bg=#1e1e2e'
+      set -g window-style 'bg=default'
+
+      ## PANE BORDERS
+      set -g pane-active-border-style 'fg=#89b4fa' # catppuccin mocha "blue"
     '';
   };
 

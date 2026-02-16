@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       "$schema" = "https://opencode.ai/config.json";
-      theme = "catppuccin-macchiato";
+      theme = "system";
       provider = {
         helicone = {
           npm = "@ai-sdk/openai-compatible";
