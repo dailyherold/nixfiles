@@ -67,3 +67,8 @@ nix flake lock --update-input <input-name>
 - **Adding a new host**: ask the user which `features/cli/` and `features/desktop/` modules to include — don't assume the bundle
 - **Adding a new app/config**: ask the user whether it should also work on macOS (or other platforms). Add platform guards only where needed based on that answer and the APIs used
 - Platform-specific tool or config: add to `home-manager/<hostname>.nix` or use `lib.mkIf pkgs.stdenv.isLinux`/`isDarwin` guards in shared modules. Linux is the default — only guard where darwin actually breaks (Linux-only APIs, packages that don't build on darwin)
+
+## CLI Tools
+
+- Use `gh` CLI for all GitHub operations (PRs, issues, releases, repos, API calls)
+- Use `glab` CLI for all GitLab operations

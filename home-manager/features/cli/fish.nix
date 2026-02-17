@@ -11,6 +11,9 @@
       # Disable greeting https://fishshell.com/docs/current/language.html#envvar-fish_greeting
       fish_greeting = "";
     };
+    shellInit = ''
+      fish_add_path ~/.bun/bin
+    '';
   };
 
   # Theme

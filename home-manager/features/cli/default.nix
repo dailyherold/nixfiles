@@ -7,6 +7,8 @@
   imports = [
     ./atuin.nix
     ./fish.nix
+    ./github.nix
+    ./gitlab.nix
     ./nvim.nix
     ./opencode.nix
     ./scarlett.nix
@@ -28,6 +30,8 @@
       jq # JSON pretty printer and manipulator
       alejandra # Nix formatter
       tree # tree list
+      bun # JavaScript runtime and package manager
+      nodejs # Node.js runtime
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       wl-clipboard # copy pasta utilities for wayland
