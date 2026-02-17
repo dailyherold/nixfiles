@@ -21,6 +21,10 @@
       {
         plugin = resurrect;
         extraConfig = ''
+          # Catppuccin window name + title (simplified)
+          set -g @catppuccin_window_text "#W | #T"
+          set -g @catppuccin_window_current_text "#W | #T"
+
           set -g @resurrect-capture-pane-contents 'on'
           set -g @resurrect-processes 'false'
         '';
