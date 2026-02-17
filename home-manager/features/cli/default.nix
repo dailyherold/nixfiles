@@ -32,6 +32,7 @@
       tree # tree list
       bun # JavaScript runtime and package manager
       nodejs # Node.js runtime
+      uv # Python package and project manager
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       wl-clipboard # copy pasta utilities for wayland
