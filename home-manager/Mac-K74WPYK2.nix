@@ -10,7 +10,6 @@
   imports = [
     ./common.nix
     ./features/desktop/ghostty.nix
-    ./features/desktop/element.nix
     ./features/desktop/font.nix
   ];
 

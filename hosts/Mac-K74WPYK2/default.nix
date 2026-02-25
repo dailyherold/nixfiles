@@ -27,6 +27,7 @@
       upgrade = true;
     };
     casks = [
+      "element"
       "ghostty"
       "obs"
     ];

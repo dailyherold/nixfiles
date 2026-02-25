@@ -28,8 +28,8 @@
             "gpt-5.2" = {
               name = "heli-gpt-5.2";
             };
-            "gpt-5.1-codex" = {
-              name = "heli-gpt-5.1-codex";
+            "gpt-5.2-codex" = {
+              name = "heli-gpt-5.2-codex";
             };
             grok-code-fast-1 = {
               name = "heli-grok-code-fast-1";
@@ -52,8 +52,8 @@
           };
         };
       };
-      model = "helicone/gemini-3-pro";
-      small_model = "helicone/gemini-2-5-flash-lite";
+      model = "helicone/claude-4.6-sonnet";
+      small_model = "helicone/claude-4.5-haiku";
     };
   };
 }
