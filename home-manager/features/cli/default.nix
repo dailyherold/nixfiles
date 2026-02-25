@@ -15,6 +15,7 @@
     ./starship.nix
     ./tmux.nix
     ./zellij.nix
+    ./glow.nix
   ];
 
   home.packages = with pkgs;
