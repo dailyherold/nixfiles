@@ -16,6 +16,21 @@
             };
           };
           models = {
+            "claude-4.6-sonnet" = {
+              name = "heli-claude-4.6-sonnet";
+            };
+            "claude-4.6-opus" = {
+              name = "heli-claude-4.6-opus";
+            };
+            "claude-4.5-haiku" = {
+              name = "heli-claude-4.5-haiku";
+            };
+            "gpt-5.2" = {
+              name = "heli-gpt-5.2";
+            };
+            "gpt-5.1-codex" = {
+              name = "heli-gpt-5.1-codex";
+            };
             grok-code-fast-1 = {
               name = "heli-grok-code-fast-1";
             };
@@ -32,7 +47,7 @@
               name = "heli-gemini-3-pro";
             };
             "gemini-2.5-flash-lite" = {
-              name = "heli-gemini-2-5-flash-lite";
+              name = "heli-gemini-2.5-flash-lite";
             };
           };
         };
