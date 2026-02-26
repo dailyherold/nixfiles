@@ -30,7 +30,13 @@
         '';
       }
       continuum
-      vim-tmux-navigator
+      {
+        plugin = vim-tmux-navigator;
+        extraConfig = ''
+          # Extend is_vim pattern to match neovim installed via nix store
+          set -g @vim_navigator_pattern "(\S+/)?g?\.(view|l?n?vim?x?|fzf)(diff)?(-wrapped)?|neovim"
+        '';
+      }
       tmux-thumbs
     ];
 
@@ -104,6 +110,14 @@
 
       ## PANE BORDERS
       set -g pane-active-border-style 'fg=#89b4fa' # catppuccin mocha "blue"
+
+      ## VIM-TMUX-NAVIGATOR
+      # Re-bind after plugin runs with unquoted send-keys (plugin hardcodes send-keys 'C-h' which sends literal string, not ^H).
+      # is_vim check walks two levels of pgrep rather than querying by tty
+      bind-key -T root C-h if-shell "pgrep -P $(pgrep -P #{pane_pid}) | xargs -I{} ps -o comm= -p {} 2>/dev/null | grep -iqE '(view|l?n?vim?x?|fzf)(diff)?(-wrapped)?|neovim'" "send-keys C-h" "select-pane -L"
+      bind-key -T root C-j if-shell "pgrep -P $(pgrep -P #{pane_pid}) | xargs -I{} ps -o comm= -p {} 2>/dev/null | grep -iqE '(view|l?n?vim?x?|fzf)(diff)?(-wrapped)?|neovim'" "send-keys C-j" "select-pane -D"
+      bind-key -T root C-k if-shell "pgrep -P $(pgrep -P #{pane_pid}) | xargs -I{} ps -o comm= -p {} 2>/dev/null | grep -iqE '(view|l?n?vim?x?|fzf)(diff)?(-wrapped)?|neovim'" "send-keys C-k" "select-pane -U"
+      bind-key -T root C-l if-shell "pgrep -P $(pgrep -P #{pane_pid}) | xargs -I{} ps -o comm= -p {} 2>/dev/null | grep -iqE '(view|l?n?vim?x?|fzf)(diff)?(-wrapped)?|neovim'" "send-keys C-l" "select-pane -R"
     '';
   };
 

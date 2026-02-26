@@ -65,7 +65,14 @@ in {
     plugins = with pkgs.vimPlugins; [
       diffview-nvim
       telescope-nvim
-      vim-tmux-navigator
+      {
+        plugin = vim-tmux-navigator;
+        type = "lua";
+        config = ''
+          -- Ghostty sends <BS> for <C-h>; map both to navigate left
+          vim.keymap.set('n', '<BS>', '<cmd>TmuxNavigateLeft<CR>', { noremap = true, silent = true })
+        '';
+      }
       {
         plugin = kitty-scrollback-nvim;
         type = "lua";
