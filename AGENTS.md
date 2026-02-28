@@ -7,6 +7,7 @@ Multi-platform Nix configuration: NixOS desktop (`nixzen`) + macOS via nix-darwi
 ## Agent Constraints
 
 - **Never run `nixos-rebuild`, `darwin-rebuild`, or `home-manager switch` without explicit user confirmation.** These are system-altering operations. Propose the command and wait for the go-ahead.
+- **Never run `git add`, `git commit`, `git push`, or any other git write operation without explicit user confirmation.**
 - **Never install packages into the system config without user consent.** This is a declarative config repo — changes to `home.packages`, `environment.systemPackages`, or any package list require user approval before being written and built.
 - **`nix fmt` is permitted** and should be run after making changes to any `.nix` files.
 - **`nix run` and `nix shell` for temporary package use is permitted** without prior approval. When used, include a brief note at the end of the response listing which nixpkgs were used transiently and whether any of them would be worth adding to the permanent config.

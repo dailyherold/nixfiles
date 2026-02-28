@@ -1,4 +1,14 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
+  # Shared skills (agentskills.io spec) and opencode-specific agents
+  home.file.".config/opencode/skills".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/ai/skills";
+  home.file.".config/opencode/agents".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/ai/agents/opencode";
+
   programs.opencode = {
     enable = true;
     settings = {
