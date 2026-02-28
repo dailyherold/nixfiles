@@ -4,6 +4,13 @@ When making structural changes to this repo, update both this file and README.md
 
 Multi-platform Nix configuration: NixOS desktop (`nixzen`) + macOS via nix-darwin (`Mac-K74WPYK2`), with home-manager for user config across both.
 
+## Agent Constraints
+
+- **Never run `nixos-rebuild`, `darwin-rebuild`, or `home-manager switch` without explicit user confirmation.** These are system-altering operations. Propose the command and wait for the go-ahead.
+- **Never install packages into the system config without user consent.** This is a declarative config repo — changes to `home.packages`, `environment.systemPackages`, or any package list require user approval before being written and built.
+- **`nix fmt` is permitted** and should be run after making changes to any `.nix` files.
+- **`nix run` and `nix shell` for temporary package use is permitted** without prior approval. When used, include a brief note at the end of the response listing which nixpkgs were used transiently and whether any of them would be worth adding to the permanent config.
+
 ## Structure
 
 ```
@@ -56,10 +63,10 @@ nix flake lock --update-input <input-name>
 
 ## Conventions
 
-- Formatter: alejandra (run `nix fmt` before committing)
+- Formatter: alejandra (run `nix fmt` after editing any `.nix` file)
 - Flake inputs track unstable/master branches
 - Single user: `dailyherold` (NixOS) / `e133949` (macOS)
-- Catppuccin mocha theme across all tools
+- Catppuccin mocha theme across all tools — see `STYLE.md` for the full theming and transparency model
 - New CLI tool (cross-platform, no config): add to `home-manager/features/cli/default.nix` packages list
 - New CLI tool (cross-platform, needs config): create `home-manager/features/cli/<tool>.nix`, import from `features/cli/default.nix`
 - New GUI app: add a module in `home-manager/features/desktop/`. Prefer home-manager module > nixpkgs via `home.packages` > Homebrew cask

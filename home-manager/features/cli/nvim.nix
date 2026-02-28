@@ -141,5 +141,8 @@ in {
   };
 
   # Theme
-  catppuccin.nvim.enable = true;
+  catppuccin.nvim = {
+    enable = true;
+    settings.transparent_background = true;
+  };
 }

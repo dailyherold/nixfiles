@@ -8,8 +8,9 @@
     package = lib.mkIf pkgs.stdenv.isDarwin null;
     enableFishIntegration = true;
     settings = {
-      theme = "Catppuccin Mocha";
       background-opacity = 0.80;
     };
   };
+
+  catppuccin.ghostty.enable = true;
 }
