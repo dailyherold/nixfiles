@@ -6,7 +6,10 @@
   pkgs,
   outputs,
   ...
-}: {
+}: let
+  jailedLib = inputs.jailed-agents.lib.x86_64-linux;
+  home = config.home.homeDirectory;
+in {
   imports = [
     ./common.nix
     ./features/desktop
@@ -50,6 +53,31 @@
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
+
+  # Bubblewrap-jailed agent wrappers — full session isolation with declared file access.
+  # ai dirs are symlinks and must be mounted explicitly
+  home.packages = lib.optionals pkgs.stdenv.isLinux [
+    # rw access to skills (some skills write into thier subdirs)
+    # ro access to agent configs
+    (jailedLib.makeJailedClaudeCode {
+      extraReadwriteDirs = [
+        "${home}/dev/ai/skills"
+      ];
+      extraReadonlyDirs = [
+        "${home}/dev/ai/agents/claude"
+      ];
+    })
+
+    # opencode
+    (jailedLib.makeJailedOpencode {
+      extraReadwriteDirs = [
+        "${home}/dev/ai/skills"
+      ];
+      extraReadonlyDirs = [
+        "${home}/dev/ai/agents/opencode"
+      ];
+    })
+  ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.05";

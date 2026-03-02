@@ -74,6 +74,15 @@
       flake-registry = "";
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
+      # Sandbox settings (true is default on NixOS; explicit for clarity)
+      sandbox = true;
+      # Paths nix build derivation sandboxes may read
+      extra-sandbox-paths = [
+        "/etc/resolv.conf"
+        "/etc/ssl/certs"
+        "/etc/static/ssl/certs"
+        "/etc/localtime"
+      ];
     };
     # Opinionated: disable channels
     channel.enable = false;
@@ -146,6 +155,7 @@
 
   environment.systemPackages = [
     pkgs.aider-chat
+    pkgs.bubblewrap # user-space sandbox for agent task isolation (nix-sandbox skill)
     pkgs.alsa-scarlett-gui
     pkgs.appimage-run
     pkgs.audacity

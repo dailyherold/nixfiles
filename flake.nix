@@ -26,6 +26,9 @@
     # nix-darwin (macOS system management)
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Bubblewrap-jailed agent wrappers (Linux only)
+    jailed-agents.url = "github:andersonjoseph/jailed-agents";
   };
 
   outputs = {
