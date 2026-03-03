@@ -29,6 +29,16 @@
 
     # Bubblewrap-jailed agent wrappers (Linux only)
     jailed-agents.url = "github:andersonjoseph/jailed-agents";
+
+    # Secrets management
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Private secrets (soft + hard)
+    nix-secrets = {
+      url = "git+ssh://git@github.com/dailyherold/nix-secrets?shallow=1";
+      flake = true;
+    };
   };
 
   outputs = {
@@ -87,7 +97,7 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            home-manager.users.e133949 = {
+            home-manager.users.${inputs.nix-secrets.personal.swaId} = {
               imports = [
                 ./home-manager/Mac-K74WPYK2.nix
                 catppuccin.homeModules.catppuccin

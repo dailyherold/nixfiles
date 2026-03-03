@@ -61,6 +61,9 @@ nix flake update
 
 # Or replace only a specific package, such as home-manager (rebuild after)
 nix flake lock --update-input home-manager
+
+# Update secrets after pushing to https://github.com/dailyherold/nix-secrets (rebuild after)
+nix flake update nix-secrets
 ```
 
 ## Clean Install
@@ -72,18 +75,31 @@ nix flake lock --update-input home-manager
 $ git clone https://github.com/dailyherold/nixfiles.git && cd nixfiles
 $ nix --extra-experimental-features 'nix-command flakes' develop # subshell with packages like home-manager (defined in shell.nix)
 $ nix flake upgrade # unless wanting to keep pinned, typically I'm wanting newest packages on install though
-$ sudo nix --extra-experimental-features 'nix-command flakes' run 'github:nix-community/disko#disko-install' -- --write-efi-boot-entries --flake .#nixzen --disk root /dev/nvme0n1 # from disko docs, formats disks and nix-installs
+
+# Format disk only (separate from install so we can place secrets before activation runs)
+$ sudo nix --extra-experimental-features 'nix-command flakes' run 'github:nix-community/disko#disko' -- --mode format --flake .#nixzen
+
+# Place the personal age key (from password manager) onto the new root before install.
+# sops-nix needs it during activation to decrypt the user password secret.
+$ sudo mkdir -p /mnt/root/.config/sops/age
+$ sudo vim /mnt/root/.config/sops/age/keys.txt  # paste personal age private key, save
+
+$ sudo nixos-install --flake .#nixzen
 $ reboot
+
 # From install
-$ passwd # change initial password
-$ nix shell nixpkgs#git # can change this to a run command to also pull repo perhaps
-$ git clone https://github.com/dailyherold/nixfiles.git && cd nixfiles
+# Restore SSH private key from password manager to ~/.ssh/id_ed25519 (chmod 600) before
+# anything else — needed to fetch nix-secrets flake and push/pull via SSH.
+$ nix develop # subshell with git and other bootstrap tools
+$ git clone git@github.com:dailyherold/nixfiles.git && cd nixfiles
 $ home-manager switch -b backup --flake .#dailyherold@hostname # backup flag will backup then replace any existing config files from previously run system config (e.g. fish)
-$ git remote set-url origin git@github.com:dailyherold/nixfiles.git
-$ # ssh keys and other secret bootstrapping
 ```
 
 ### macOS
+
+No secrets bootstrapping needed. Soft secrets (email, identity) are pulled from the private
+[nix-secrets](https://github.com/dailyherold/nix-secrets) flake at build time over SSH — so
+SSH access to GitHub must be configured before the first build. No sops decryption involved.
 
 ```bash
 # Install Determinate Nix (https://docs.determinate.systems/determinate-nix/)

@@ -9,6 +9,9 @@
 }: {
   # You can import other NixOS modules here
   imports = [
+    # Secrets
+    ./sops.nix
+
     # Hardware
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.common-cpu-amd

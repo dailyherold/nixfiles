@@ -14,8 +14,8 @@
   ];
 
   home = {
-    username = "e133949";
-    homeDirectory = "/Users/e133949";
+    username = inputs.nix-secrets.personal.swaId;
+    homeDirectory = "/Users/${inputs.nix-secrets.personal.swaId}";
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

@@ -1,5 +1,11 @@
 # nix-darwin system configuration for Mac-K74WPYK2
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: let
+  swaId = inputs.nix-secrets.personal.swaId;
+in {
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
 
@@ -7,10 +13,10 @@
   nix.enable = false;
 
   # User
-  system.primaryUser = "e133949";
-  users.knownUsers = ["e133949"];
-  users.users.e133949 = {
-    home = "/Users/e133949";
+  system.primaryUser = swaId;
+  users.knownUsers = [swaId];
+  users.users.${swaId} = {
+    home = "/Users/${swaId}";
     uid = 503;
     shell = pkgs.fish;
   };

@@ -7,9 +7,9 @@
   # Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
     dailyherold = {
-      # TODO: You can set an initial password for your user.
-      # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
-      # Be sure to change it (using passwd) after rebooting!
+      # Bootstrap password for nixos-install only. Pass '--no-root-passwd' to nixos-install to skip root password.
+      # On hosts with sops configured, hashedPasswordFile (see hosts/<hostname>/sops.nix) overrides this on every activation.
+      # Change with 'passwd' after first boot if sops isn't yet configured on the new host.
       initialPassword = "correcthorsebatterystaple";
       isNormalUser = true;
       shell = pkgs.fish;
