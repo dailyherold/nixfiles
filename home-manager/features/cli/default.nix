@@ -11,6 +11,7 @@
     ./fish.nix
     ./github.nix
     ./gitlab.nix
+    ./himalaya.nix
     ./nvim.nix
     ./opencode.nix
     ./scarlett.nix
@@ -18,6 +19,7 @@
     ./tmux.nix
     ./zellij.nix
     ./glow.nix
+    ./protonmail-bridge.nix
   ];
 
   home.packages = with pkgs;

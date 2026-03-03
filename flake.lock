@@ -177,6 +177,22 @@
         "type": "github"
       }
     },
+    "nix-secrets": {
+      "locked": {
+        "lastModified": 1772508303,
+        "narHash": "sha256-84hFOrtAitQA1ADKtgA9ZBLmXoX3Zjq6rAYYIvdhYek=",
+        "ref": "refs/heads/main",
+        "rev": "eb0b96b18e87bd3378e2f8521e8d1318e069df35",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/dailyherold/nix-secrets"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/dailyherold/nix-secrets"
+      }
+    },
     "nix-vscode-extensions": {
       "inputs": {
         "nixpkgs": [
@@ -284,9 +300,31 @@
         "home-manager": "home-manager",
         "jailed-agents": "jailed-agents",
         "nix-darwin": "nix-darwin",
+        "nix-secrets": "nix-secrets",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_4",
+        "sops-nix": "sops-nix"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1772495394,
+        "narHash": "sha256-hmIvE/slLKEFKNEJz27IZ8BKlAaZDcjIHmkZ7GCEjfw=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "1d9b98a29a45abe9c4d3174bd36de9f28755e3ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "systems": {

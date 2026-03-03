@@ -54,6 +54,31 @@
   } @ inputs: let
     inherit (self) outputs;
     lib = nixpkgs.lib // home-manager.lib;
+
+    # Temporary: pin himalaya to 1.2.0 until nixpkgs PR #488853 merges.
+    # Fixes SASL PLAIN auth hang with Proton Bridge (imap-codec bug).
+    himalayaOverlay = final: prev: {
+      himalaya = prev.himalaya.overrideAttrs (old: {
+        version = "1.2.0";
+        src = prev.fetchFromGitHub {
+          owner = "pimalaya";
+          repo = "himalaya";
+          rev = "v1.2.0";
+          hash = "sha256-BBzfDeNu7s010ARCYuydCyR7QWrbeI3/B4CxA6d4olw=";
+        };
+        cargoDeps = prev.rustPlatform.fetchCargoVendor {
+          pname = "himalaya";
+          version = "1.2.0";
+          src = prev.fetchFromGitHub {
+            owner = "pimalaya";
+            repo = "himalaya";
+            rev = "v1.2.0";
+            hash = "sha256-BBzfDeNu7s010ARCYuydCyR7QWrbeI3/B4CxA6d4olw=";
+          };
+          hash = "sha256-IkvRiU9NuD6n7aCF8J235u2LjjmLftnF1n874IWVcN0=";
+        };
+      });
+    };
     systems = [
       "x86_64-linux"
       "aarch64-linux"
@@ -78,7 +103,7 @@
     nixosConfigurations = {
       # Main desktop
       nixzen = nixpkgs.lib.nixosSystem {
-        modules = [./hosts/nixzen disko.nixosModules.disko];
+        modules = [./hosts/nixzen disko.nixosModules.disko {nixpkgs.overlays = [himalayaOverlay];}];
         specialArgs = {inherit inputs outputs;};
       };
     };
@@ -92,6 +117,7 @@
         modules = [
           ./hosts/Mac-K74WPYK2
           home-manager.darwinModules.home-manager
+          {nixpkgs.overlays = [himalayaOverlay];}
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
