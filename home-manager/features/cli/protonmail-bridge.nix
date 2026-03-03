@@ -14,20 +14,7 @@
   #
   # Then store it:
   #   macOS: security add-generic-password -a proton-bridge -s himalaya -w <password>
-  #   NixOS: sops ~/dev/nix-secrets/secrets/shared.yaml → fill in proton-bridge/password
-
-  home.activation.checkBridgePassword = lib.mkIf pkgs.stdenv.isDarwin (
-    lib.hm.dag.entryAfter ["writeBoundary"] ''
-      if ! security find-generic-password -a proton-bridge -s himalaya > /dev/null 2>&1; then
-        echo ""
-        echo "WARNING: Proton Bridge password missing from Keychain"
-        echo "himalaya auth will fail until you run (once):"
-        echo "  security add-generic-password -a proton-bridge -s himalaya -w <password>"
-        echo "  (find it in Proton Bridge app → Settings → Mailboxes)"
-        echo ""
-      fi
-    ''
-  );
+  #   NixOS: sops ~/dev/nix-secrets/secrets/nixzen.yaml → fill in proton-bridge/password
 
   # Linux: systemd user service
   systemd.user.services.protonmail-bridge = lib.mkIf pkgs.stdenv.isLinux {
