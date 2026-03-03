@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./atuin.nix
+    ./aws.nix
     ./claude.nix
     ./fish.nix
     ./github.nix

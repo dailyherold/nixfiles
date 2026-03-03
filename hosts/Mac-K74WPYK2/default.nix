@@ -33,7 +33,6 @@
     ];
     brews = [
       # Add CLI tools not in nixpkgs here, e.g.:
-      # "awssaml"
     ];
   };
 
