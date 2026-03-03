@@ -14,11 +14,18 @@
 }: {
   default = pkgs.mkShell {
     NIX_CONFIG = "extra-experimental-features = nix-command flakes";
+    shellHook = ''
+      export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
+    '';
     nativeBuildInputs = with pkgs; [
       nix
       home-manager
       git
       vim
+      # Secrets management
+      age
+      sops
+      ssh-to-age
     ];
   };
 }

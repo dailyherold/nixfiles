@@ -14,7 +14,7 @@
   #   2. Dev age key (bootstrap / fresh install fallback):
   #      Copy the personal age key to /root/.config/sops/age/keys.txt before nixos-install.
   #      Its public key is already in .sops.yaml so this works without rekeying.
-  sops.defaultSopsFile = "${inputs.nix-secrets}/secrets/shared.yaml";
+  sops.defaultSopsFile = "${inputs.nix-secrets}/secrets/nixzen.yaml";
   sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
   sops.age.keyFile = "/root/.config/sops/age/keys.txt";
 

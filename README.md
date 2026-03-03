@@ -51,7 +51,8 @@ nix shell nixpkgs#random
 ```
 
 ```bash
-# Subshell for bootstrapping (or developing)
+# Subshell for bootstrapping, secrets work, or general nixfiles admin
+# (provides git, home-manager, sops, age, ssh-to-age at locked versions)
 nix develop
 ```
 
