@@ -11,6 +11,7 @@
     ./fish.nix
     ./github.nix
     ./gitlab.nix
+    ./google.nix
     ./himalaya.nix
     ./nvim.nix
     ./opencode.nix

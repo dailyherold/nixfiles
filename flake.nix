@@ -30,6 +30,10 @@
     # Bubblewrap-jailed agent wrappers (Linux only)
     jailed-agents.url = "github:andersonjoseph/jailed-agents";
 
+    # Google Workspace CLI (gws)
+    googleworkspace-cli.url = "github:googleworkspace/cli";
+    googleworkspace-cli.inputs.nixpkgs.follows = "nixpkgs";
+
     # Secrets management
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
@@ -50,6 +54,7 @@
     nix-vscode-extensions,
     catppuccin,
     nix-darwin,
+    googleworkspace-cli,
     ...
   } @ inputs: let
     inherit (self) outputs;
