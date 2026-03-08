@@ -90,6 +90,7 @@
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
+          overlays = [himalayaOverlay];
         }
     );
   in {
