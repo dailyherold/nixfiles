@@ -39,6 +39,7 @@
       bun # JavaScript runtime and package manager
       nodejs # Node.js runtime
       uv # Python package and project manager
+      python3Packages.markitdown # Convert files/URLs to Markdown (Microsoft)
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       wl-clipboard # copy pasta utilities for wayland
