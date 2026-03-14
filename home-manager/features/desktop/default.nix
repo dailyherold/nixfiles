@@ -9,6 +9,7 @@
     ./gnome.nix
     ./kitty.nix
     ./obs.nix
+    ./obsidian.nix
     ./slack.nix
     ./theme.nix
     ./wayland.nix

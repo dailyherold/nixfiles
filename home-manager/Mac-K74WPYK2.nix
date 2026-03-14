@@ -11,6 +11,7 @@
     ./common.nix
     ./features/desktop/ghostty.nix
     ./features/desktop/font.nix
+    ./features/desktop/obsidian.nix
   ];
 
   home = {
