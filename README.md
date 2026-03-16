@@ -63,9 +63,13 @@ nix flake update
 # Or replace only a specific package, such as home-manager (rebuild after)
 nix flake lock --update-input home-manager
 
-# Update secrets after pushing to https://github.com/dailyherold/nix-secrets (rebuild after)
+# Update secrets after pushing nix-secrets (rebuild after)
 nix flake update nix-secrets
 ```
+
+## Secrets
+
+This repo uses a private `nix-secrets` flake for secrets management, inspired by [EmergentMind's nix-config](https://github.com/EmergentMind/nix-config#secrets-management).
 
 ## Clean Install
 
@@ -98,9 +102,8 @@ $ home-manager switch -b backup --flake .#dailyherold@hostname # backup flag wil
 
 ### macOS
 
-No secrets bootstrapping needed. Soft secrets (email, identity) are pulled from the private
-[nix-secrets](https://github.com/dailyherold/nix-secrets) flake at build time over SSH — so
-SSH access to GitHub must be configured before the first build. No sops decryption involved.
+Soft secrets are pulled from the private `nix-secrets` flake at build time over SSH. Before the first build, make sure SSH access to GitHub is in place.
+If any shared hard secrets are in use, also place your personal age key before building.
 
 ```bash
 # Install Determinate Nix (https://docs.determinate.systems/determinate-nix/)
@@ -109,6 +112,10 @@ SSH access to GitHub must be configured before the first build. No sops decrypti
 
 # Clone the repo
 $ git clone https://github.com/dailyherold/nixfiles.git ~/dev/nixfiles && cd ~/dev/nixfiles
+
+# Place the personal age key used for shared hard secrets
+$ mkdir -p ~/Library/Application\ Support/sops/age
+$ vim ~/Library/Application\ Support/sops/age/keys.txt
 
 # First build (bootstraps nix-darwin)
 $ sudo nix run nix-darwin -- switch --flake ~/dev/nixfiles#Mac-K74WPYK2

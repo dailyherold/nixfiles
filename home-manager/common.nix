@@ -9,9 +9,15 @@
 }: {
   imports =
     [
+      inputs.sops-nix.homeManagerModules.sops
       ./features/cli
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
+
+  sops.age.keyFile =
+    if pkgs.stdenv.isDarwin
+    then "${config.home.homeDirectory}/Library/Application Support/sops/age/keys.txt"
+    else "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
   xdg.enable = pkgs.stdenv.isLinux;
 

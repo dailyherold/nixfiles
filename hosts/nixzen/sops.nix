@@ -10,8 +10,8 @@
   # Two age key sources are registered; sops tries both:
   #   1. SSH host key (normal operation after rekeying):
   #        nix run nixpkgs#ssh-to-age -- < /etc/ssh/ssh_host_ed25519_key.pub
-  #      Add that output to nix-secrets/.sops.yaml and run: sops updatekeys secrets/shared.yaml
-  #   2. Dev age key (bootstrap / fresh install fallback):
+  #      Add that output to nix-secrets/.sops.yaml and run: sops updatekeys secrets/nixzen.yaml
+  #   2. Personal age key (bootstrap / fresh install fallback):
   #      Copy the personal age key to /root/.config/sops/age/keys.txt before nixos-install.
   #      Its public key is already in .sops.yaml so this works without rekeying.
   sops.defaultSopsFile = "${inputs.nix-secrets}/secrets/nixzen.yaml";

@@ -77,6 +77,40 @@ nix flake lock --update-input <input-name>
 - **Adding a new app/config**: ask the user whether it should also work on macOS (or other platforms). Add platform guards only where needed based on that answer and the APIs used
 - Platform-specific tool or config: add to `home-manager/<hostname>.nix` or use `lib.mkIf pkgs.stdenv.isLinux`/`isDarwin` guards in shared modules. Linux is the default — only guard where darwin actually breaks (Linux-only APIs, packages that don't build on darwin)
 
+## Secrets Management
+
+This repo uses a two-tier secrets approach via a private `nix-secrets` flake (see `flake.nix` for the input):
+
+### Secret classes
+1. **Soft secrets** — Non-encrypted eval-time values in `nix/personal.nix` (identity) or `nix/apis.nix` (API keys), exposed as `inputs.nix-secrets.personal.<key>` or `inputs.nix-secrets.apis.<key>`
+2. **Shared hard secrets** — Encrypted cross-host app/user secrets in `secrets/common.yaml`, decrypted by home-manager `sops-nix`
+3. **Host hard secrets** — Encrypted machine-specific secrets in `secrets/<hostname>.yaml`, decrypted by system `sops-nix`
+
+### Examples
+```nix
+# Soft secret (eval-time) — identity
+user.email = inputs.nix-secrets.personal.email;
+
+# Soft secret (eval-time) — API key (lands in Nix store; acceptable for revocable keys on single-user machines)
+apiKey = inputs.nix-secrets.apis.someServiceApiKey;
+
+# Shared hard secret (runtime) — use when store exposure is not acceptable
+sops.secrets.someSecret = {
+  sopsFile = "${inputs.nix-secrets}/secrets/common.yaml";
+};
+```
+
+### Workflow
+1. User will update secrets as needed using guidance from the private `nix-secrets` repo
+2. User has to push `nix-secrets`
+3. Run `nix flake update nix-secrets` in nixfiles repo to pull in changes
+4. Rebuild configuration
+
+### Key locations
+- **macOS home-manager sops**: `${config.home.homeDirectory}/Library/Application Support/sops/age/keys.txt`
+- **Linux home-manager sops**: `${config.home.homeDirectory}/.config/sops/age/keys.txt`
+- **NixOS system sops bootstrap**: `/root/.config/sops/age/keys.txt`
+
 ## CLI Tools
 
 - Use `gh` CLI for all GitHub operations (PRs, issues, releases, repos, API calls)
