@@ -16,6 +16,7 @@
     ./javascript.nix
     ./nvim.nix
     ./opencode.nix
+    ./pi.nix
     ./scarlett.nix
     ./starship.nix
     ./tmux.nix
