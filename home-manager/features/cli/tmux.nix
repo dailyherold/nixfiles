@@ -41,6 +41,9 @@
     ];
 
     extraConfig = ''
+      set -g extended-keys on
+      set -g extended-keys-format csi-u
+
       # truecolor passthrough for outer terminal
       set -as terminal-features ",xterm-256color:RGB"
 
