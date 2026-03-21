@@ -12,7 +12,6 @@
       fish_greeting = "";
     };
     shellInit = ''
-      fish_add_path ~/.bun/bin
       # awssaml: work-specific AWS SAML CLI tool (manually installed)
       fish_add_path ~/awssaml/bin
     '';

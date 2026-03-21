@@ -13,6 +13,7 @@
     ./gitlab.nix
     ./google.nix
     ./himalaya.nix
+    ./javascript.nix
     ./nvim.nix
     ./opencode.nix
     ./scarlett.nix
@@ -36,8 +37,6 @@
       jq # JSON pretty printer and manipulator
       alejandra # Nix formatter
       tree # tree list
-      bun # JavaScript runtime and package manager
-      nodejs # Node.js runtime
       uv # Python package and project manager
       python3Packages.markitdown # Convert files/URLs to Markdown (Microsoft)
     ]
