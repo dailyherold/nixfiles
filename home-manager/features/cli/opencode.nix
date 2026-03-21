@@ -54,17 +54,14 @@
               name = "portkey-gemini-3.1-pro";
             };
             # xAI
-            "@grok/grok-4-1-fast" = {
-              name = "portkey-grok-4-1-fast";
-            };
             "@grok/grok-4-1-fast-reasoning" = {
               name = "portkey-grok-4-1-fast-reasoning";
             };
-            "@grok/grok-4.20-beta-0309-reasoning" = {
-              name = "portkey-grok-4.20-beta-reasoning";
+            "@grok/grok-4.20" = {
+              name = "portkey-grok-4.20";
             };
-            "@grok/grok-code-fast-1" = {
-              name = "portkey-grok-code-fast-1";
+            "@grok/grok-4.20-reasoning" = {
+              name = "portkey-grok-4.20-reasoning";
             };
             # OpenAI
             "@openai/gpt-5-mini" = {
@@ -83,6 +80,11 @@
             apiKey = inputs.nix-secrets.apis.portkeyOpenCodeApiKey;
           };
           models = {
+            # xAI
+            "@grok/grok-4.20-multi-agent" = {
+              name = "portkey-grok-4.20-multi-agent";
+            };
+            # OpenAI
             "@openai/gpt-5.4-pro" = {
               name = "portkey-gpt-5.4-pro";
             };
