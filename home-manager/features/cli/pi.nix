@@ -108,7 +108,7 @@
           {
             id = "@grok/grok-4-1-fast-reasoning";
             name = "Grok 4.1 Fast (Reasoning)";
-            reasoning = true;
+            reasoning = false;
             input = ["text" "image"];
             contextWindow = 131072;
             maxTokens = 16384;
@@ -124,7 +124,7 @@
           {
             id = "@grok/grok-4.20-reasoning";
             name = "Grok 4.20 (Reasoning)";
-            reasoning = true;
+            reasoning = false;
             input = ["text" "image"];
             contextWindow = 131072;
             maxTokens = 16384;
