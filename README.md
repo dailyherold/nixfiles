@@ -73,37 +73,62 @@ This repo uses a private `nix-secrets` flake for secrets management, inspired by
 
 ## Clean Install
 
+Soft secrets are pulled from the private `nix-secrets` flake at build time over SSH. Before the first build, make sure SSH access to GitHub is in place.
+If any shared hard secrets are in use, also place your personal age key before building.
+
 ### NixOS
 
 ```bash
 # From live install media
-$ git clone https://github.com/dailyherold/nixfiles.git && cd nixfiles
-$ nix --extra-experimental-features 'nix-command flakes' develop # subshell with packages like home-manager (defined in shell.nix)
+# If git is not already available, use a temporary nix shell for it.
+$ mkdir ~/dev
+$ nix shell nixpkgs#git -c git clone https://github.com/dailyherold/nixfiles.git ~/dev/nixfiles
+$ cd ~/dev/nixfiles
+$ nix --extra-experimental-features 'nix-command flakes' develop # subshell with default packages (defined in shell.nix)
 $ nix flake upgrade # unless wanting to keep pinned, typically I'm wanting newest packages on install though
 
-# Format disk only (separate from install so we can place secrets before activation runs)
-$ sudo nix --extra-experimental-features 'nix-command flakes' run 'github:nix-community/disko#disko' -- --mode format --flake .#nixzen
+# Format + mount disk layout (separate from install so we can place secrets before activation runs)
+$ sudo nix --extra-experimental-features 'nix-command flakes' run github:nix-community/disko -- --mode disko hosts/nixzen/disks.nix
 
 # Place the personal age key (from password manager) onto the new root before install.
 # sops-nix needs it during activation to decrypt the user password secret.
 $ sudo mkdir -p /mnt/root/.config/sops/age
-$ sudo vim /mnt/root/.config/sops/age/keys.txt  # paste personal age private key, save
+$ sudo vim /mnt/root/.config/sops/age/keys.txt  # paste personal age private key
+$ sudo chmod 600 /mnt/root/.config/sops/age/keys.txt
 
-$ sudo nixos-install --flake .#nixzen
+# Temporarily add private SSH key for secrets repo pull
+$ sudo mkdir -p /root/.ssh
+$ sudo chmod 700 /root/.ssh
+$ sudo vim /root/.ssh/id_ed25519
+$ sudo chmod 600 /root/.ssh/id_ed25519
+
+# Set needed env vars for unfree/insecure packages at install time
+$ export NIXPKGS_ALLOW_UNFREE=1
+$ export NIXPKGS_ALLOW_INSECURE=1
+# --impure let's nix commands read env vars
+# --no-root-passwd because user password is brought in as a secret using sops
+$ sudo -E nixos-install --impure --flake .#nixzen --no-root-passwd
+
+# Clean up temporary live-environment SSH material before rebooting.
+$ sudo rm -rf /root/.ssh
 $ reboot
 
-# From install
-# Restore SSH private key from password manager to ~/.ssh/id_ed25519 (chmod 600) before
-# anything else — needed to fetch nix-secrets flake and push/pull via SSH.
-$ nix develop # subshell with git and other bootstrap tools
-$ git clone git@github.com:dailyherold/nixfiles.git && cd nixfiles
-$ home-manager switch -b backup --flake .#dailyherold@hostname # backup flag will backup then replace any existing config files from previously run system config (e.g. fish)
+# From installed system
+# Restore SSH private key from password manager to ~/.ssh/id_ed25519
+$ vim ~/.ssh/id_ed25519
+$ chmod 600 ~/.ssh/id_ed25519
+
+# If git is not yet available in the base user environment, use a temporary nix shell.
+$ mkdir ~/dev
+$ nix shell nixpkgs#git -c git clone git@github.com:dailyherold/nixfiles.git ~/dev/nixfiles
+$ cd ~/dev/nixfiles
+$ nix develop
+# backup flag will backup then replace any existing config files from previously run system config (e.g. fish)
+$ home-manager switch -b backup --flake .#dailyherold@nixzen
 ```
 
 ### macOS
 
-Soft secrets are pulled from the private `nix-secrets` flake at build time over SSH. Before the first build, make sure SSH access to GitHub is in place.
-If any shared hard secrets are in use, also place your personal age key before building.
 
 ```bash
 # Install Determinate Nix (https://docs.determinate.systems/determinate-nix/)
@@ -111,7 +136,8 @@ If any shared hard secrets are in use, also place your personal age key before b
 #   https://install.determinate.systems/determinate-pkg/stable/Universal
 
 # Clone the repo
-$ git clone https://github.com/dailyherold/nixfiles.git ~/dev/nixfiles && cd ~/dev/nixfiles
+$ mkdir ~/dev
+$ git clone git@github.com:dailyherold/nixfiles.git ~/dev/nixfiles && cd ~/dev/nixfiles
 
 # Place the personal age key used for shared hard secrets
 $ mkdir -p ~/Library/Application\ Support/sops/age

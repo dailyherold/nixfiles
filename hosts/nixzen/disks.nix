@@ -1,6 +1,10 @@
-# nvme0n1 (old failed): nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0X117437N
+# nvme0n1 (front slot): nvme-Samsung_SSD_990_PRO_1TB_S7LANL0L311673X
 # nvme1n1 (surviving rear slot): nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0TA11848P
-# replacement front slot: nvme-Samsung_SSD_990_PRO_1TB_S7LANL0L311673X
+# Boot redundancy note:
+# this creates ESPs on both drives, but firmware boot entries are not declarative. Add the rear-disk UEFI entry once with:
+#   sudo nix shell nixpkgs#efibootmgr -c efibootmgr --create --disk /dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0TA11848P --part 1 --label 'NixOS (rear ESP)' --loader '\EFI\systemd\systemd-bootx64.efi'
+# validate with:
+#   sudo nix shell nixpkgs#efibootmgr -c efibootmgr --verbose
 {
   disko.devices = {
     disk = {
