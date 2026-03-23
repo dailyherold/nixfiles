@@ -28,7 +28,9 @@
 
   # Override the bootstrap initialPassword with the sops-managed hashed password.
   # Any NixOS host with sops configured should do the same for its user.
-  # To generate the value: mkpasswd -m sha-512 (store result in sops secrets)
+  # To generate the value, use a SHA-512 crypt hash such as:
+  #   openssl passwd -6
+  # Store the resulting hash string in sops, not the plaintext password.
   users.users.dailyherold.hashedPasswordFile =
     config.sops.secrets."users/dailyherold/password".path;
 }

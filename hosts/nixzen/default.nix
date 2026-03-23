@@ -138,6 +138,47 @@
 
   # Set your hostname
   networking.hostName = "nixzen";
+  networking.hostId = "8425e349";
+
+  boot = {
+    loader.efi.efiSysMountPoint = "/boot";
+    supportedFilesystems = ["zfs"];
+    zfs = {
+      forceImportRoot = false;
+      devNodes = "/dev/disk/by-id";
+    };
+  };
+
+  swapDevices = [
+    {
+      device = "/dev/disk/by-partlabel/disk-rear-swap";
+    }
+  ];
+
+  services.zfs = {
+    autoScrub.enable = true;
+    trim.enable = true;
+  };
+
+  system.activationScripts.esp-mirror = {
+    deps = [];
+    text = ''
+      if [ -d /boot ] && [ -d /boot2 ]; then
+        ${pkgs.rsync}/bin/rsync -a --delete /boot/ /boot2/ || true
+      fi
+    '';
+  };
+
+  systemd.services.esp-mirror = {
+    description = "Mirror primary ESP to secondary ESP";
+    wantedBy = ["multi-user.target"];
+    after = ["boot.mount" "boot2.mount"];
+    requires = ["boot.mount" "boot2.mount"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.rsync}/bin/rsync -a --delete /boot/ /boot2/";
+    };
+  };
 
   # Package/program installs
   programs.steam = {
