@@ -88,6 +88,9 @@
       bind o select-pane -t :.+
       bind O select-pane -t :.-
 
+      # Cycle Layouts
+      bind C-space next-layout
+
       # Resize Panes
       bind -r   h resize-pane -L 2
       bind -r C-h resize-pane -L 10

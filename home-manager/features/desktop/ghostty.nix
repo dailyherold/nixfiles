@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }: {
   programs.ghostty = {
@@ -9,6 +10,8 @@
     enableFishIntegration = true;
     settings = {
       background-opacity = 0.80;
+      font-family = config.fontProfiles.monospace.family;
+      font-size = 10;
     };
   };
 
