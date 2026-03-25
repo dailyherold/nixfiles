@@ -21,6 +21,7 @@
   sops.age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
 
   xdg.enable = pkgs.stdenv.isLinux;
+  xdg.mimeApps.enable = pkgs.stdenv.isLinux;
 
   # Theme
   catppuccin.flavor = "mocha";
