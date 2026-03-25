@@ -107,9 +107,39 @@ sops.secrets.someSecret = {
 4. Rebuild configuration
 
 ### Key locations
-- **macOS home-manager sops**: `${config.home.homeDirectory}/Library/Application Support/sops/age/keys.txt`
-- **Linux home-manager sops**: `${config.home.homeDirectory}/.config/sops/age/keys.txt`
+- **macOS/Linux home-manager sops**: `${config.home.homeDirectory}/.config/sops/age/keys.txt`
 - **NixOS system sops bootstrap**: `/root/.config/sops/age/keys.txt`
+
+## Post-install Warnings
+
+Some features require one-time manual setup per machine that Nix cannot automate (runtime-generated credentials, certs, etc.). Use activation scripts to surface these as visible warnings during builds rather than inline comments.
+
+**NixOS system-level** — use `system.activationScripts` in the relevant host config:
+```nix
+system.activationScripts.checkFoo = {
+  deps = [];
+  text = ''
+    if [ ! -f "/some/indicator" ]; then
+      echo ""
+      echo "WARNING: foo not set up. Run: ..."
+      echo ""
+    fi
+  '';
+};
+```
+
+**Home-manager user-level** — use `home.activation` with a DAG dependency:
+```nix
+home.activation.checkFoo = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  if [ ! -f "${config.home.homeDirectory}/.some/indicator" ]; then
+    echo ""
+    echo "WARNING: foo not set up. Run: ..."
+    echo ""
+  fi
+'';
+```
+
+**Existing examples**: `atuin.nix` (login check), `protonmail-bridge.nix` (login + cert), `common.nix` (sops age key), `hosts/nixzen/default.nix` (rear ESP EFI entry).
 
 ## CLI Tools
 

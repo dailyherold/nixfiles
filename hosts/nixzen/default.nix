@@ -151,6 +151,19 @@
     trim.enable = true;
   };
 
+  system.activationScripts.checkRearEsp = {
+    deps = [];
+    text = ''
+      if ! ${pkgs.efibootmgr}/bin/efibootmgr 2>/dev/null | grep -q "NixOS (rear ESP)"; then
+        echo ""
+        echo "WARNING: Rear ESP not registered as EFI boot entry."
+        echo "Run once to register:"
+        echo "  sudo efibootmgr --create --disk /dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S73VNJ0TA11848P --part 1 --label \"NixOS (rear ESP)\" --loader /EFI/systemd/systemd-bootx64.efi"
+        echo ""
+      fi
+    '';
+  };
+
   system.activationScripts.esp-mirror = {
     deps = [];
     text = ''

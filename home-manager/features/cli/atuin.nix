@@ -1,7 +1,18 @@
-{pkgs, ...}: {
-  # To login:
-  # $ atuin login -u <USERNAME>
-  # See Bitwarden for username and key
+{
+  lib,
+  pkgs,
+  ...
+}: {
+  home.activation.checkAtuinLogin = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if ! ${pkgs.atuin}/bin/atuin status 2>/dev/null | grep -q "Username:"; then
+      echo ""
+      echo "WARNING: atuin not logged in. History will not sync until you run:"
+      echo "  atuin login -u <USERNAME>"
+      echo "See Bitwarden for username and encryption key."
+      echo ""
+    fi
+  '';
+
   programs.atuin = {
     enable = true;
     enableFishIntegration = true;

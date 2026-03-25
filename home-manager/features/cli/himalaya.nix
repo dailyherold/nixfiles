@@ -12,13 +12,8 @@
     else "cat /run/secrets/proton-bridge/password";
 
   # Exported Bridge TLS cert for IMAP fingerprint pinning (himalaya v1.2.0 / io-imap).
-  # One-time setup per machine after Bridge is running and logged in:
-  #   launchctl unload .../protonmail-bridge.plist   # stop Bridge
-  #   protonmail-bridge --cli
-  #   > cert export ~/.config/protonmail/bridge-cert.pem
-  #   > exit
-  #   launchctl load .../protonmail-bridge.plist     # restart Bridge
-  bridgeCert = "${config.home.homeDirectory}/.config/protonmail/bridge-cert.pem";
+  # One-time setup is handled by the activation check in protonmail-bridge.nix.
+  bridgeCert = "${config.home.homeDirectory}/.config/protonmail/cert.pem";
 in {
   programs.himalaya.enable = true;
 
@@ -43,21 +38,6 @@ in {
       account default : proton
     '';
   };
-
-  # Warn on rebuild if the cert file hasn't been exported yet.
-  home.activation.checkBridgeCert = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    if [ ! -f "${bridgeCert}" ]; then
-      echo ""
-      echo "WARNING: Proton Bridge cert missing at ${bridgeCert}"
-      echo "IMAP will fail until you run (once per machine):"
-      echo "  launchctl unload ~/Library/LaunchAgents/org.nix-community.home.protonmail-bridge.plist"
-      echo "  protonmail-bridge --cli"
-      echo "  > cert export ${bridgeCert}"
-      echo "  > exit"
-      echo "  launchctl load ~/Library/LaunchAgents/org.nix-community.home.protonmail-bridge.plist"
-      echo ""
-    fi
-  '';
 
   accounts.email.accounts.proton = {
     enable = true;

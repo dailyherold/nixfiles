@@ -14,11 +14,21 @@
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
-  sops.age.keyFile =
-    if pkgs.stdenv.isDarwin
-    then "${config.home.homeDirectory}/Library/Application Support/sops/age/keys.txt"
-    else "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+  sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
   sops.age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
+
+  home.activation.checkSopsAgeKey = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [ ! -s "${config.sops.age.keyFile}" ]; then
+      echo ""
+      echo "WARNING: No user sops age key found at ${config.sops.age.keyFile}"
+      echo "Running 'sops' CLI as your user will fail without it."
+      echo "Copy the personal age key from Bitwarden:"
+      echo "  mkdir -p ${builtins.dirOf config.sops.age.keyFile}"
+      echo "  echo 'AGE-SECRET-KEY-1...' > ${config.sops.age.keyFile}"
+      echo "  chmod 600 ${config.sops.age.keyFile}"
+      echo ""
+    fi
+  '';
 
   xdg.enable = pkgs.stdenv.isLinux;
   xdg.mimeApps.enable = pkgs.stdenv.isLinux;
