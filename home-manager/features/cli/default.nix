@@ -20,7 +20,6 @@
     ./scarlett.nix
     ./starship.nix
     ./tmux.nix
-    ./zellij.nix
     ./glow.nix
     ./protonmail-bridge.nix
   ];

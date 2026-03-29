@@ -2,18 +2,7 @@
   lib,
   pkgs,
   ...
-}: let
-  kitty-scrollback-nvim = pkgs.vimUtils.buildVimPlugin rec {
-    name = "kitty-scrollback-nvim";
-    version = "5.0.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "mikesmithgh";
-      repo = "kitty-scrollback.nvim";
-      rev = "v${version}";
-      hash = "sha256-TV++v8aH0Vi9UZEdTT+rUpu6HKAfhu04EwAgGbfk614=";
-    };
-  };
-in {
+}: {
   home.sessionVariables.EDITOR = "nvim";
 
   programs.neovim = {
@@ -71,13 +60,6 @@ in {
         config = ''
           -- Ghostty sends <BS> for <C-h>; map both to navigate left
           vim.keymap.set('n', '<BS>', '<cmd>TmuxNavigateLeft<CR>', { noremap = true, silent = true })
-        '';
-      }
-      {
-        plugin = kitty-scrollback-nvim;
-        type = "lua";
-        config = ''
-          require("kitty-scrollback").setup()
         '';
       }
       {

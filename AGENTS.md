@@ -25,7 +25,7 @@ home-manager/
   common.nix                       # Shared user config (git, vim, catppuccin, CLI features)
   nixzen.nix                       # NixOS home config → imports common.nix + desktop + virt
   Mac-K74WPYK2.nix                 # macOS home config → imports common.nix + selective desktop modules
-  features/cli/                    # Cross-platform CLI tools (fish, nvim, starship, atuin, zellij)
+  features/cli/                    # Cross-platform CLI tools (fish, nvim, starship, atuin, tmux)
   features/desktop/                # GUI apps; default.nix is NixOS bundle, individual modules cherry-picked elsewhere
 modules/home-manager/              # Reusable home-manager modules (fonts)
 ```

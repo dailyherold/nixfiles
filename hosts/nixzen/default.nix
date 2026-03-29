@@ -202,7 +202,6 @@
   };
 
   environment.systemPackages = [
-    pkgs.aider-chat
     pkgs.bubblewrap # user-space sandbox for agent task isolation (nix-sandbox skill)
     pkgs.alsa-scarlett-gui
     pkgs.appimage-run

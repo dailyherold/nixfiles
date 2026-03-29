@@ -53,7 +53,7 @@ with lib.hm.gvariant; {
 
     "org/gnome/shell" = {
       enabled-extensions = ["pop-shell@system76.com" "pano@elhan.io"];
-      favorite-apps = ["element-desktop.desktop" "firefox.desktop" "slack.desktop" "kitty.desktop"];
+      favorite-apps = ["element-desktop.desktop" "firefox.desktop" "slack.desktop" "com.mitchellh.ghostty.desktop"];
     };
 
     "org/gnome/shell/extensions/pop-shell" = {
