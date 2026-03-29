@@ -44,10 +44,23 @@
     ];
   };
 
+  # Commit message template
+  home.file.".gitcommit.txt".text = ''
+    <=50char imperative subject line
+
+    what and why
+  '';
+
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
+    includes = [
+      {
+        condition = "gitdir:~/dev/work/sembi/";
+        path = "~/dev/work/sembi/.gitconfig";
+      }
+    ];
     settings = {
       aliases = {
         st = "status";
@@ -58,7 +71,10 @@
       user.name = "dailyherold";
       user.useConfigOnly = true;
       core.editor = "nvim";
+      core.commentChar = ";";
+      pull.ff = "only";
       color.ui = true;
+      commit.template = "~/.gitcommit.txt";
       diff.tool = "diffsitter";
       difftool.prompt = false;
       difftool.diffsitter.cmd = "diffsitter \"$LOCAL\" \"$REMOTE\"";
