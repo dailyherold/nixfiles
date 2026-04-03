@@ -68,7 +68,7 @@
         hist = "log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short";
       };
       user.email = "git@dailyherold.simplelogin.com";
-      user.name = "dailyherold";
+      user.name = "John Paul Herold";
       user.useConfigOnly = true;
       core.editor = "nvim";
       core.commentChar = ";";
