@@ -10,6 +10,7 @@
     ./claude.nix
     ./fish.nix
     ./github.nix
+    ./kiro.nix
     ./gitlab.nix
     ./google.nix
     ./himalaya.nix
