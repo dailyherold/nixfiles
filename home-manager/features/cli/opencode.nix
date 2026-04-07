@@ -12,9 +12,9 @@
 
   programs.opencode = {
     enable = true;
+    tui.theme = "system";
     settings = {
       "$schema" = "https://opencode.ai/config.json";
-      theme = "system";
       provider = {
         portkey = {
           npm = "@ai-sdk/openai-compatible";

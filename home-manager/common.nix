@@ -55,6 +55,10 @@
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
+    # home.stateVersion = "24.05" causes HM to default signing.format to "openpgp" for
+    # backwards compatibility. Explicitly set null to adopt new default and silence warning.
+    # We don't use commit signing — revisit if we want to set up SSH signing in the future.
+    signing.format = null;
     includes = [
       {
         condition = "gitdir:~/dev/work/sembi/";
