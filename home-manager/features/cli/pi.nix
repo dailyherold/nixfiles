@@ -150,6 +150,7 @@
           {
             id = "@openai/gpt-5.4";
             name = "GPT-5.4";
+            api = "openai-responses";
             reasoning = true;
             input = ["text" "image"];
             contextWindow = 128000;

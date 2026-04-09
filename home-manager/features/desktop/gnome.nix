@@ -80,4 +80,13 @@ with lib.hm.gvariant; {
     # Clipboard manager
     gnomeExtensions.pano
   ];
+
+  # Nautilus right-click script to copy full file path to clipboard
+  home.file.".local/share/nautilus/scripts/Copy Path" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      printf '%s' "$NAUTILUS_SCRIPT_SELECTED_FILE_PATHS" | tr -d '\n' | ${pkgs.wl-clipboard}/bin/wl-copy
+    '';
+  };
 }
