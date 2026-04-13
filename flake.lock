@@ -300,10 +300,10 @@
     },
     "nix-secrets": {
       "locked": {
-        "lastModified": 1774413876,
-        "narHash": "sha256-icyC4npBo1qRkcD52WxzAUbfLb2GGg+Gw5zHEbdXGsU=",
+        "lastModified": 1776024327,
+        "narHash": "sha256-TR70c24trgkF4W7ascuMBHnF6ZP+bgSyBX9E4vnbfjs=",
         "ref": "refs/heads/main",
-        "rev": "6d6dc5155dcd123db026296b1cad3445fd8703ff",
+        "rev": "4757651dadf054ef2393cf53996bfbeaf37ca7f9",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/dailyherold/nix-secrets"

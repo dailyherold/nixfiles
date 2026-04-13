@@ -29,6 +29,61 @@
   # Model IDs match opencode's working Portkey config (@provider/model format).
   home.file.".pi/agent/models.json".text = builtins.toJSON {
     providers = {
+      "sembi-litellm" = {
+        baseUrl = inputs.nix-secrets.apis.sembiLiteLLMUrl;
+        api = "openai-completions";
+        apiKey = inputs.nix-secrets.apis.sembiLiteLLMKey;
+        compat = {
+          supportsStore = false;
+          supportsDeveloperRole = false;
+          supportsReasoningEffort = false;
+          maxTokensField = "max_tokens";
+        };
+        models = [
+          {
+            id = "claude-sonnet-4-6";
+            name = "sembi-claude-sonnet-4-6";
+            reasoning = false;
+            input = ["text" "image"];
+            contextWindow = 200000;
+            maxTokens = 8192;
+            cost = {
+              input = 0;
+              output = 0;
+              cacheRead = 0;
+              cacheWrite = 0;
+            };
+          }
+          {
+            id = "claude-opus-4-6";
+            name = "sembi-claude-opus-4-6";
+            reasoning = false;
+            input = ["text" "image"];
+            contextWindow = 200000;
+            maxTokens = 8192;
+            cost = {
+              input = 0;
+              output = 0;
+              cacheRead = 0;
+              cacheWrite = 0;
+            };
+          }
+          {
+            id = "claude-haiku-4-5-20251001";
+            name = "sembi-claude-haiku-4-5-20251001";
+            reasoning = false;
+            input = ["text" "image"];
+            contextWindow = 200000;
+            maxTokens = 8192;
+            cost = {
+              input = 0;
+              output = 0;
+              cacheRead = 0;
+              cacheWrite = 0;
+            };
+          }
+        ];
+      };
       portkey = {
         baseUrl = "https://api.portkey.ai/v1";
         api = "openai-completions";

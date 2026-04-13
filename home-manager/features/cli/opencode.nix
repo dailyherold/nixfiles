@@ -90,6 +90,25 @@
             };
           };
         };
+        sembi = {
+          npm = "@ai-sdk/openai-compatible";
+          name = "Sembi-LiteLLM";
+          options = {
+            baseURL = inputs.nix-secrets.apis.sembiLiteLLMUrl;
+            apiKey = inputs.nix-secrets.apis.sembiLiteLLMKey;
+          };
+          models = {
+            "claude-sonnet-4-6" = {
+              name = "sembi-claude-sonnet-4-6";
+            };
+            "claude-opus-4-6" = {
+              name = "sembi-claude-opus-4-6";
+            };
+            "claude-haiku-4-5-20251001" = {
+              name = "sembi-claude-haiku-4-5-20251001";
+            };
+          };
+        };
         helicone = {
           npm = "@ai-sdk/openai-compatible";
           name = "Helicone";
