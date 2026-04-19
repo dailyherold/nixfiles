@@ -36,6 +36,9 @@
             "@claude/claude-opus-4-6" = {
               name = "portkey-claude-opus-4-6";
             };
+            "@claude/claude-opus-4-7" = {
+              name = "portkey-claude-opus-4-7";
+            };
             # Open Source
             "@fireworks/accounts/fireworks/models/kimi-k2p5" = {
               name = "portkey-kimi-2.5";
@@ -64,8 +67,8 @@
               name = "portkey-grok-4.20-reasoning";
             };
             # OpenAI
-            "@openai/gpt-5-mini" = {
-              name = "portkey-gpt-5-mini";
+            "@openai/gpt-5.4-mini" = {
+              name = "portkey-gpt-5.4-mini";
             };
             "@openai/gpt-5.4" = {
               name = "portkey-gpt-5.4";

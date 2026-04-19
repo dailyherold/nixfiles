@@ -56,10 +56,10 @@
           {
             id = "claude-sonnet-4-6";
             name = "sembi-claude-sonnet-4-6";
-            reasoning = false;
+            reasoning = true;
             input = ["text" "image"];
-            contextWindow = 200000;
-            maxTokens = 8192;
+            contextWindow = 1000000;
+            maxTokens = 64000;
             cost = {
               input = 0;
               output = 0;
@@ -70,10 +70,10 @@
           {
             id = "claude-opus-4-6";
             name = "sembi-claude-opus-4-6";
-            reasoning = false;
+            reasoning = true;
             input = ["text" "image"];
-            contextWindow = 200000;
-            maxTokens = 8192;
+            contextWindow = 1000000;
+            maxTokens = 128000;
             cost = {
               input = 0;
               output = 0;
@@ -84,10 +84,10 @@
           {
             id = "claude-haiku-4-5-20251001";
             name = "sembi-claude-haiku-4-5-20251001";
-            reasoning = false;
+            reasoning = true;
             input = ["text" "image"];
             contextWindow = 200000;
-            maxTokens = 8192;
+            maxTokens = 64000;
             cost = {
               input = 0;
               output = 0;
@@ -109,26 +109,34 @@
           {
             id = "@claude/claude-haiku-4-5-20251001";
             name = "Claude Haiku 4.5";
-            reasoning = false;
+            reasoning = true;
             input = ["text" "image"];
             contextWindow = 200000;
-            maxTokens = 16384;
+            maxTokens = 64000;
           }
           {
             id = "@claude/claude-sonnet-4-6";
             name = "Claude Sonnet 4.6";
-            reasoning = false;
+            reasoning = true;
             input = ["text" "image"];
-            contextWindow = 200000;
-            maxTokens = 16384;
+            contextWindow = 1000000;
+            maxTokens = 64000;
           }
           {
             id = "@claude/claude-opus-4-6";
             name = "Claude Opus 4.6";
+            reasoning = true;
+            input = ["text" "image"];
+            contextWindow = 1000000;
+            maxTokens = 128000;
+          }
+          {
+            id = "@claude/claude-opus-4-7";
+            name = "Claude Opus 4.7";
             reasoning = false;
             input = ["text" "image"];
-            contextWindow = 200000;
-            maxTokens = 16384;
+            contextWindow = 1000000;
+            maxTokens = 128000;
           }
           # Open Source
           {
@@ -208,8 +216,8 @@
           }
           # OpenAI
           {
-            id = "@openai/gpt-5-mini";
-            name = "GPT-5 Mini";
+            id = "@openai/gpt-5.4-mini";
+            name = "GPT-5.4 Mini";
             reasoning = true;
             input = ["text" "image"];
             contextWindow = 128000;
