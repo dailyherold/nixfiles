@@ -14,6 +14,7 @@
     shellInit = ''
       # awssaml: work-specific AWS SAML CLI tool (manually installed)
       fish_add_path ~/awssaml/bin
+      fish_add_path ~/.local/bin
     '';
   };
 

@@ -158,6 +158,7 @@
       };
       model = "portkey/@claude/claude-sonnet-4-6";
       small_model = "portkey/@gemini/gemini-3.1-flash-lite-preview";
+      plugin = [ "@plannotator/opencode@latest" ];
     };
   };
 }

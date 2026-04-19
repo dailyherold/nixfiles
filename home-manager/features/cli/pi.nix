@@ -1,6 +1,19 @@
 # pi coding agent (https://shittycodingagent.ai/)
-# Installed manually: npm install -g @mariozechner/pi-coding-agent
+#
+# Out-of-band installs (not managed by nix):
+#   pi itself:    npm install -g @mariozechner/pi-coding-agent
+#   pi update:    npm update -g @mariozechner/pi-coding-agent
+#
+# Extensions are declared in settings.json below (packages = [...]).
+# The home.activation block installs them on first switch.
+# To add more extensions: add to the packages list, then run:
+#   home-manager switch
+# To install/update extensions manually:
+#   pi install npm:<package>    # install and persist to settings.json
+#   pi update                   # update all installed extensions
+#   pi list                     # list installed extensions
 {
+  lib,
   config,
   inputs,
   ...
@@ -230,5 +243,35 @@
     defaultProvider = "portkey";
     defaultModel = "@claude/claude-sonnet-4-6";
     theme = "dark";
+    packages = [{source = "npm:@plannotator/pi-extension";}];
   };
+
+  # Install plannotator pi extension into global npm if not already present.
+  # Pi resolves extensions via `npm root -g`, so the package must exist on disk.
+  home.activation.piPlannotator = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [[ ! -d "$HOME/.npm-global/lib/node_modules/@plannotator/pi-extension" ]]; then
+      $HOME/.npm-global/bin/npm install -g @plannotator/pi-extension
+    fi
+  '';
+
+  # Plannotator is used across multiple agent harnesses, but its installer can
+  # clobber Pi-managed state. Keep the warnings here because the consequences
+  # below are Pi-specific.
+  home.activation.piPlannotatorWarnings = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [[ -d "$HOME/.agents" ]]; then
+      echo ""
+      echo "WARNING: Plannotator installer left ~/.agents behind."
+      echo "If this is stale, remove it with: rm -rf ~/.agents"
+      echo ""
+    fi
+
+    if [[ -d "$HOME/.claude/skills/plannotator-compound" ]]; then
+      echo ""
+      echo "WARNING: Plannotator installer created ~/.claude/skills/plannotator-compound."
+      echo "This repo expects Claude skills to be managed via ~/dev/ai/skills/setup.sh."
+      echo "If this is stale, remove it with:"
+      echo "  rm -rf ~/.claude/skills/plannotator-compound"
+      echo ""
+    fi
+  '';
 }

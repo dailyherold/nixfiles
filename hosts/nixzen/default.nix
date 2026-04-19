@@ -127,6 +127,9 @@
   # https://nixos.wiki/wiki/Appimage
   programs.appimage.binfmt = true;
 
+  # Enable nix-ld for running unpatched generic Linux binaries (e.g. plannotator)
+  programs.nix-ld.enable = true;
+
   # Set your hostname
   networking.hostName = "nixzen";
   networking.hostId = "8425e349";

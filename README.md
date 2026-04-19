@@ -162,6 +162,24 @@ This repo includes an `AGENTS.md` with conventions and structure documentation d
 - "What's different between nixzen and Mac-K74WPYK2?" — explains the config differences across hosts
 - "Update all flake inputs and rebuild" — runs the update and rebuild for your current platform
 
+### Manual AI Tooling
+
+A few agent-related tools are still installed out-of-band rather than declaratively.
+
+#### Plannotator
+Plannotator is currently being evaluated and may be installed manually into `~/.local/bin`.
+
+Typical update flow:
+
+```bash
+curl -fsSL https://plannotator.ai/install.sh | bash
+```
+
+Known installer side effects:
+- may create `~/.agents`
+- may create `~/.claude/skills/plannotator-compound`
+- requires a `home-manager switch` afterward to restore Pi-managed config such as `~/.pi/agent/settings.json`
+
 ## Troubleshooting
 
 - `cached failure of attribute`: Flake usage can cache eval errors leading to this ambiguous error without much context

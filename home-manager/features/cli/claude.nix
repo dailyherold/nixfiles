@@ -6,6 +6,20 @@
         CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1";
       };
       teammateMode = "tmux";
+      hooks = {
+        PermissionRequest = [
+          {
+            matcher = "ExitPlanMode";
+            hooks = [
+              {
+                type = "command";
+                command = "plannotator";
+                timeout = 345600;
+              }
+            ];
+          }
+        ];
+      };
     };
   };
 
