@@ -52,7 +52,7 @@ with lib.hm.gvariant; {
     };
 
     "org/gnome/shell" = {
-      enabled-extensions = ["pop-shell@system76.com" "pano@elhan.io"];
+      enabled-extensions = ["pop-shell@system76.com"];
       favorite-apps = ["element-desktop.desktop" "firefox.desktop" "slack.desktop" "com.mitchellh.ghostty.desktop"];
     };
 
@@ -62,23 +62,11 @@ with lib.hm.gvariant; {
       gap-inner = mkUint32 2;
       tile-by-default = true;
     };
-
-    "org/gnome/shell/extensions/pano" = {
-      send-notification-on-copy = false;
-      play-audio-on-copy = false;
-      show-indicator = false;
-      wiggle-indicator = false;
-      link-previews = false;
-      history-length = 20;
-    };
   };
 
   home.packages = with pkgs; [
     # Tiling
     gnomeExtensions.pop-shell
-
-    # Clipboard manager
-    gnomeExtensions.pano
   ];
 
   # Nautilus right-click script to copy full file path to clipboard

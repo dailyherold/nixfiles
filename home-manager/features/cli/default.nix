@@ -9,6 +9,7 @@
     ./aws.nix
     ./claude.nix
     ./fish.nix
+    ./gpaste.nix
     ./github.nix
     ./kiro.nix
     ./gitlab.nix
