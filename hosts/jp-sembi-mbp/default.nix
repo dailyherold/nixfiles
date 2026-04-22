@@ -1,10 +1,10 @@
-# nix-darwin system configuration for Mac-K74WPYK2
+# nix-darwin system configuration for jp-sembi-mbp
 {
   pkgs,
   inputs,
   ...
 }: let
-  swaId = inputs.nix-secrets.personal.swaId;
+  sembiId = inputs.nix-secrets.personal.sembiId;
 in {
   nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs.config.allowUnfree = true;
@@ -13,11 +13,11 @@ in {
   nix.enable = false;
 
   # User
-  system.primaryUser = swaId;
-  users.knownUsers = [swaId];
-  users.users.${swaId} = {
-    home = "/Users/${swaId}";
-    uid = 503;
+  system.primaryUser = sembiId;
+  users.knownUsers = [sembiId];
+  users.users.${sembiId} = {
+    home = "/Users/${sembiId}";
+    uid = 501;
     shell = pkgs.fish;
   };
 

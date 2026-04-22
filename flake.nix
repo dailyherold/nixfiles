@@ -118,10 +118,10 @@
     # Available through 'darwin-rebuild switch --flake .#your-hostname'
     darwinConfigurations = {
       # Work MacBook Air
-      "Mac-K74WPYK2" = nix-darwin.lib.darwinSystem {
+      "jp-sembi-mbp" = nix-darwin.lib.darwinSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./hosts/Mac-K74WPYK2
+          ./hosts/jp-sembi-mbp
           home-manager.darwinModules.home-manager
           {nixpkgs.overlays = [himalayaOverlay];}
           {
@@ -129,9 +129,9 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            home-manager.users.${inputs.nix-secrets.personal.swaId} = {
+            home-manager.users.${inputs.nix-secrets.personal.sembiId} = {
               imports = [
-                ./home-manager/Mac-K74WPYK2.nix
+                ./home-manager/jp-sembi-mbp.nix
                 catppuccin.homeModules.catppuccin
               ];
             };
