@@ -135,6 +135,9 @@ $ home-manager switch -b backup --flake .#dailyherold@nixzen
 # Download and run the macOS graphical installer:
 #   https://install.determinate.systems/determinate-pkg/stable/Universal
 
+# Install brew
+# Install git
+
 # Clone the repo
 $ mkdir ~/dev
 $ git clone git@github.com:dailyherold/nixfiles.git ~/dev/nixfiles && cd ~/dev/nixfiles
@@ -144,10 +147,10 @@ $ mkdir -p ~/Library/Application\ Support/sops/age
 $ vim ~/Library/Application\ Support/sops/age/keys.txt
 
 # First build (bootstraps nix-darwin)
-$ sudo nix run nix-darwin -- switch --flake ~/dev/nixfiles#jp-sembi-mbp
+$ sudo nix run nix-darwin -- switch --flake .#jp-sembi-mbp
 
 # Subsequent rebuilds
-$ sudo darwin-rebuild switch --flake ~/dev/nixfiles#jp-sembi-mbp
+$ sudo darwin-rebuild switch --flake .#jp-sembi-mbp
 ```
 
 ## Working with AI Agents
