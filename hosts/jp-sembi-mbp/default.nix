@@ -35,6 +35,7 @@ in {
     casks = [
       "element"
       "ghostty"
+      "hyperkey"
       "obs"
     ];
     brews = [

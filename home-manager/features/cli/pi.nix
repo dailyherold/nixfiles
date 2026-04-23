@@ -16,6 +16,7 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }: {
   home.sessionVariables = {
@@ -254,11 +255,26 @@
     packages = [{source = "npm:@plannotator/pi-extension";}];
   };
 
+  # Post-install warning: pi must be installed out-of-band before the
+  # plannotator extension can be installed.
+  home.activation.checkPiInstall = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if ! command -v pi &> /dev/null && [[ ! -f "$HOME/.npm-global/bin/pi" ]]; then
+      echo ""
+      echo "WARNING: pi not installed. Install it first with:"
+      echo "  npm install -g @mariozechner/pi-coding-agent"
+      echo "Then re-run: darwin-rebuild switch --flake .#jp-sembi-mbp"
+      echo ""
+    fi
+  '';
+
   # Install plannotator pi extension into global npm if not already present.
   # Pi resolves extensions via `npm root -g`, so the package must exist on disk.
+  # Only runs if pi is already installed; skipped silently otherwise.
   home.activation.piPlannotator = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    if [[ ! -d "$HOME/.npm-global/lib/node_modules/@plannotator/pi-extension" ]]; then
-      $HOME/.npm-global/bin/npm install -g @plannotator/pi-extension
+    if command -v pi &> /dev/null || [[ -f "$HOME/.npm-global/bin/pi" ]]; then
+      if [[ ! -d "$HOME/.npm-global/lib/node_modules/@plannotator/pi-extension" ]]; then
+        PATH="${pkgs.nodejs}/bin:$PATH" ${pkgs.nodejs}/bin/npm install -g @plannotator/pi-extension
+      fi
     fi
   '';
 

@@ -14,7 +14,10 @@
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
-  sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+  sops.age.keyFile =
+    if pkgs.stdenv.isDarwin
+    then "${config.home.homeDirectory}/Library/Application Support/sops/age/keys.txt"
+    else "${config.home.homeDirectory}/.config/sops/age/keys.txt";
   sops.age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
 
   home.activation.checkSopsAgeKey = lib.hm.dag.entryAfter ["writeBoundary"] ''
