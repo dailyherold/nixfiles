@@ -2,7 +2,7 @@
 
 When making structural changes to this repo, update both this file and README.md to reflect the change.
 
-Multi-platform Nix configuration: NixOS desktop (`nixzen`) + macOS via nix-darwin (`Mac-K74WPYK2`), with home-manager for user config across both.
+Multi-platform Nix configuration: NixOS desktop (`nixzen`) + macOS via nix-darwin (`jp-sembi-mbp`), with home-manager for user config across both.
 
 ## Agent Constraints
 
@@ -19,12 +19,12 @@ Multi-platform Nix configuration: NixOS desktop (`nixzen`) + macOS via nix-darwi
 flake.nix                          # Entrypoint: inputs, nixos/darwin/home-manager outputs
 hosts/
   nixzen/                          # NixOS system config (x86_64-linux, AMD)
-  Mac-K74WPYK2/                    # nix-darwin system config (aarch64-darwin)
+  jp-sembi-mbp/                    # nix-darwin system config (aarch64-darwin)
   common/                          # Shared NixOS-only host modules (users, locale, network, etc.)
 home-manager/
   common.nix                       # Shared user config (git, vim, catppuccin, CLI features)
   nixzen.nix                       # NixOS home config → imports common.nix + desktop + virt
-  Mac-K74WPYK2.nix                 # macOS home config → imports common.nix + selective desktop modules
+  jp-sembi-mbp.nix                 # macOS home config → imports common.nix + selective desktop modules
   features/cli/                    # Cross-platform CLI tools (fish, nvim, starship, atuin, tmux)
   features/desktop/                # GUI apps; default.nix is NixOS bundle, individual modules cherry-picked elsewhere
 modules/home-manager/              # Reusable home-manager modules (fonts)
@@ -48,7 +48,7 @@ modules/home-manager/              # Reusable home-manager modules (fonts)
 sudo nixos-rebuild switch --flake .#nixzen
 
 # macOS (nix-darwin + home-manager) rebuild
-sudo darwin-rebuild switch --flake .#Mac-K74WPYK2
+sudo darwin-rebuild switch --flake .#jp-sembi-mbp
 
 # NixOS home-manager only
 home-manager switch --flake .#dailyherold@nixzen
@@ -67,7 +67,7 @@ nix flake lock --update-input <input-name>
 
 - Formatter: alejandra (run `nix fmt` after editing any `.nix` file)
 - Flake inputs track unstable/master branches
-- Single user: `dailyherold` (NixOS) / `e133949` (macOS)
+- Single user: `dailyherold` (NixOS) / `jp` (macOS)
 - Catppuccin mocha theme across all tools — see `STYLE.md` for the full theming and transparency model
 - New CLI tool (cross-platform, no config): add to `home-manager/features/cli/default.nix` packages list
 - New CLI tool (cross-platform, needs config): create `home-manager/features/cli/<tool>.nix`, import from `features/cli/default.nix`

@@ -8,13 +8,13 @@
   lib,
   ...
 }: {
-  home.packages = with pkgs; [
+  home.packages = lib.mkIf pkgs.stdenv.isLinux (with pkgs; [
     gpaste
-  ];
+  ]);
 
   # Match GPaste's packaged D-Bus/systemd integration exactly.
   # The D-Bus service files expect these exact unit names.
-  systemd.user.services."org.gnome.GPaste" = {
+  systemd.user.services."org.gnome.GPaste" = lib.mkIf pkgs.stdenv.isLinux {
     Unit = {
       Description = "GPaste daemon";
       PartOf = ["graphical-session.target"];
@@ -28,7 +28,7 @@
     Install.WantedBy = ["graphical-session.target"];
   };
 
-  systemd.user.services."org.gnome.GPaste.Ui" = {
+  systemd.user.services."org.gnome.GPaste.Ui" = lib.mkIf pkgs.stdenv.isLinux {
     Unit = {
       Description = "GPaste user interface";
     };

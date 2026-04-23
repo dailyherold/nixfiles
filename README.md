@@ -17,7 +17,7 @@ Given I'm the big nerd in my household, I have a relatively simple single-`daily
     - `input/`: input device config
     - `users/`: standard user config from any `../hostname/default.nix` config
   - `nixzen/`: NixOS desktop config
-  - `Mac-K74WPYK2/`: macOS (nix-darwin) config
+  - `jp-sembi-mbp/`: macOS (nix-darwin) config
 - `shell.nix`: use with `nix develop` for bootstrapping a machine
 
 ## Use
@@ -40,7 +40,7 @@ home-manager switch --flake .#dailyherold@hostname
 
 ```bash
 # Build and activate darwin + home-manager config
-sudo darwin-rebuild switch --flake .#Mac-K74WPYK2
+sudo darwin-rebuild switch --flake .#jp-sembi-mbp
 ```
 
 ### General
@@ -144,10 +144,10 @@ $ mkdir -p ~/Library/Application\ Support/sops/age
 $ vim ~/Library/Application\ Support/sops/age/keys.txt
 
 # First build (bootstraps nix-darwin)
-$ sudo nix run nix-darwin -- switch --flake ~/dev/nixfiles#Mac-K74WPYK2
+$ sudo nix run nix-darwin -- switch --flake ~/dev/nixfiles#jp-sembi-mbp
 
 # Subsequent rebuilds
-$ sudo darwin-rebuild switch --flake ~/dev/nixfiles#Mac-K74WPYK2
+$ sudo darwin-rebuild switch --flake ~/dev/nixfiles#jp-sembi-mbp
 ```
 
 ## Working with AI Agents
@@ -159,7 +159,7 @@ This repo includes an `AGENTS.md` with conventions and structure documentation d
 - "Add support for a new host" — walks through NixOS vs darwin setup, flake wiring, and which `features/cli/` and `features/desktop/` modules to include
 - "Add ghostty/firefox/obsidian to my config" — picks the right approach (HM module, `home.packages`, or Homebrew cask) and adds platform guards if needed
 - "Make this desktop module work on macOS too" — adds surgical platform guards only where darwin actually breaks
-- "What's different between nixzen and Mac-K74WPYK2?" — explains the config differences across hosts
+- "What's different between nixzen and jp-sembi-mbp?" — explains the config differences across hosts
 - "Update all flake inputs and rebuild" — runs the update and rebuild for your current platform
 
 ### Manual AI Tooling
