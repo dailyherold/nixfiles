@@ -215,10 +215,11 @@
             contextWindow = 131072;
             maxTokens = 16384;
           }
-          # OpenAI
+          # OpenAI (Responses API - max_completion_tokens instead of max_tokens)
           {
             id = "@openai/gpt-5.4-mini";
             name = "GPT-5.4 Mini";
+            api = "openai-responses";
             reasoning = true;
             input = ["text" "image"];
             contextWindow = 128000;

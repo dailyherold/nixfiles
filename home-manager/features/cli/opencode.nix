@@ -66,13 +66,6 @@
             "@grok/grok-4.20-reasoning" = {
               name = "portkey-grok-4.20-reasoning";
             };
-            # OpenAI
-            "@openai/gpt-5.4-mini" = {
-              name = "portkey-gpt-5.4-mini";
-            };
-            "@openai/gpt-5.4" = {
-              name = "portkey-gpt-5.4";
-            };
           };
         };
         portkey-responses = {
@@ -87,7 +80,13 @@
             "@grok/grok-4.20-multi-agent" = {
               name = "portkey-grok-4.20-multi-agent";
             };
-            # OpenAI
+            # OpenAI (Responses API - max_completion_tokens instead of max_tokens)
+            "@openai/gpt-5.4-mini" = {
+              name = "portkey-gpt-5.4-mini";
+            };
+            "@openai/gpt-5.4" = {
+              name = "portkey-gpt-5.4";
+            };
             "@openai/gpt-5.4-pro" = {
               name = "portkey-gpt-5.4-pro";
             };
@@ -161,7 +160,7 @@
       };
       model = "portkey/@claude/claude-sonnet-4-6";
       small_model = "portkey/@gemini/gemini-3.1-flash-lite-preview";
-      plugin = [ "@plannotator/opencode@latest" ];
+      plugin = ["@plannotator/opencode@latest"];
     };
   };
 }
