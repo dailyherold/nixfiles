@@ -141,8 +141,8 @@
           }
           # Open Source
           {
-            id = "@fireworks/accounts/fireworks/models/kimi-k2p5";
-            name = "Kimi K2.5";
+            id = "@fireworks/accounts/fireworks/models/kimi-k2p6";
+            name = "Kimi K2.6";
             reasoning = true;
             input = ["text"];
             contextWindow = 131072;

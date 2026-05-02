@@ -40,8 +40,8 @@
               name = "portkey-claude-opus-4-7";
             };
             # Open Source
-            "@fireworks/accounts/fireworks/models/kimi-k2p5" = {
-              name = "portkey-kimi-2.5";
+            "@fireworks/accounts/fireworks/models/kimi-k2p6" = {
+              name = "portkey-kimi-2.6";
             };
             # Google
             "@gemini/gemini-2.5-flash-lite" = {
