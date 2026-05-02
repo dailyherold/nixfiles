@@ -7,6 +7,8 @@
 
   programs.neovim = {
     enable = true;
+    withRuby = false;
+    withPython3 = false;
     initLua = ''
       -- Leader
       vim.g.mapleader = ' '
