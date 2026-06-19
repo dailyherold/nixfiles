@@ -37,6 +37,8 @@
   xdg.mimeApps.enable = pkgs.stdenv.isLinux;
 
   # Theme
+  catppuccin.enable = true;
+  catppuccin.autoEnable = false;
   catppuccin.flavor = "mocha";
 
   # Vim

@@ -158,6 +158,20 @@
           };
         };
       };
+      mcp = {
+        Testmo = {
+          type = "remote";
+          url = "https://testmo.sembi.com/mcp";
+        };
+        Atlassian-Sembi = {
+          type = "remote";
+          url = "https://mcp.atlassian.com/v1/mcp/authv2";
+        };
+        Atlassian-Gurock = {
+          type = "remote";
+          url = "https://mcp.atlassian.com/v1/mcp/authv2";
+        };
+      };
       model = "portkey/@claude/claude-sonnet-4-6";
       small_model = "portkey/@gemini/gemini-3.1-flash-lite-preview";
       plugin = ["@plannotator/opencode@latest"];
