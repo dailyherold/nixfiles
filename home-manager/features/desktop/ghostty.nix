@@ -12,6 +12,7 @@
       background-opacity = 0.80;
       font-family = config.fontProfiles.monospace.family;
       font-size = 10;
+      copy-on-select = false;
     };
   };
 

@@ -214,6 +214,7 @@
     pkgs.gimp
     pkgs.glibc
     pkgs.googleearth-pro
+    pkgs.handbrake
     pkgs.inkscape
     pkgs.makemkv
     pkgs.mtr
