@@ -55,8 +55,8 @@
         };
         models = [
           {
-            id = "claude-sonnet-4-6";
-            name = "sembi-claude-sonnet-4-6";
+            id = "claude-sonnet-5";
+            name = "sembi-claude-sonnet-5";
             reasoning = true;
             input = ["text" "image"];
             contextWindow = 1000000;
@@ -69,8 +69,8 @@
             };
           }
           {
-            id = "claude-opus-4-6";
-            name = "sembi-claude-opus-4-6";
+            id = "claude-opus-5";
+            name = "sembi-claude-opus-5";
             reasoning = true;
             input = ["text" "image"];
             contextWindow = 1000000;
@@ -83,12 +83,26 @@
             };
           }
           {
-            id = "claude-haiku-4-5-20251001";
-            name = "sembi-claude-haiku-4-5-20251001";
+            id = "claude-opus-4-7";
+            name = "sembi-claude-opus-4-7";
             reasoning = true;
             input = ["text" "image"];
-            contextWindow = 200000;
-            maxTokens = 64000;
+            contextWindow = 1000000;
+            maxTokens = 128000;
+            cost = {
+              input = 0;
+              output = 0;
+              cacheRead = 0;
+              cacheWrite = 0;
+            };
+          }
+          {
+            id = "claude-opus-4-8";
+            name = "sembi-claude-opus-4-8";
+            reasoning = true;
+            input = ["text" "image"];
+            contextWindow = 1000000;
+            maxTokens = 128000;
             cost = {
               input = 0;
               output = 0;

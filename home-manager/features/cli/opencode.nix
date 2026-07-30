@@ -100,14 +100,17 @@
             apiKey = inputs.nix-secrets.apis.sembiLiteLLMKey;
           };
           models = {
-            "claude-sonnet-4-6" = {
-              name = "sembi-claude-sonnet-4-6";
+            "claude-sonnet-5" = {
+              name = "sembi-claude-sonnet-5";
             };
-            "claude-opus-4-6" = {
-              name = "sembi-claude-opus-4-6";
+            "claude-opus-5" = {
+              name = "sembi-claude-opus-5";
             };
-            "claude-haiku-4-5-20251001" = {
-              name = "sembi-claude-haiku-4-5-20251001";
+            "claude-opus-4-7" = {
+              name = "sembi-claude-opus-4-7";
+            };
+            "claude-opus-4-8" = {
+              name = "sembi-claude-opus-4-8";
             };
           };
         };
