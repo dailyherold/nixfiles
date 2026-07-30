@@ -10,6 +10,7 @@
   imports =
     [
       inputs.sops-nix.homeManagerModules.sops
+      inputs.hunk.homeManagerModules.default
       ./features/cli
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);

@@ -23,6 +23,7 @@
     ./starship.nix
     ./tmux.nix
     ./glow.nix
+    ./hunk.nix
     ./keychain.nix
     ./protonmail-bridge.nix
   ];

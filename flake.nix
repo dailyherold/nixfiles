@@ -23,6 +23,12 @@
     # Catppuccin theme
     catppuccin.url = "github:catppuccin/nix";
 
+    # Hunk - git diff viewer
+    hunk = {
+      url = "github:modem-dev/hunk";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nix-darwin (macOS system management)
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
