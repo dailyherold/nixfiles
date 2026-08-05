@@ -1,8 +1,8 @@
 # pi coding agent (https://shittycodingagent.ai/)
 #
 # Out-of-band installs (not managed by nix):
-#   pi itself:    npm install -g @mariozechner/pi-coding-agent
-#   pi update:    npm update -g @mariozechner/pi-coding-agent
+#   pi itself:    npm install -g @earendil-works/pi-coding-agent
+#   pi update:    npm update -g @earendil-works/pi-coding-agent
 #
 # Extensions are declared in settings.json below (packages = [...]).
 # The home.activation block installs them on first switch.
@@ -28,7 +28,7 @@
   # __HM_SESS_VARS_SOURCED guard that prevents sessionVariables from being
   # re-read when environment is inherited across shells/sessions.
   programs.fish.shellInit = ''
-    set -gx PI_PACKAGE_DIR "${config.home.homeDirectory}/.npm-global/lib/node_modules/@mariozechner/pi-coding-agent"
+    set -gx PI_PACKAGE_DIR "${config.home.homeDirectory}/.npm-global/lib/node_modules/@earendil-works/pi-coding-agent"
   '';
 
   # Global instructions — same pattern as CLAUDE.md in claude.nix
@@ -276,7 +276,7 @@
     if ! command -v pi &> /dev/null && [[ ! -f "$HOME/.npm-global/bin/pi" ]]; then
       echo ""
       echo "WARNING: pi not installed. Install it first with:"
-      echo "  npm install -g @mariozechner/pi-coding-agent"
+      echo "  npm install -g @earendil-works/pi-coding-agent"
       echo "Then re-run: darwin-rebuild switch --flake .#jp-sembi-mbp"
       echo ""
     fi
