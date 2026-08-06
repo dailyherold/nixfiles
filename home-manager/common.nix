@@ -88,6 +88,26 @@
       diff.tool = "diffsitter";
       difftool.prompt = false;
       difftool.diffsitter.cmd = "diffsitter \"$LOCAL\" \"$REMOTE\"";
+      url."git@github.com-sembi:sembi-".insteadOf = "git@github.com:sembi-";
+    };
+  };
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    settings = {
+      "github.com" = {
+        HostName = "github.com";
+        User = "git";
+        IdentityFile = "~/.ssh/id_ed25519";
+        IdentitiesOnly = true;
+      };
+      "github.com-sembi" = {
+        HostName = "github.com";
+        User = "git";
+        IdentityFile = "~/.ssh/sembi_ed25519";
+        IdentitiesOnly = true;
+      };
     };
   };
 }
