@@ -36,6 +36,7 @@ in {
       "element"
       "ghostty"
       "hyperkey"
+      "inkscape"
       "obs"
       "slack"
     ];
