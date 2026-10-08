@@ -14,7 +14,7 @@
     ./kiro.nix
     ./gitlab.nix
     ./google.nix
-    ./himalaya.nix
+    # ./himalaya.nix # disabled: nixpkgs 26.11 has broken himalaya 1.2.0 pkg; needs v2 migration
     ./javascript.nix
     ./nvim.nix
     ./opencode.nix
@@ -42,7 +42,6 @@
       alejandra # Nix formatter
       tree # tree list
       uv # Python package and project manager
-      python3Packages.markitdown # Convert files/URLs to Markdown (Microsoft)
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       wl-clipboard # copy pasta utilities for wayland

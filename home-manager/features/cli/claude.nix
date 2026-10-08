@@ -6,6 +6,20 @@
         CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1";
       };
       teammateMode = "tmux";
+      mcpServers = {
+        Testmo = {
+          type = "sse";
+          url = "https://testmo.sembi.com/mcp";
+        };
+        TestRail = {
+          type = "sse";
+          url = "https://testrail.sembi.com/mcp";
+        };
+        Xray = {
+          type = "sse";
+          url = "https://xray.sembi.com/mcp";
+        };
+      };
       hooks = {
         PermissionRequest = [
           {

@@ -92,25 +92,19 @@
             };
           };
         };
-        sembi = {
+        bifrost = {
           npm = "@ai-sdk/openai-compatible";
-          name = "Sembi-LiteLLM";
+          name = "Sembi-Bifrost";
           options = {
-            baseURL = inputs.nix-secrets.apis.sembiLiteLLMUrl;
-            apiKey = inputs.nix-secrets.apis.sembiLiteLLMKey;
+            baseURL = inputs.nix-secrets.apis.sembiBifrostUrl;
+            apiKey = inputs.nix-secrets.apis.sembiBifrostKey;
           };
           models = {
-            "claude-sonnet-5" = {
-              name = "sembi-claude-sonnet-5";
+            "claude-sonnet-5-5" = {
+              name = "sembi-claude-sonnet-5-5";
             };
-            "claude-opus-5" = {
-              name = "sembi-claude-opus-5";
-            };
-            "claude-opus-4-7" = {
-              name = "sembi-claude-opus-4-7";
-            };
-            "claude-opus-4-8" = {
-              name = "sembi-claude-opus-4-8";
+            "claude-opus-5-5" = {
+              name = "sembi-claude-opus-5-5";
             };
           };
         };
@@ -166,18 +160,19 @@
           type = "remote";
           url = "https://testmo.sembi.com/mcp";
         };
-        Atlassian-Sembi = {
+        atlassianSembi = {
           type = "remote";
           url = "https://mcp.atlassian.com/v1/mcp/authv2";
         };
-        Atlassian-Gurock = {
+        TestRail = {
           type = "remote";
-          url = "https://mcp.atlassian.com/v1/mcp/authv2";
+          url = "https://testrail.sembi.com/mcp";
+        };
+        Xray = {
+          type = "remote";
+          url = "https://xray.sembi.com/mcp";
         };
       };
-      model = "portkey/@claude/claude-sonnet-4-6";
-      small_model = "portkey/@gemini/gemini-3.1-flash-lite-preview";
-      plugin = ["@plannotator/opencode@latest"];
     };
   };
 }

@@ -43,10 +43,10 @@
   # Model IDs match opencode's working Portkey config (@provider/model format).
   home.file.".pi/agent/models.json".text = builtins.toJSON {
     providers = {
-      "sembi-litellm" = {
-        baseUrl = inputs.nix-secrets.apis.sembiLiteLLMUrl;
+      sembi-bifrost = {
+        baseUrl = inputs.nix-secrets.apis.sembiBifrostUrl;
         api = "openai-completions";
-        apiKey = inputs.nix-secrets.apis.sembiLiteLLMKey;
+        apiKey = inputs.nix-secrets.apis.sembiBifrostKey;
         compat = {
           supportsStore = false;
           supportsDeveloperRole = false;
@@ -55,8 +55,8 @@
         };
         models = [
           {
-            id = "claude-sonnet-5";
-            name = "sembi-claude-sonnet-5";
+            id = "claude-sonnet-5-5";
+            name = "sembi-claude-sonnet-5-5";
             reasoning = true;
             input = ["text" "image"];
             contextWindow = 1000000;
@@ -69,36 +69,8 @@
             };
           }
           {
-            id = "claude-opus-5";
-            name = "sembi-claude-opus-5";
-            reasoning = true;
-            input = ["text" "image"];
-            contextWindow = 1000000;
-            maxTokens = 128000;
-            cost = {
-              input = 0;
-              output = 0;
-              cacheRead = 0;
-              cacheWrite = 0;
-            };
-          }
-          {
-            id = "claude-opus-4-7";
-            name = "sembi-claude-opus-4-7";
-            reasoning = true;
-            input = ["text" "image"];
-            contextWindow = 1000000;
-            maxTokens = 128000;
-            cost = {
-              input = 0;
-              output = 0;
-              cacheRead = 0;
-              cacheWrite = 0;
-            };
-          }
-          {
-            id = "claude-opus-4-8";
-            name = "sembi-claude-opus-4-8";
+            id = "claude-opus-5-5";
+            name = "sembi-claude-opus-5-5";
             reasoning = true;
             input = ["text" "image"];
             contextWindow = 1000000;
