@@ -197,6 +197,24 @@ Known installer side effects:
 - may create `~/.claude/skills/plannotator-compound`
 - requires a `home-manager switch` afterward to restore Pi-managed config such as `~/.pi/agent/settings.json`
 
+#### Pi
+Pi and its extensions live in the global npm prefix (`~/.npm-global`). See the header of `home-manager/features/cli/pi.nix`.
+
+Update flow:
+
+```bash
+npm update -g @earendil-works/pi-coding-agent
+pi update   # updates extensions, e.g. @plannotator/pi-extension
+```
+
+On Linux, `@plannotator/pi-extension` builds `node-pty` from source (no Linux prebuilds), which needs python3, make, and a C compiler. Run the update inside a transient shell:
+
+```bash
+nix shell nixpkgs#python3 nixpkgs#gnumake nixpkgs#gcc -c npm install -g @plannotator/pi-extension
+```
+
+The first-install activation script in `pi.nix` already provides these tools.
+
 ## Troubleshooting
 
 - `cached failure of attribute`: Flake usage can cache eval errors leading to this ambiguous error without much context

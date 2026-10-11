@@ -12,6 +12,10 @@
 #   pi install npm:<package>    # install and persist to settings.json
 #   pi update                   # update all installed extensions
 #   pi list                     # list installed extensions
+#
+# On Linux, @plannotator/pi-extension compiles node-pty (no Linux prebuilds),
+# so wrap installs/updates with build tools:
+#   nix shell nixpkgs#python3 nixpkgs#gnumake nixpkgs#gcc -c npm install -g @plannotator/pi-extension
 {
   lib,
   config,
@@ -256,10 +260,11 @@
   # Install plannotator pi extension into global npm if not already present.
   # Pi resolves extensions via `npm root -g`, so the package must exist on disk.
   # Only runs if pi is already installed; skipped silently otherwise.
+  # node-pty has no Linux prebuilds, so node-gyp needs python3/make/cc to build it.
   home.activation.piPlannotator = lib.hm.dag.entryAfter ["writeBoundary"] ''
     if command -v pi &> /dev/null || [[ -f "$HOME/.npm-global/bin/pi" ]]; then
       if [[ ! -d "$HOME/.npm-global/lib/node_modules/@plannotator/pi-extension" ]]; then
-        PATH="${pkgs.nodejs}/bin:$PATH" ${pkgs.nodejs}/bin/npm install -g @plannotator/pi-extension
+        PATH="${lib.makeBinPath [pkgs.nodejs pkgs.python3 pkgs.gnumake pkgs.stdenv.cc]}:$PATH" ${pkgs.nodejs}/bin/npm install -g @plannotator/pi-extension
       fi
     fi
   '';
