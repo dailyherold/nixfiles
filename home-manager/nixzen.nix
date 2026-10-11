@@ -8,7 +8,6 @@
   ...
 }: let
   jailedLib = inputs.jailed-agents.lib.x86_64-linux;
-  home = config.home.homeDirectory;
 in {
   imports = [
     ./common.nix
@@ -57,25 +56,14 @@ in {
   # Bubblewrap-jailed agent wrappers — full session isolation with declared file access.
   # ai dirs are symlinks and must be mounted explicitly
   home.packages = lib.optionals pkgs.stdenv.isLinux [
-    # rw access to skills (some skills write into thier subdirs)
-    # ro access to agent configs
+    # rw access to skill source roots (some skills write into their subdirs)
     (jailedLib.makeJailedClaudeCode {
-      extraReadwriteDirs = [
-        "${home}/dev/ai/skills"
-      ];
-      extraReadonlyDirs = [
-        "${home}/dev/ai/agents/claude"
-      ];
+      extraReadwriteDirs = config.agentSkills.roots;
     })
 
     # opencode
     (jailedLib.makeJailedOpencode {
-      extraReadwriteDirs = [
-        "${home}/dev/ai/skills"
-      ];
-      extraReadonlyDirs = [
-        "${home}/dev/ai/agents/opencode"
-      ];
+      extraReadwriteDirs = config.agentSkills.roots;
     })
   ];
 

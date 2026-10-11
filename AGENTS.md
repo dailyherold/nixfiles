@@ -27,7 +27,7 @@ home-manager/
   jp-sembi-mbp.nix                 # macOS home config → imports common.nix + selective desktop modules
   features/cli/                    # Cross-platform CLI tools (fish, nvim, starship, atuin, tmux)
   features/desktop/                # GUI apps; default.nix is NixOS bundle, individual modules cherry-picked elsewhere
-modules/home-manager/              # Reusable home-manager modules (fonts)
+modules/home-manager/              # Reusable home-manager modules (agent-skills, fonts)
 ```
 
 ## Key Patterns
@@ -71,6 +71,7 @@ nix flake lock --update-input <input-name>
 - Catppuccin mocha theme across all tools — see `STYLE.md` for the full theming and transparency model
 - New CLI tool (cross-platform, no config): add to `home-manager/features/cli/default.nix` packages list
 - New CLI tool (cross-platform, needs config): create `home-manager/features/cli/<tool>.nix`, import from `features/cli/default.nix`
+- Agent skills: never symlink a harness skills dir directly. New harness → add its dir to `agentSkills.targets` in its module; new skill repo → add to `agentSkills.sources` in `common.nix` (see README "Agent Skills")
 - New GUI app: add a module in `home-manager/features/desktop/`. Prefer home-manager module > nixpkgs via `home.packages` > Homebrew cask
 - **Desktop module convention**: `features/desktop/default.nix` is the kitchen-sink bundle for the main workstation (nixzen). All other hosts import individual modules selectively
 - **Adding a new host**: ask the user which `features/cli/` and `features/desktop/` modules to include — don't assume the bundle

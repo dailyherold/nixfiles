@@ -6,11 +6,7 @@
 #
 # Install kiro-cli — not in nixpkgs, installed manually:
 #   macOS/Linux:  curl -fsSL https://cli.kiro.dev/install | bash
-{
-  config,
-  ...
-}: {
-  # Shared skills (agentskills.io spec) — same live symlink pattern as claude.nix, opencode.nix, pi.nix
-  home.file.".kiro/skills".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/ai/skills";
+{...}: {
+  # Shared skills (see modules/home-manager/agent-skills.nix)
+  agentSkills.targets = [".kiro/skills"];
 }

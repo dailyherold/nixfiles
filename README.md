@@ -12,6 +12,9 @@ Given I'm the big nerd in my household, I have a relatively simple single-`daily
   - `features/cli/`: non-gui config for import
   - `features/desktop/`: gui config for import
   - `${hostname}.nix`: host specific home config (NixOS and macOS)
+- `modules/home-manager/`: reusable home-manager modules
+  - `agent-skills.nix`: links skills from all skill repos into every agent harness (see [Agent Skills](#agent-skills))
+  - `fonts.nix`: font profiles
 - `hosts/`
   - `common/`: NixOS config for import
     - `input/`: input device config
@@ -164,6 +167,17 @@ This repo includes an `AGENTS.md` with conventions and structure documentation d
 - "Make this desktop module work on macOS too" — adds surgical platform guards only where darwin actually breaks
 - "What's different between nixzen and jp-sembi-mbp?" — explains the config differences across hosts
 - "Update all flake inputs and rebuild" — runs the update and rebuild for your current platform
+
+### Agent Skills
+
+Skills ([agentskills.io](https://agentskills.io) spec) live in git repos outside this one and are linked into every harness by `modules/home-manager/agent-skills.nix`:
+
+- **Sources** (`agentSkills.sources` in `home-manager/common.nix`), in priority order:
+  - `~/dev/ai/skills`: personal skills at the repo root; external skills fetched by its `setup.sh`
+  - Work repos or other locally cloned skill repos: the dir holding `<name>/SKILL.md`, listed explicitly and cloned manually, so unrelated repos are never scanned or mounted into jailed agents
+- **Targets** (`agentSkills.targets`, set by each harness module): `~/.claude/skills`, `~/.config/opencode/skills`, `~/.pi/agent/skills`, `~/.kiro/skills`
+
+On each `home-manager switch`, every top-level dir containing `SKILL.md` in each source is symlinked into each target. Targets are real directories, so harness-owned files (e.g. Claude Code's `synced/` claude.ai skills) never land in a skills repo. On a name collision the first source wins and a warning is printed. Edits to existing skills are live; new skills appear after the next switch; a new skill repo needs a line in `sources` first. The jailed agent wrappers on nixzen mount the same source roots (`agentSkills.roots`).
 
 ### Manual AI Tooling
 

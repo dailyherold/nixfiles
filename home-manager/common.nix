@@ -34,6 +34,20 @@
     fi
   '';
 
+  # Agent skills linked into every harness (targets set per harness in features/cli).
+  # Order matters: first source wins on skill name collisions.
+  agentSkills = {
+    enable = true;
+    sources = [
+      # Personal; external skills fetched via setup.sh in this repo
+      "${config.home.homeDirectory}/dev/ai/skills"
+      # Any other locally cloned skill repo (work, personal, third-party): point
+      # at the dir holding <name>/SKILL.md. Listed explicitly so unrelated repos
+      # are never scanned or mounted into jailed agents. Clone before switching.
+      "${config.home.homeDirectory}/dev/work/sembi/src/agent-skills-leadership/skills"
+    ];
+  };
+
   xdg.enable = pkgs.stdenv.isLinux;
   xdg.mimeApps.enable = pkgs.stdenv.isLinux;
 

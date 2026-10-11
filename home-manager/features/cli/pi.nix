@@ -36,9 +36,8 @@
     If an AGENTS.md exists in the current repo, read it before taking any action and follow all instructions precisely.
   '';
 
-  # Shared skills dir — same live symlink pattern as claude.nix and opencode.nix
-  home.file.".pi/agent/skills".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/ai/skills";
+  # Shared skills (see modules/home-manager/agent-skills.nix)
+  agentSkills.targets = [".pi/agent/skills"];
 
   # Model IDs match opencode's working Portkey config (@provider/model format).
   home.file.".pi/agent/models.json".text = builtins.toJSON {
@@ -279,8 +278,8 @@
     if [[ -d "$HOME/.claude/skills/plannotator-compound" ]]; then
       echo ""
       echo "WARNING: Plannotator installer created ~/.claude/skills/plannotator-compound."
-      echo "This repo expects Claude skills to be managed via ~/dev/ai/skills/setup.sh."
-      echo "If this is stale, remove it with:"
+      echo "Skills are linked by the agentSkills module; this dir blocks that link."
+      echo "Remove it with:"
       echo "  rm -rf ~/.claude/skills/plannotator-compound"
       echo ""
     fi
