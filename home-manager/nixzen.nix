@@ -55,7 +55,7 @@ in {
 
   # Bubblewrap-jailed agent wrappers — full session isolation with declared file access.
   # ai dirs are symlinks and must be mounted explicitly
-  home.packages = lib.optionals pkgs.stdenv.isLinux [
+  home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux [
     # rw access to skill source roots (some skills write into their subdirs)
     (jailedLib.makeJailedClaudeCode {
       extraReadwriteDirs = config.agentSkills.roots;

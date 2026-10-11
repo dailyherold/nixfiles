@@ -91,7 +91,7 @@
     ];
   };
 
-  xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
+  xdg.desktopEntries = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     nvim = {
       name = "Neovim";
       genericName = "Text Editor";

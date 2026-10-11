@@ -28,7 +28,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    fonts.fontconfig.enable = lib.mkIf pkgs.stdenv.isLinux true;
+    fonts.fontconfig.enable = lib.mkIf pkgs.stdenv.hostPlatform.isLinux true;
     home.packages = [
       cfg.monospace.package
       cfg.regular.package

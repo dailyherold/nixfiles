@@ -16,7 +16,7 @@
     ++ (builtins.attrValues outputs.homeManagerModules);
 
   sops.age.keyFile =
-    if pkgs.stdenv.isDarwin
+    if pkgs.stdenv.hostPlatform.isDarwin
     then "${config.home.homeDirectory}/Library/Application Support/sops/age/keys.txt"
     else "${config.home.homeDirectory}/.config/sops/age/keys.txt";
   sops.age.sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
@@ -48,8 +48,8 @@
     ];
   };
 
-  xdg.enable = pkgs.stdenv.isLinux;
-  xdg.mimeApps.enable = pkgs.stdenv.isLinux;
+  xdg.enable = pkgs.stdenv.hostPlatform.isLinux;
+  xdg.mimeApps.enable = pkgs.stdenv.hostPlatform.isLinux;
 
   # Theme
   catppuccin.enable = true;

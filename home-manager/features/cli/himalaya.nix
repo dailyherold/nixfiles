@@ -7,7 +7,7 @@
 }: let
   personal = inputs.nix-secrets.personal;
   bridgePasswordEval =
-    if pkgs.stdenv.isDarwin
+    if pkgs.stdenv.hostPlatform.isDarwin
     then "security find-generic-password -w -a proton-bridge -s himalaya"
     else "cat /run/secrets/proton-bridge/password";
 
@@ -46,7 +46,7 @@ in {
     realName = personal.fullName;
     userName = personal.email;
     passwordCommand =
-      if pkgs.stdenv.isDarwin
+      if pkgs.stdenv.hostPlatform.isDarwin
       then ["security" "find-generic-password" "-w" "-a" "proton-bridge" "-s" "himalaya"]
       else ["cat" "/run/secrets/proton-bridge/password"];
 

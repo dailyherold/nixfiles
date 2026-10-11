@@ -63,14 +63,14 @@
       unbind-key Right
 
       ## CLIPBOARD
-      ${lib.optionalString pkgs.stdenv.isDarwin ''
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
         # macOS clipboard
         unbind C-y
         bind C-y run-shell -b "tmux show-buffer | pbcopy" \; display-message "Copied tmux buff[top] to sys clip"
         unbind C-p
         bind C-p run-shell -b "tmux display -p -F '#{pane_current_path}' | pbcopy" \; display "Copied current path '#{pane_current_path}' to the clipboard."
       ''}
-      ${lib.optionalString pkgs.stdenv.isLinux ''
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
         # Linux clipboard (Wayland)
         unbind C-y
         bind C-y run-shell -b "tmux show-buffer | wl-copy" \; display-message "Copied tmux buff[top] to sys clip"

@@ -44,7 +44,7 @@
       tree # tree list
       uv # Python package and project manager
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       wl-clipboard # copy pasta utilities for wayland
     ];
 }

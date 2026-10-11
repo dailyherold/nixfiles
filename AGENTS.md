@@ -33,7 +33,7 @@ modules/home-manager/              # Reusable home-manager modules (agent-skills
 ## Key Patterns
 
 - **Shared config goes in `common.nix`**, host-specific config in `{hostname}.nix`
-- **Platform guards**: use `lib.mkIf pkgs.stdenv.isLinux` or `lib.optionals pkgs.stdenv.isLinux` for Linux-only config in shared modules
+- **Platform guards**: use `lib.mkIf pkgs.stdenv.hostPlatform.isLinux` or `lib.optionals pkgs.stdenv.hostPlatform.isLinux` for Linux-only config in shared modules
 - **`hosts/common/` is NixOS-only** — the darwin host does not import from it
 - **Home-manager is integrated into `darwinConfigurations`** in `flake.nix`, not standalone
 - **Home-manager is standalone for NixOS** via `homeConfigurations`
@@ -76,7 +76,7 @@ nix flake lock --update-input <input-name>
 - **Desktop module convention**: `features/desktop/default.nix` is the kitchen-sink bundle for the main workstation (nixzen). All other hosts import individual modules selectively
 - **Adding a new host**: ask the user which `features/cli/` and `features/desktop/` modules to include — don't assume the bundle
 - **Adding a new app/config**: ask the user whether it should also work on macOS (or other platforms). Add platform guards only where needed based on that answer and the APIs used
-- Platform-specific tool or config: add to `home-manager/<hostname>.nix` or use `lib.mkIf pkgs.stdenv.isLinux`/`isDarwin` guards in shared modules. Linux is the default — only guard where darwin actually breaks (Linux-only APIs, packages that don't build on darwin)
+- Platform-specific tool or config: add to `home-manager/<hostname>.nix` or use `lib.mkIf pkgs.stdenv.hostPlatform.isLinux`/`isDarwin` guards in shared modules. Linux is the default — only guard where darwin actually breaks (Linux-only APIs, packages that don't build on darwin)
 
 ## Secrets Management
 
