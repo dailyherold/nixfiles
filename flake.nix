@@ -66,8 +66,9 @@
     inherit (self) outputs;
     lib = nixpkgs.lib // home-manager.lib;
 
-    # Temporary: pin himalaya to 1.2.0 until nixpkgs PR #488853 merges.
-    # Fixes SASL PLAIN auth hang with Proton Bridge (imap-codec bug).
+    # Pin himalaya to 1.2.0 (fixed SASL PLAIN auth hang with Proton Bridge).
+    # Unused while himalaya.nix is disabled; remove when migrating to v2.
+    # blocked: dailyherold/nixfiles#3
     himalayaOverlay = final: prev: {
       himalaya = prev.himalaya.overrideAttrs (old: {
         version = "1.2.0";

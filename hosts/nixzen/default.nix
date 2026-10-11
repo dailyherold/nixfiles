@@ -227,7 +227,7 @@
     pkgs.usbutils
     pkgs.zip
     pkgs.zoom-us
-    pkgs.zotero
+    # pkgs.zotero # blocked: dailyherold/nixfiles#4 (NixOS/nixpkgs#568692)
   ];
 
   # This setups a SSH server. Very important if you're setting up a headless system.

@@ -14,7 +14,7 @@
     ./kiro.nix
     ./gitlab.nix
     ./google.nix
-    # ./himalaya.nix # disabled: nixpkgs 26.11 has broken himalaya 1.2.0 pkg; needs v2 migration
+    # ./himalaya.nix # blocked: dailyherold/nixfiles#3 (needs v2 migration; also disables msmtp)
     ./javascript.nix
     ./nvim.nix
     ./opencode.nix
