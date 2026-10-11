@@ -140,7 +140,7 @@ home.activation.checkFoo = lib.hm.dag.entryAfter ["writeBoundary"] ''
 '';
 ```
 
-**Existing examples**: `atuin.nix` (login check), `protonmail-bridge.nix` (login + cert), `common.nix` (sops age key), `hosts/nixzen/default.nix` (rear ESP EFI entry).
+**Existing examples**: `atuin.nix` (login check), `protonmail-bridge.nix` (login + cert), `plannotator.nix` (binary + installer leftovers), `common.nix` (sops age key), `hosts/nixzen/default.nix` (rear ESP EFI entry).
 
 ## CLI Tools
 

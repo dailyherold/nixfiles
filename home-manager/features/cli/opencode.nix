@@ -11,6 +11,8 @@
     tui.theme = "system";
     settings = {
       "$schema" = "https://opencode.ai/config.json";
+      # Plan review UI (see plannotator.nix)
+      plugin = ["@plannotator/opencode@latest"];
       provider = {
         portkey = {
           npm = "@ai-sdk/openai-compatible";

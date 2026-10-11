@@ -184,18 +184,26 @@ On each `home-manager switch`, every top-level dir containing `SKILL.md` in each
 A few agent-related tools are still installed out-of-band rather than declaratively.
 
 #### Plannotator
-Plannotator is currently being evaluated and may be installed manually into `~/.local/bin`.
+The `plannotator` binary is installed out-of-band into `~/.local/bin`. Its installer can also wire every harness itself; here each piece has one owner instead (see `home-manager/features/cli/plannotator.nix`):
 
-Typical update flow:
+- **Binary** (+ `sem` and agent-terminal sidecars): `install.sh`
+- **Skills**: `~/dev/ai/skills/setup.sh` → [Agent Skills](#agent-skills)
+- **Claude Code**: `ExitPlanMode` hook in `claude.nix`
+- **opencode**: `@plannotator/opencode` plugin in `opencode.nix`
+- **pi**: `@plannotator/pi-extension` in `pi.nix`
+
+Install once with explicit skip flags so the installer writes only the binary and its sidecars (the `nix shell` build tools are for the agent-terminal sidecar's `node-pty` on Linux; drop the wrapper on macOS):
 
 ```bash
-curl -fsSL https://plannotator.ai/install.sh | bash
+nix shell nixpkgs#python3 nixpkgs#gnumake nixpkgs#gcc -c bash -c \
+  'curl -fsSL https://plannotator.ai/install.sh | bash -s -- --skip-skills --skip-opencode --skip-kiro --skip-codex --skip-gemini --skip-vibe'
 ```
 
-Known installer side effects:
-- may create `~/.agents`
-- may create `~/.claude/skills/plannotator-compound`
-- requires a `home-manager switch` afterward to restore Pi-managed config such as `~/.pi/agent/settings.json`
+The flags are saved to `~/.plannotator/install-flags.json` and reused by later updates, so after that just run `plannotator update`. A plain `install.sh` run without flags resets them.
+
+Other Plannotator pieces update separately: the pi extension with `pi update` (wrap it in the same `nix shell` on Linux), the opencode plugin by itself (`@latest`), and the skills with `git -C ~/dev/ai/skills/src/backnotprop/plannotator pull` then `~/dev/ai/skills/setup.sh`.
+
+A switch warns if the binary is missing, if it was installed without the skip flags, or if leftovers from older installer runs (`~/.agents/skills/plannotator*`, `plannotator-*.md` slash commands) would duplicate managed skills. If the installer ever clobbers Pi-managed config such as `~/.pi/agent/settings.json`, a `home-manager switch` restores it.
 
 #### Pi
 Pi and its extensions live in the global npm prefix (`~/.npm-global`). See the header of `home-manager/features/cli/pi.nix`.

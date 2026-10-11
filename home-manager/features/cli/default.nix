@@ -19,6 +19,7 @@
     ./nvim.nix
     ./opencode.nix
     ./pi.nix
+    ./plannotator.nix
     ./scarlett.nix
     ./starship.nix
     ./tmux.nix

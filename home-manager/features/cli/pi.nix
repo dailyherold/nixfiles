@@ -242,7 +242,13 @@
     defaultProvider = "portkey";
     defaultModel = "@claude/claude-sonnet-4-6";
     theme = "dark";
-    packages = [{source = "npm:@plannotator/pi-extension";}];
+    packages = [
+      {
+        source = "npm:@plannotator/pi-extension";
+        # Plannotator skills come from agentSkills (see plannotator.nix)
+        skills = [];
+      }
+    ];
   };
 
   # Post-install warning: pi must be installed out-of-band before the
@@ -266,27 +272,6 @@
       if [[ ! -d "$HOME/.npm-global/lib/node_modules/@plannotator/pi-extension" ]]; then
         PATH="${lib.makeBinPath [pkgs.nodejs pkgs.python3 pkgs.gnumake pkgs.stdenv.cc]}:$PATH" ${pkgs.nodejs}/bin/npm install -g @plannotator/pi-extension
       fi
-    fi
-  '';
-
-  # Plannotator is used across multiple agent harnesses, but its installer can
-  # clobber Pi-managed state. Keep the warnings here because the consequences
-  # below are Pi-specific.
-  home.activation.piPlannotatorWarnings = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    if [[ -d "$HOME/.agents" ]]; then
-      echo ""
-      echo "WARNING: Plannotator installer left ~/.agents behind."
-      echo "If this is stale, remove it with: rm -rf ~/.agents"
-      echo ""
-    fi
-
-    if [[ -d "$HOME/.claude/skills/plannotator-compound" ]]; then
-      echo ""
-      echo "WARNING: Plannotator installer created ~/.claude/skills/plannotator-compound."
-      echo "Skills are linked by the agentSkills module; this dir blocks that link."
-      echo "Remove it with:"
-      echo "  rm -rf ~/.claude/skills/plannotator-compound"
-      echo ""
     fi
   '';
 }
