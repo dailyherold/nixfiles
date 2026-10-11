@@ -9,9 +9,15 @@ Multi-platform Nix configuration: NixOS desktop (`nixzen`) + macOS via nix-darwi
 - **Never run `nixos-rebuild`, `darwin-rebuild`, or `home-manager switch` without explicit user confirmation.** These are system-altering operations. Propose the command and wait for the go-ahead.
 - **Never run `git add`, `git commit`, `git push`, or any other git write operation without explicit user confirmation.**
 - **Never install packages into the system config without user consent.** This is a declarative config repo — changes to `home.packages`, `environment.systemPackages`, or any package list require user approval before being written and built.
-- **`nix fmt` is permitted** and should be run after making changes to any `.nix` files.
-- **`nix eval` is permitted** for dry-run verification of config expressions. To make unstaged changes visible to `nix eval`, temporarily stage them with `git add`, run the eval, then restore with `git restore --staged`.
-- **`nix run` and `nix shell` for temporary package use is permitted** without prior approval. When used, include a brief note at the end of the response listing which nixpkgs were used transiently and whether any of them would be worth adding to the permanent config.
+- **Nix commands that don't change the system or the repo's pinned state are permitted** without asking:
+  - `nix fmt .` — run it after changing any `.nix` file (the `.` is needed; bare `nix fmt` makes alejandra read stdin and fail)
+  - `nix eval`, `nix flake show`, `nix flake check`, `nix flake metadata` — verify config expressions
+  - `nix search`, `nix path-info`, `nix log`, `nix why-depends`, `nix derivation show`, `nix build --dry-run` — inspect packages and builds
+- **Ask before any other nix command**, in particular:
+  - `nix flake update` / `nix flake lock` — changes `flake.lock`
+  - `nix build` (without `--dry-run`) — can download or compile for a long time
+  - `nix run` / `nix shell` — when approved, end the response with a note listing which nixpkgs were used transiently and whether any are worth adding to the permanent config
+  - `nix profile`, `nix store gc`/`delete`, `nix-collect-garbage`, `nix-env` — modify the system or store
 
 ## Structure
 
@@ -54,7 +60,7 @@ sudo darwin-rebuild switch --flake .#jp-sembi-mbp
 home-manager switch --flake .#dailyherold@nixzen
 
 # Format all nix files
-nix fmt
+nix fmt .
 
 # Update all flake inputs
 nix flake update
@@ -65,7 +71,7 @@ nix flake lock --update-input <input-name>
 
 ## Conventions
 
-- Formatter: alejandra (run `nix fmt` after editing any `.nix` file)
+- Formatter: alejandra (run `nix fmt .` after editing any `.nix` file)
 - Flake inputs track unstable/master branches
 - Single user: `dailyherold` (NixOS) / `jp` (macOS)
 - Catppuccin mocha theme across all tools — see `STYLE.md` for the full theming and transparency model
@@ -141,6 +147,19 @@ home.activation.checkFoo = lib.hm.dag.entryAfter ["writeBoundary"] ''
 ```
 
 **Existing examples**: `atuin.nix` (login check), `protonmail-bridge.nix` (login + cert), `plannotator.nix` (binary + installer leftovers), `common.nix` (sops age key), `hosts/nixzen/default.nix` (rear ESP EFI entry).
+
+## Blocked / Disabled Config
+
+When a package or module is disabled, pinned, or overridden because of an upstream problem, track it as a GitHub issue on this repo instead of only leaving a comment:
+
+1. Open an issue (`gh issue create --label upstream-blocked`) with the error, the upstream issue/PR links, any workaround, and a "Done when" checklist.
+2. At each affected spot in the config, leave a greppable marker pointing at it:
+   ```nix
+   # pkgs.foo # blocked: dailyherold/nixfiles#N (NixOS/nixpkgs#12345)
+   ```
+3. When re-enabling, remove the marker and close the issue (`Fixes #N` in the commit message).
+
+List everything currently blocked with `grep -rn 'blocked:' --include=*.nix .` or `gh issue list --label upstream-blocked`. Before re-enabling, check whether the upstream issue/PR has closed with `gh`.
 
 ## CLI Tools
 
