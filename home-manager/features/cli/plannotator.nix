@@ -7,13 +7,10 @@
 #   opencode: plugin in opencode.nix
 #   pi:       npm extension in pi.nix
 #
-# Install once with explicit skip flags so install.sh writes only the binary and
-# its sem/agent-terminal sidecars (build tools are for node-pty on Linux):
-#   nix shell nixpkgs#python3 nixpkgs#gnumake nixpkgs#gcc -c bash -c \
-#     'curl -fsSL https://plannotator.ai/install.sh | bash -s -- --skip-skills --skip-opencode --skip-kiro --skip-codex --skip-gemini --skip-vibe'
-# The flags are saved to ~/.plannotator/install-flags.json and reused by
-# `plannotator update` and background auto-updates. A plain `install.sh` run
-# without flags resets them.
+# Install and update commands: README "Agent Tooling". The first install passes
+# skip flags (installCmd below) so install.sh writes only the binary and its
+# sidecars; they are saved to ~/.plannotator/install-flags.json and reused by
+# `plannotator update` and background auto-updates.
 {
   config,
   lib,

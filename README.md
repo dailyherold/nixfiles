@@ -179,49 +179,42 @@ Skills ([agentskills.io](https://agentskills.io) spec) live in git repos outside
 
 On each `home-manager switch`, every top-level dir containing `SKILL.md` in each source is symlinked into each target. Targets are real directories, so harness-owned files (e.g. Claude Code's `synced/` claude.ai skills) never land in a skills repo. On a name collision the first source wins and a warning is printed. Edits to existing skills are live; new skills appear after the next switch; a new skill repo needs a line in `sources` first. The jailed agent wrappers on nixzen mount the same source roots (`agentSkills.roots`).
 
-### Manual AI Tooling
+### Agent Tooling
 
-A few agent-related tools are still installed out-of-band rather than declaratively.
+Pi and Plannotator install outside Nix. On NixOS, wrap them in a `nix shell` with build tools (they compile `node-pty`).
 
-#### Plannotator
-The `plannotator` binary is installed out-of-band into `~/.local/bin`. Its installer can also wire every harness itself; here each piece has one owner instead (see `home-manager/features/cli/plannotator.nix`):
-
-- **Binary** (+ `sem` and agent-terminal sidecars): `install.sh`
-- **Skills**: `~/dev/ai/skills/setup.sh` → [Agent Skills](#agent-skills)
-- **Claude Code**: `ExitPlanMode` hook in `claude.nix`
-- **opencode**: `@plannotator/opencode` plugin in `opencode.nix`
-- **pi**: `@plannotator/pi-extension` in `pi.nix`
-
-Install once with explicit skip flags so the installer writes only the binary and its sidecars (the `nix shell` build tools are for the agent-terminal sidecar's `node-pty` on Linux; drop the wrapper on macOS):
+#### Update
 
 ```bash
+# NixOS
+nix shell nixpkgs#python3 nixpkgs#gnumake nixpkgs#gcc -c fish -c 'pi update --all; and plannotator update'
+
+# macOS
+pi update --all; and plannotator update
+```
+
+- `pi update --all`: pi and its extensions (plain `pi update` skips extensions).
+- `plannotator update`: reuses the first install's skip flags.
+- Plannotator skills: `git -C ~/dev/ai/skills/src/backnotprop/plannotator pull; and ~/dev/ai/skills/setup.sh`, then switch.
+
+#### First-time setup (new machine, after the first switch)
+
+```bash
+# 1. Skill sources (see Agent Skills); the jailed agents on nixzen mount these paths
+git clone git@github.com:dailyherold/skills.git ~/dev/ai/skills && ~/dev/ai/skills/setup.sh
+git clone git@github.com-sembi:sembi-engineering/agent-skills-leadership.git ~/dev/work/sembi/src/agent-skills-leadership
+
+# 2. pi
+npm install -g @earendil-works/pi-coding-agent
+
+# 3. Plannotator binary, with skip flags so it writes nothing this repo manages (drop the nix shell wrapper on macOS)
 nix shell nixpkgs#python3 nixpkgs#gnumake nixpkgs#gcc -c bash -c \
   'curl -fsSL https://plannotator.ai/install.sh | bash -s -- --skip-skills --skip-opencode --skip-kiro --skip-codex --skip-gemini --skip-vibe'
+
+# 4. Switch again: links skills, installs the pi extension, and checks Plannotator
 ```
 
-The flags are saved to `~/.plannotator/install-flags.json` and reused by later updates, so after that just run `plannotator update`. A plain `install.sh` run without flags resets them.
-
-Other Plannotator pieces update separately: the pi extension with `pi update` (wrap it in the same `nix shell` on Linux), the opencode plugin by itself (`@latest`), and the skills with `git -C ~/dev/ai/skills/src/backnotprop/plannotator pull` then `~/dev/ai/skills/setup.sh`.
-
-A switch warns if the binary is missing, if it was installed without the skip flags, or if leftovers from older installer runs (`~/.agents/skills/plannotator*`, `plannotator-*.md` slash commands) would duplicate managed skills. If the installer ever clobbers Pi-managed config such as `~/.pi/agent/settings.json`, a `home-manager switch` restores it.
-
-#### Pi
-Pi and its extensions live in the global npm prefix (`~/.npm-global`). See the header of `home-manager/features/cli/pi.nix`.
-
-Update flow:
-
-```bash
-npm update -g @earendil-works/pi-coding-agent
-pi update   # updates extensions, e.g. @plannotator/pi-extension
-```
-
-On Linux, `@plannotator/pi-extension` builds `node-pty` from source (no Linux prebuilds), which needs python3, make, and a C compiler. Run the update inside a transient shell:
-
-```bash
-nix shell nixpkgs#python3 nixpkgs#gnumake nixpkgs#gcc -c npm install -g @plannotator/pi-extension
-```
-
-The first-install activation script in `pi.nix` already provides these tools.
+Never run the plain `install.sh` without flags: it resets the saved flags and copies skills, slash commands and agent config into harness dirs. Answer **N** / **none** to its guided-install questions.
 
 ## Troubleshooting
 

@@ -1,21 +1,11 @@
 # pi coding agent (https://shittycodingagent.ai/)
 #
-# Out-of-band installs (not managed by nix):
-#   pi itself:    npm install -g @earendil-works/pi-coding-agent
-#   pi update:    npm update -g @earendil-works/pi-coding-agent
-#
-# Extensions are declared in settings.json below (packages = [...]).
-# The home.activation block installs them on first switch.
-# To add more extensions: add to the packages list, then run:
-#   home-manager switch
-# To install/update extensions manually:
-#   pi install npm:<package>    # install and persist to settings.json
-#   pi update                   # update all installed extensions
-#   pi list                     # list installed extensions
-#
-# On Linux, @plannotator/pi-extension compiles node-pty (no Linux prebuilds),
-# so wrap installs/updates with build tools:
-#   nix shell nixpkgs#python3 nixpkgs#gnumake nixpkgs#gcc -c npm install -g @plannotator/pi-extension
+# pi itself is installed out-of-band into the npm prefix:
+#   npm install -g @earendil-works/pi-coding-agent
+# Packages are declared in settings.json below (packages = [...]); the
+# activation block installs the Plannotator extension on switch.
+# Updating pi and its packages: README "Agent Tooling" (`pi update --all`;
+# plain `pi update` updates only pi itself).
 {
   lib,
   config,
@@ -258,7 +248,7 @@
       echo ""
       echo "WARNING: pi not installed. Install it first with:"
       echo "  npm install -g @earendil-works/pi-coding-agent"
-      echo "Then re-run: darwin-rebuild switch --flake .#jp-sembi-mbp"
+      echo "Then switch again to install its Plannotator extension."
       echo ""
     fi
   '';
