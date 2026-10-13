@@ -227,6 +227,32 @@
     };
   };
 
+  # MCP servers (built-in pi MCP support; same servers as claude.nix/opencode.nix).
+  # Streamable HTTP only (pi rejects SSE). Xray uses a static Authorization
+  # header; the rest use pi's OAuth (`pi mcp login <name>`, tokens in
+  # ~/.pi/agent/mcp-auth.json, outside Nix). Default exposure (codemode).
+  home.file.".pi/agent/mcp.json".text = builtins.toJSON {
+    mcpServers = {
+      Testmo = {
+        url = "https://testmo.sembi.com/mcp";
+        description = "Testmo test management: projects, cases, runs, results";
+      };
+      TestRail = {
+        url = "https://testrail.sembi.com/mcp";
+        description = "TestRail test management: projects, cases, runs, results";
+      };
+      Xray = {
+        url = "https://xray.sembi.com/mcp";
+        headers.Authorization = inputs.nix-secrets.apis.sembiAtlassianMcpAuth;
+        description = "Xray test management for Jira: tests, executions, plans";
+      };
+      atlassianSembi = {
+        url = "https://mcp.atlassian.com/v1/mcp/authv2";
+        description = "Atlassian (Jira, Confluence, Goals/Teamwork Graph) for Sembi";
+      };
+    };
+  };
+
   # Global settings
   home.file.".pi/agent/settings.json".text = builtins.toJSON {
     defaultProvider = "portkey";
@@ -249,6 +275,17 @@
       echo "WARNING: pi not installed. Install it first with:"
       echo "  npm install -g @earendil-works/pi-coding-agent"
       echo "Then switch again to install its Plannotator extension."
+      echo ""
+    fi
+  '';
+
+  # Post-install warning: OAuth MCP servers (Testmo, TestRail, atlassianSembi)
+  # need a one-time sign-in per machine.
+  home.activation.checkPiMcpAuth = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    if [[ ! -s "$HOME/.pi/agent/mcp-auth.json" ]]; then
+      echo ""
+      echo "WARNING: pi MCP servers not signed in. Run:"
+      echo "  pi mcp login Testmo; pi mcp login TestRail; pi mcp login atlassianSembi"
       echo ""
     fi
   '';

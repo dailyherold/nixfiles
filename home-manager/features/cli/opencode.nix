@@ -169,6 +169,7 @@
         Xray = {
           type = "remote";
           url = "https://xray.sembi.com/mcp";
+          headers.Authorization = inputs.nix-secrets.apis.sembiAtlassianMcpAuth;
         };
       };
     };
