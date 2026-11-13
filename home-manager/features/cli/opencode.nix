@@ -97,12 +97,116 @@
             baseURL = inputs.nix-secrets.apis.sembiBifrostUrl;
             apiKey = inputs.nix-secrets.apis.sembiBifrostKey;
           };
+          # IDs, limits and prices (USD per 1M tokens) from Bifrost's /v1/models,
+          # 2026-11-10. Latest generation per tier only. Gemma 3 and Llama 3.3 are
+          # omitted: they emit tool calls as text, not tool_calls.
           models = {
-            "claude-sonnet-5-5" = {
-              name = "sembi-claude-sonnet-5-5";
+            # Anthropic
+            "bedrock/us.anthropic.claude-haiku-5-5" = {
+              name = "sembi-claude-haiku-5-5";
+              limit = {
+                context = 1000000;
+                output = 128000;
+              };
+              cost = {
+                input = 0.11;
+                output = 0.55;
+                cache_read = 0.011;
+                cache_write = 0.1375;
+              };
             };
-            "claude-opus-5-5" = {
+            "bedrock/us.anthropic.claude-sonnet-5-5" = {
+              name = "sembi-claude-sonnet-5-5";
+              limit = {
+                context = 1000000;
+                output = 128000;
+              };
+              cost = {
+                input = 2.2;
+                output = 11;
+                cache_read = 0.11;
+                cache_write = 2.75;
+              };
+            };
+            "bedrock/us.anthropic.claude-opus-5-5" = {
               name = "sembi-claude-opus-5-5";
+              limit = {
+                context = 1000000;
+                output = 128000;
+              };
+              cost = {
+                input = 4.4;
+                output = 22;
+                cache_read = 0.22;
+                cache_write = 5.5;
+              };
+            };
+            # OpenAI (gpt-6-luna: no 6.1 luna yet)
+            "bedrock/us.openai.gpt-6-luna" = {
+              name = "sembi-gpt-6-luna";
+              limit = {
+                context = 922000;
+                output = 131072;
+              };
+              cost = {
+                input = 0.11;
+                output = 0.55;
+                cache_read = 0.011;
+                cache_write = 0.1375;
+              };
+            };
+            "bedrock/us.openai.gpt-6.1-terra" = {
+              name = "sembi-gpt-6.1-terra";
+              limit = {
+                context = 922000;
+                output = 128000;
+              };
+              cost = {
+                input = 1.1;
+                output = 5.5;
+                cache_read = 0.055;
+                cache_write = 1.375;
+              };
+            };
+            "bedrock/us.openai.gpt-6.1-sol" = {
+              name = "sembi-gpt-6.1-sol";
+              limit = {
+                context = 1050000;
+                output = 131072;
+              };
+              cost = {
+                input = 2.2;
+                output = 11;
+                cache_read = 0.11;
+                cache_write = 2.75;
+              };
+            };
+            # Meta (no prompt caching)
+            "bedrock/us.meta.llama4-scout-17b-instruct-v1:0" = {
+              name = "sembi-llama4-scout";
+              limit = {
+                context = 10000000;
+                output = 8192;
+              };
+              cost = {
+                input = 0.17;
+                output = 0.66;
+                cache_read = 0;
+                cache_write = 0;
+              };
+            };
+            "bedrock/us.meta.llama4-maverick-17b-instruct-v1:0" = {
+              name = "sembi-llama4-maverick";
+              limit = {
+                context = 1000000;
+                output = 8192;
+              };
+              cost = {
+                input = 0.24;
+                output = 0.97;
+                cache_read = 0;
+                cache_write = 0;
+              };
             };
           };
         };

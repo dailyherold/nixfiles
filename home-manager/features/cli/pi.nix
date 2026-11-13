@@ -46,31 +46,121 @@
           supportsReasoningEffort = false;
           maxTokensField = "max_tokens";
         };
+        # IDs, limits and prices (USD per 1M tokens) from Bifrost's /v1/models,
+        # 2026-11-10. Latest generation per tier only. Gemma 3 and Llama 3.3 are
+        # omitted: they emit tool calls as text, not tool_calls.
         models = [
+          # Anthropic
           {
-            id = "claude-sonnet-5-5";
+            id = "bedrock/us.anthropic.claude-haiku-5-5";
+            name = "sembi-claude-haiku-5-5";
+            reasoning = true;
+            input = ["text" "image"];
+            contextWindow = 1000000;
+            maxTokens = 128000;
+            cost = {
+              input = 0.11;
+              output = 0.55;
+              cacheRead = 0.011;
+              cacheWrite = 0.1375;
+            };
+          }
+          {
+            id = "bedrock/us.anthropic.claude-sonnet-5-5";
             name = "sembi-claude-sonnet-5-5";
             reasoning = true;
             input = ["text" "image"];
             contextWindow = 1000000;
-            maxTokens = 64000;
+            maxTokens = 128000;
             cost = {
-              input = 0;
-              output = 0;
-              cacheRead = 0;
-              cacheWrite = 0;
+              input = 2.2;
+              output = 11;
+              cacheRead = 0.11;
+              cacheWrite = 2.75;
             };
           }
           {
-            id = "claude-opus-5-5";
+            id = "bedrock/us.anthropic.claude-opus-5-5";
             name = "sembi-claude-opus-5-5";
             reasoning = true;
             input = ["text" "image"];
             contextWindow = 1000000;
             maxTokens = 128000;
             cost = {
-              input = 0;
-              output = 0;
+              input = 4.4;
+              output = 22;
+              cacheRead = 0.22;
+              cacheWrite = 5.5;
+            };
+          }
+          # OpenAI (gpt-6-luna: no 6.1 luna yet)
+          {
+            id = "bedrock/us.openai.gpt-6-luna";
+            name = "sembi-gpt-6-luna";
+            reasoning = true;
+            input = ["text" "image"];
+            contextWindow = 922000;
+            maxTokens = 131072;
+            cost = {
+              input = 0.11;
+              output = 0.55;
+              cacheRead = 0.011;
+              cacheWrite = 0.1375;
+            };
+          }
+          {
+            id = "bedrock/us.openai.gpt-6.1-terra";
+            name = "sembi-gpt-6.1-terra";
+            reasoning = true;
+            input = ["text" "image"];
+            contextWindow = 922000;
+            maxTokens = 128000;
+            cost = {
+              input = 1.1;
+              output = 5.5;
+              cacheRead = 0.055;
+              cacheWrite = 1.375;
+            };
+          }
+          {
+            id = "bedrock/us.openai.gpt-6.1-sol";
+            name = "sembi-gpt-6.1-sol";
+            reasoning = true;
+            input = ["text" "image"];
+            contextWindow = 1050000;
+            maxTokens = 131072;
+            cost = {
+              input = 2.2;
+              output = 11;
+              cacheRead = 0.11;
+              cacheWrite = 2.75;
+            };
+          }
+          # Meta (no prompt caching)
+          {
+            id = "bedrock/us.meta.llama4-scout-17b-instruct-v1:0";
+            name = "sembi-llama4-scout";
+            reasoning = false;
+            input = ["text" "image"];
+            contextWindow = 10000000;
+            maxTokens = 8192;
+            cost = {
+              input = 0.17;
+              output = 0.66;
+              cacheRead = 0;
+              cacheWrite = 0;
+            };
+          }
+          {
+            id = "bedrock/us.meta.llama4-maverick-17b-instruct-v1:0";
+            name = "sembi-llama4-maverick";
+            reasoning = false;
+            input = ["text" "image"];
+            contextWindow = 1000000;
+            maxTokens = 8192;
+            cost = {
+              input = 0.24;
+              output = 0.97;
               cacheRead = 0;
               cacheWrite = 0;
             };
